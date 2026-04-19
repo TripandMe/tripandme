@@ -1,0 +1,43 @@
+{
+  "name": "Trip&Me — The World is Mine",
+  "short_name": "Trip&Me",
+  "description": "Planifiez votre voyage parfait. Découvrez combien de fois vous avez fait le tour du monde.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C1A2E",
+  "theme_color": "#0EA5E9",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "categories": ["travel", "lifestyle"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230C1A2E'/><circle cx='256' cy='256' r='180' fill='%230369A1'/><circle cx='256' cy='256' r='180' fill='none' stroke='%230EA5E9' stroke-width='4'/><text x='256' y='310' font-size='180' text-anchor='middle' fill='white'>✈</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230C1A2E'/><circle cx='256' cy='256' r='180' fill='%230369A1'/><text x='256' y='310' font-size='180' text-anchor='middle' fill='white'>✈</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Ajouter un voyage",
+      "short_name": "Voyage",
+      "description": "Ajouter un voyage passé",
+      "url": "/?action=add-trip",
+      "icons": [{"src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='86' font-size='86'>✈</text></svg>", "sizes": "96x96"}]
+    },
+    {
+      "name": "Planifier mon voyage",
+      "short_name": "Planifier",
+      "description": "Planifier mon prochain voyage",
+      "url": "/?action=plan",
+      "icons": [{"src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='86' font-size='86'>🌍</text></svg>", "sizes": "96x96"}]
+    }
+  ]
+}

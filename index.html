@@ -2,425 +2,571 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Trip&Me — The World is Mine</title>
-<meta name="description" content="Trip&Me : planifiez votre voyage parfait, découvrez combien de fois vous avez fait le tour du monde, partagez vos aventures."/>
-<meta name="keywords" content="voyage personnalisé, itinéraire voyage, planificateur voyage, vacances, trip planner, travel planner, voyage sur mesure"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0C1A2E"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Trip&Me"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Trip&Me — Planifiez votre voyage parfait. Découvrez combien de fois vous avez fait le tour du monde."/>
+<meta name="keywords" content="voyage, trip planner, travel, itinéraire, vacances, tour du monde"/>
 <meta property="og:title" content="Trip&Me — The World is Mine"/>
-<meta property="og:description" content="Découvrez combien de fois vous avez fait le tour du monde. Planifiez votre prochain voyage."/>
+<meta property="og:description" content="Planifiez votre voyage parfait. Découvrez vos statistiques de voyageur."/>
 <meta property="og:url" content="https://tripandme.com"/>
 <meta property="og:type" content="website"/>
+<meta property="og:image" content="https://tripandme.com/icon-512.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:site" content="@TripAndMe"/>
+<title>Trip&Me — The World is Mine</title>
 <link rel="canonical" href="https://tripandme.com"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Trip&Me","url":"https://tripandme.com","description":"Planificateur de voyage personnalisé","applicationCategory":"TravelApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230C1A2E'/><text y='.9em' font-size='80' x='10'>✈</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 
 <style>
-/* ══════════════════════════════════════════
-   DESIGN SYSTEM — JOYEUX, VIBRANT, VOYAGE
-   ══════════════════════════════════════════ */
-:root {
-  --sky:   #0EA5E9;
-  --ocean: #0369A1;
-  --deep:  #082F49;
-  --coral: #F97316;
-  --sun:   #FBBF24;
-  --mint:  #10B981;
-  --rose:  #F43F5E;
-  --sand:  #FEF3C7;
-  --white: #FFFFFF;
-  --night: #0C1A2E;
-  --night2:#0F2340;
-  --text:  #F8FAFC;
-  --muted: #94A3B8;
-  --card:  rgba(255,255,255,0.07);
-  --brd:   rgba(255,255,255,0.12);
-  --r: 18px;
+/* ═══════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════ */
+:root{
+  --sky:#0EA5E9; --ocean:#0369A1; --coral:#F97316; --sun:#FBBF24;
+  --mint:#10B981; --rose:#F43F5E; --violet:#8B5CF6;
+  --night:#0C1A2E; --night2:#0F2340; --night3:#162844;
+  --text:#F8FAFC; --muted:#94A3B8; --muted2:#64748B;
+  --card:rgba(255,255,255,0.06); --card2:rgba(255,255,255,0.10);
+  --brd:rgba(255,255,255,0.10); --brd2:rgba(255,255,255,0.18);
+  --r:16px; --r2:24px;
+  --shadow-coral:0 8px 32px rgba(249,115,22,0.4);
+  --shadow-sky:0 8px 32px rgba(14,165,233,0.4);
+  --shadow-sun:0 8px 32px rgba(251,191,36,0.3);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--night);color:var(--text);min-height:100vh;overflow-x:hidden;}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--night);}
-::-webkit-scrollbar-thumb{background:var(--sky);border-radius:3px;}
-
-/* ── COOKIE RGPD ── */
-#cookie-banner{
-  position:fixed;bottom:0;left:0;right:0;z-index:2000;
-  background:rgba(8,47,73,0.97);border-top:2px solid var(--sky);
-  padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;
-  gap:1.5rem;flex-wrap:wrap;backdrop-filter:blur(20px);
-  transform:translateY(0);transition:transform 0.4s ease;
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  background:var(--night);color:var(--text);
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
-#cookie-banner.hidden{transform:translateY(110%);}
-#cookie-banner p{font-size:13px;color:#CBD5E1;max-width:700px;line-height:1.7;}
-#cookie-banner a{color:var(--sun);text-decoration:underline;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--sky);border-radius:2px;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+img{max-width:100%;height:auto;}
+
+/* ═══════════════════════════════
+   COOKIE RGPD
+═══════════════════════════════ */
+#cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:9000;
+  background:rgba(9,35,65,0.98);
+  border-top:2px solid var(--sky);
+  padding:1.25rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1.5rem;flex-wrap:wrap;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  transform:translateY(0);transition:transform .4s ease;
+}
+#cookie-banner.hidden{transform:translateY(110%)!important;}
+#cookie-banner p{font-size:13px;color:#CBD5E1;max-width:680px;line-height:1.7;}
+#cookie-banner a{color:var(--sun);text-decoration:underline;cursor:pointer;}
 .ck-btns{display:flex;gap:10px;flex-shrink:0;}
-.ck-btn{padding:10px 24px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s;}
-.ck-btn.ok{background:linear-gradient(135deg,var(--sky),var(--mint));color:white;}
+.ck-btn{
+  padding:9px 22px;border-radius:50px;font-size:13px;font-weight:600;
+  cursor:pointer;border:none;transition:all .2s;
+}
+.ck-btn.ok{background:linear-gradient(135deg,var(--sky),var(--mint));color:#fff;}
+.ck-btn.ok:hover{transform:translateY(-1px);box-shadow:var(--shadow-sky);}
 .ck-btn.no{background:transparent;color:var(--muted);border:1px solid var(--brd);}
 
-/* ── HEADER ── */
+/* ═══════════════════════════════
+   HEADER
+═══════════════════════════════ */
 header{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;
-  background:linear-gradient(to bottom,rgba(12,26,46,0.96),transparent);
-  backdrop-filter:blur(4px);
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:1rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+  background:linear-gradient(to bottom,rgba(12,26,46,0.97) 0%,rgba(12,26,46,0) 100%);
 }
 .logo{
-  font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;
+  font-family:'Playfair Display',serif;font-weight:900;font-size:1.7rem;
   background:linear-gradient(135deg,var(--sun),var(--coral));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  letter-spacing:-0.02em;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;white-space:nowrap;flex-shrink:0;
 }
-nav{display:flex;align-items:center;gap:2rem;}
-nav a{color:var(--muted);font-size:14px;text-decoration:none;transition:color 0.2s;font-weight:500;}
+nav{display:flex;align-items:center;gap:1.5rem;}
+nav a{
+  color:rgba(248,250,252,0.7);font-size:14px;font-weight:500;
+  cursor:pointer;transition:color .2s;white-space:nowrap;
+}
 nav a:hover{color:var(--text);}
-.btn-header{
-  padding:10px 24px;background:linear-gradient(135deg,var(--sky),var(--ocean));
-  color:white;border:none;border-radius:50px;font-size:14px;font-weight:600;
-  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s;
-  box-shadow:0 4px 20px rgba(14,165,233,0.4);
+.hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#lang-sel{
+  background:rgba(255,255,255,0.08);border:1px solid var(--brd);
+  color:var(--text);padding:7px 10px;border-radius:10px;
+  font-size:13px;cursor:pointer;outline:none;
 }
-.btn-header:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(14,165,233,0.5);}
-#lang-selector{
-  background:transparent;border:1px solid var(--brd);color:var(--text);
-  padding:6px 10px;border-radius:8px;font-size:13px;cursor:pointer;
-  font-family:'Plus Jakarta Sans',sans-serif;
+#lang-sel option{background:var(--night2);}
+.btn-hdr-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.btn-hdr{
+  padding:9px 20px;
+  background:linear-gradient(135deg,var(--sky),var(--ocean));
+  color:#fff;border:none;border-radius:50px;
+  font-size:14px;font-weight:700;white-space:nowrap;
+  transition:all .2s;box-shadow:var(--shadow-sky);
 }
-#lang-selector option{background:var(--night2);}
+.btn-hdr:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(14,165,233,.5);}
+.btn-hdr-sub{font-size:10px;color:var(--muted);font-weight:400;}
 
-/* ── HERO ── */
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
 #hero{
-  height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100vh;min-height:600px;
+  display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;
 }
-#globe-wrap{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+#globe-canvas{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
 }
-#globe-canvas{width:100%;height:100%;display:block;}
-
-/* Gradient overlay pour lisibilité */
+/* Overlay gradient pour lisibilité du texte */
 #hero::after{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at center,rgba(12,26,46,0.1) 0%,rgba(12,26,46,0.6) 100%);
-  pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(12,26,46,0.0) 0%, rgba(12,26,46,0.75) 100%),
+    linear-gradient(to bottom, rgba(12,26,46,0.5) 0%, rgba(12,26,46,0) 30%, rgba(12,26,46,0) 60%, rgba(12,26,46,0.8) 100%);
+  pointer-events:none;z-index:1;
 }
-
 .hero-content{
-  position:relative;z-index:10;text-align:center;padding:0 1.5rem;
-  max-width:800px;
+  position:relative;z-index:2;
+  text-align:center;padding:0 1.5rem;
+  max-width:860px;width:100%;
 }
 
-/* ACCROCHE ANIMÉE */
+/* Accroche animée */
 .hero-hook{
-  display:inline-block;background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(249,115,22,0.2));
-  border:1px solid rgba(251,191,36,0.4);border-radius:50px;
-  padding:10px 24px;font-size:14px;font-weight:600;color:var(--sun);
-  letter-spacing:0.02em;margin-bottom:1.5rem;
-  opacity:0;animation:bounceIn 0.8s 0.3s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,rgba(251,191,36,0.20),rgba(249,115,22,0.20));
+  border:1.5px solid rgba(251,191,36,0.50);
+  border-radius:50px;padding:12px 26px;
+  font-size:15px;font-weight:700;color:var(--sun);
+  margin-bottom:1.5rem;letter-spacing:0.01em;
+  opacity:0;animation:zoomIn .7s .2s cubic-bezier(.175,.885,.32,1.275) forwards;
+  text-shadow:0 2px 8px rgba(0,0,0,0.5);
 }
-.hook-pulse{display:inline-block;animation:pulse 2s infinite;}
+.plane-spin{display:inline-block;animation:spinPlane 4s linear infinite;font-size:1.1em;}
 
 h1{
   font-family:'Playfair Display',serif;font-weight:900;
-  font-size:clamp(2.8rem,7vw,6rem);line-height:1;letter-spacing:-0.02em;
-  opacity:0;animation:slideUp 0.8s 0.5s ease forwards;
+  font-size:clamp(2.6rem,7vw,6rem);line-height:1.05;
+  letter-spacing:-0.02em;
+  opacity:0;animation:slideUp .8s .45s ease forwards;
+  text-shadow:0 4px 20px rgba(0,0,0,0.6);
 }
-h1 .g1{
-  background:linear-gradient(135deg,var(--sun),var(--coral));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-h1 .g2{
-  background:linear-gradient(135deg,var(--sky),var(--mint));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
+.g1{background:linear-gradient(135deg,var(--sun) 0%,var(--coral) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.g2{background:linear-gradient(135deg,#38BDF8 0%,var(--mint) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-/* QUESTION ANIMÉE */
-.hero-question{
-  margin-top:1.5rem;font-size:clamp(1rem,2.5vw,1.3rem);color:#E0F2FE;
-  font-weight:400;line-height:1.6;
-  opacity:0;animation:slideUp 0.8s 0.7s ease forwards;
+/* Phrase sous le titre — LISIBLE avec fond */
+#hero-question{
+  margin-top:1.25rem;
+  font-size:clamp(1rem,2.5vw,1.2rem);
+  color:#ffffff;font-weight:500;line-height:1.6;
+  background:rgba(12,26,46,0.55);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:14px;padding:12px 20px;
+  display:inline-block;
+  opacity:0;animation:slideUp .8s .65s ease forwards;
 }
-.hero-question strong{color:var(--sun);font-weight:700;}
+#hero-question strong{color:var(--sun);font-weight:800;}
 
-.hero-stat{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(14,165,233,0.15);border:1px solid rgba(14,165,233,0.3);
-  border-radius:12px;padding:8px 18px;margin:0.5rem 4px;
+.hero-pills{
+  margin-top:1rem;display:flex;flex-wrap:wrap;
+  justify-content:center;gap:8px;
+  opacity:0;animation:slideUp .6s .82s ease forwards;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(14,165,233,0.18);
+  border:1px solid rgba(14,165,233,0.35);
+  border-radius:50px;padding:7px 16px;
   font-size:13px;font-weight:600;color:#7DD3FC;
-  opacity:0;animation:slideUp 0.6s 0.9s ease forwards;
 }
-.hero-stat span{font-size:1.1rem;}
 
+/* ═══ CTA ANIMÉS ═══ */
 .hero-cta{
-  margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-  opacity:0;animation:slideUp 0.8s 1.1s ease forwards;
+  margin-top:1.75rem;
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:slideUp .8s 1.0s ease forwards;
 }
-.btn-cta-main{
-  padding:16px 40px;background:linear-gradient(135deg,var(--coral),#E11D48);
-  color:white;border:none;border-radius:50px;font-size:16px;font-weight:700;
-  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
-  transition:all 0.3s;box-shadow:0 8px 32px rgba(249,115,22,0.45);
-  letter-spacing:0.01em;
+
+/* Bouton 1 : pulsant, premium */
+.cta-card{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:linear-gradient(135deg,rgba(249,115,22,0.15),rgba(225,29,72,0.15));
+  border:2px solid rgba(249,115,22,0.5);
+  border-radius:18px;padding:14px 28px;
+  transition:all .3s;position:relative;overflow:hidden;
+  min-width:220px;
+  animation:borderPulse 3s ease-in-out infinite;
 }
-.btn-cta-main:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 48px rgba(249,115,22,0.5);}
-.btn-cta-sec{
-  padding:16px 36px;background:transparent;color:white;
-  border:2px solid rgba(255,255,255,0.3);border-radius:50px;font-size:15px;font-weight:500;
-  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.3s;
+.cta-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--coral),#E11D48);
+  opacity:0;transition:opacity .3s;
 }
-.btn-cta-sec:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.5);}
+.cta-card:hover::before{opacity:0.08;}
+.cta-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(249,115,22,0.4);border-color:var(--coral);}
+.cta-card-main{
+  font-size:15px;font-weight:800;color:#fff;
+  position:relative;z-index:1;letter-spacing:0.01em;
+}
+.cta-card-sub{
+  font-size:11px;color:rgba(255,220,170,0.9);
+  position:relative;z-index:1;font-weight:500;line-height:1.3;
+  text-align:center;max-width:200px;
+}
+
+/* Bouton 2 : sky */
+.cta-card.sky{
+  background:linear-gradient(135deg,rgba(14,165,233,0.15),rgba(16,185,129,0.15));
+  border:2px solid rgba(14,165,233,0.4);
+  animation:borderPulseBlue 3s ease-in-out 1.5s infinite;
+}
+.cta-card.sky:hover{box-shadow:0 16px 48px rgba(14,165,233,0.4);border-color:var(--sky);}
 
 .scroll-cue{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
+  position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px;
   opacity:0;animation:fadeIn 1s 1.5s ease forwards;
 }
-.scroll-cue p{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;}
-.scroll-dot{width:6px;height:6px;border-radius:50%;background:var(--sky);animation:bounce 2s infinite;}
+.scroll-cue p{font-size:11px;color:rgba(148,163,184,0.8);letter-spacing:3px;text-transform:uppercase;}
+.dot-bounce{width:6px;height:6px;border-radius:50%;background:var(--sky);animation:bounce 2s infinite;}
 
-/* ── STATS BANDE ── */
+/* ═══════════════════════════════
+   STATS BAND
+═══════════════════════════════ */
 #stats-band{
   padding:3rem 2rem;
-  background:linear-gradient(135deg,rgba(14,165,233,0.12),rgba(16,185,129,0.08));
-  border-top:1px solid rgba(14,165,233,0.2);border-bottom:1px solid rgba(14,165,233,0.2);
+  background:linear-gradient(135deg,rgba(14,165,233,0.10),rgba(16,185,129,0.06));
+  border-top:1px solid rgba(14,165,233,0.18);
+  border-bottom:1px solid rgba(14,165,233,0.18);
 }
-.stats-row{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;text-align:center;}
-.stat-b{padding:1.5rem;}
-.stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;line-height:1;}
-.stat-num.c1{background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.stat-num.c2{background:linear-gradient(135deg,var(--sky),var(--mint));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.stat-num.c3{background:linear-gradient(135deg,var(--coral),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.stat-num.c4{background:linear-gradient(135deg,var(--mint),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.stat-lab{font-size:13px;color:var(--muted);margin-top:6px;font-weight:500;}
+.stats-grid{
+  max-width:960px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;
+}
+.sg-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;line-height:1;}
+.c1{background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.c2{background:linear-gradient(135deg,var(--sky),var(--mint));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.c3{background:linear-gradient(135deg,var(--coral),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.c4{background:linear-gradient(135deg,var(--mint),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sg-lab{font-size:13px;color:var(--muted);margin-top:6px;font-weight:500;}
 
-/* ── FEATURES ── */
-#features{padding:6rem 2rem;max-width:1100px;margin:0 auto;}
-.sec-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--coral);font-weight:700;text-align:center;margin-bottom:0.75rem;}
-.sec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4vw,3rem);text-align:center;line-height:1.15;margin-bottom:3.5rem;}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
-.feat-card{
-  background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:2rem;
-  transition:all 0.3s;position:relative;overflow:hidden;
+/* ═══════════════════════════════
+   FEATURES
+═══════════════════════════════ */
+#features{padding:5rem 2rem;max-width:1100px;margin:0 auto;}
+.sec-tag{
+  font-size:11px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--coral);font-weight:700;text-align:center;margin-bottom:.75rem;
 }
-.feat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(14,165,233,0.04));pointer-events:none;}
-.feat-card:hover{border-color:rgba(14,165,233,0.4);transform:translateY(-6px);box-shadow:0 20px 60px rgba(14,165,233,0.15);}
+.sec-title{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(1.8rem,4vw,3rem);text-align:center;
+  margin-bottom:3rem;line-height:1.15;
+}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.feat-card{
+  background:var(--card);border:1px solid var(--brd);
+  border-radius:var(--r2);padding:2rem;transition:all .3s;
+}
+.feat-card:hover{
+  border-color:rgba(14,165,233,0.45);
+  transform:translateY(-6px);
+  box-shadow:0 20px 50px rgba(14,165,233,0.12);
+}
 .feat-emoji{font-size:2.5rem;margin-bottom:1rem;display:block;}
-.feat-card h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.6rem;color:var(--text);}
+.feat-card h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;margin-bottom:.5rem;}
 .feat-card p{font-size:14px;color:var(--muted);line-height:1.7;}
 
-/* ── FOOTER ── */
-footer{padding:3rem 2rem 7rem;border-top:1px solid var(--brd);display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center;}
-footer p{font-size:13px;color:var(--muted);}
-.foot-links{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;}
-.foot-links a{color:var(--muted);font-size:13px;transition:color 0.2s;text-decoration:none;}
-.foot-links a:hover{color:var(--sky);}
-.social-row{display:flex;gap:1rem;}
-.soc-btn{
-  padding:8px 20px;border-radius:50px;font-size:13px;font-weight:600;
-  cursor:pointer;border:1px solid var(--brd);background:transparent;color:var(--text);
-  font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s;text-decoration:none;
-  display:inline-flex;align-items:center;gap:6px;
+/* ═══════════════════════════════
+   PWA INSTALL BANNER
+═══════════════════════════════ */
+#pwa-banner{
+  background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(14,165,233,0.15));
+  border:1px solid rgba(139,92,246,0.35);
+  border-radius:var(--r2);margin:0 2rem 2rem;padding:1.5rem 2rem;
+  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
 }
-.soc-btn:hover{background:var(--card);border-color:rgba(255,255,255,0.25);}
+.pwa-icon{font-size:2.5rem;flex-shrink:0;}
+.pwa-text h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;margin-bottom:4px;}
+.pwa-text p{font-size:13px;color:var(--muted);line-height:1.5;}
+.pwa-btns{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto;}
+.btn-pwa{
+  padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;
+  cursor:pointer;border:none;transition:all .2s;
+}
+.btn-pwa.main{background:linear-gradient(135deg,var(--violet),var(--sky));color:#fff;}
+.btn-pwa.sec{background:transparent;border:1px solid var(--brd);color:var(--muted);}
 
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer{
+  padding:3rem 2rem 7rem;border-top:1px solid var(--brd);
+  display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center;
+}
+footer p{font-size:13px;color:var(--muted);}
+.foot-links{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;}
+.foot-links a{color:var(--muted);font-size:13px;cursor:pointer;transition:color .2s;}
+.foot-links a:hover{color:var(--sky);}
+.soc-row{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;}
+.soc-btn{
+  padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;
+  border:1px solid var(--brd);background:transparent;color:var(--text);
+  display:inline-flex;align-items:center;gap:6px;transition:all .2s;
+}
+.soc-btn:hover{background:var(--card2);border-color:var(--brd2);}
+
+/* ═══════════════════════════════
    MODALS
-   ══════════════════════════════════════════ */
+═══════════════════════════════ */
 .overlay{
-  position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;
-  padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.3s;
+  position:fixed;inset:0;z-index:800;
+  background:rgba(5,15,30,0.88);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s;
 }
 .overlay.open{opacity:1;pointer-events:all;}
 .modal{
-  background:var(--night2);border:1px solid var(--brd);border-radius:24px;
-  width:100%;max-width:680px;max-height:92vh;overflow-y:auto;padding:2.5rem;
-  transform:translateY(24px) scale(0.98);transition:transform 0.3s;
+  background:var(--night2);
+  border:1px solid var(--brd2);
+  border-radius:var(--r2);
+  width:100%;max-width:660px;
+  max-height:90vh;overflow-y:auto;
+  padding:2rem;
+  transform:translateY(24px) scale(0.97);transition:transform .3s;
 }
 .overlay.open .modal{transform:translateY(0) scale(1);}
-.modal-lg{max-width:800px;}
-.mhdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;}
-.mtitle{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;}
-.mtitle em{font-style:normal;background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.mclose{background:none;border:none;color:var(--muted);font-size:1.6rem;cursor:pointer;padding:4px;transition:color 0.2s;line-height:1;}
+.modal-lg{max-width:780px;}
+.mhdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.75rem;}
+.mtitle{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;line-height:1.2;}
+.mtitle em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--sun),var(--coral));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.mclose{background:none;border:none;color:var(--muted);font-size:1.8rem;cursor:pointer;line-height:1;padding:0 4px;transition:color .2s;}
 .mclose:hover{color:var(--text);}
 
-/* ── FORMS ── */
+/* ═══ FORMS ═══ */
 .fg{display:flex;flex-direction:column;gap:6px;}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .full{grid-column:1/-1;}
-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;}
+label.lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;}
 input,select,textarea{
-  background:rgba(255,255,255,0.06);border:1px solid var(--brd);
-  border-radius:12px;padding:12px 16px;color:var(--text);
-  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;
-  transition:border-color 0.2s,box-shadow 0.2s;outline:none;
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--brd);
+  border-radius:12px;padding:12px 14px;
+  color:var(--text);font-size:14px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  -webkit-appearance:none;appearance:none;
+  width:100%;
 }
-input:focus,select:focus,textarea:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(14,165,233,0.15);}
+input:focus,select:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(14,165,233,0.15);}
 select option{background:var(--night2);}
-
 .chip-row{display:flex;gap:8px;flex-wrap:wrap;}
 .chip{
-  padding:8px 18px;border-radius:50px;border:1px solid var(--brd);
-  background:transparent;color:var(--muted);font-size:13px;
-  cursor:pointer;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;
+  padding:8px 16px;border-radius:50px;
+  border:1px solid var(--brd);background:transparent;
+  color:var(--muted);font-size:13px;cursor:pointer;
+  font-weight:500;transition:all .2s;
 }
-.chip.on{background:linear-gradient(135deg,var(--sky),var(--ocean));color:white;border-color:transparent;box-shadow:0 4px 16px rgba(14,165,233,0.4);}
-.chip.on-coral{background:linear-gradient(135deg,var(--coral),#E11D48);color:white;border-color:transparent;}
-
+.chip.on{background:linear-gradient(135deg,var(--sky),var(--ocean));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(14,165,233,.3);}
+.chip.on-coral{background:linear-gradient(135deg,var(--coral),#E11D48);color:#fff;border-color:transparent;}
+.tabs{display:flex;gap:8px;margin-bottom:1.5rem;}
 .btn-go{
-  width:100%;padding:15px;
+  width:100%;padding:14px;
   background:linear-gradient(135deg,var(--coral),#E11D48);
-  color:white;border:none;border-radius:50px;font-size:16px;font-weight:700;
-  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.3s;margin-top:0.75rem;
-  box-shadow:0 8px 32px rgba(249,115,22,0.4);
+  color:#fff;border:none;border-radius:50px;
+  font-size:15px;font-weight:700;
+  margin-top:.75rem;
+  box-shadow:var(--shadow-coral);transition:all .3s;
 }
-.btn-go:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(249,115,22,0.5);}
-.btn-go:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none;}
-.btn-sky{background:linear-gradient(135deg,var(--sky),var(--ocean));box-shadow:0 8px 32px rgba(14,165,233,0.4);}
-.btn-sky:hover{box-shadow:0 16px 48px rgba(14,165,233,0.5);}
+.btn-go:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(249,115,22,.5);}
+.btn-go:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-sky-go{background:linear-gradient(135deg,var(--sky),var(--ocean));box-shadow:var(--shadow-sky);}
+.btn-sky-go:hover{box-shadow:0 14px 44px rgba(14,165,233,.5);}
+.email-alt{
+  background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.22);
+  border-radius:12px;padding:.9rem 1.1rem;margin-top:.5rem;font-size:13px;color:#7DD3FC;
+}
+.email-alt strong{display:block;margin-bottom:3px;color:var(--sky);}
+.divider{height:1px;background:var(--brd);margin:1.25rem 0;grid-column:1/-1;}
 
-.divider{height:1px;background:var(--brd);margin:1.5rem 0;grid-column:1/-1;}
-
-/* ── PROFIL ── */
+/* ═══ PROFIL ═══ */
 .avatar-ring{
-  width:90px;height:90px;border-radius:50%;
+  width:88px;height:88px;border-radius:50%;
   background:linear-gradient(135deg,var(--sun),var(--coral));
   display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:white;
-  margin:0 auto 1rem;box-shadow:0 8px 32px rgba(249,115,22,0.4);
+  font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;
+  margin:0 auto 1rem;box-shadow:var(--shadow-coral);
 }
-.uname{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;text-align:center;}
+.uname{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;text-align:center;}
 .uname em{font-style:normal;background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .usub{color:var(--muted);font-size:14px;text-align:center;margin-top:4px;}
-
-.stats-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin:1.5rem 0;}
-.sc{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:1rem;text-align:center;}
-.sc-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;}
-.sc-n.s1{background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.sc-n.s2{background:linear-gradient(135deg,var(--sky),var(--mint));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.sc-n.s3{background:linear-gradient(135deg,var(--mint),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.sc-n.s4{background:linear-gradient(135deg,var(--coral),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.sc-l{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
-
-/* Countdown */
+.sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin:1.25rem 0;}
+.sc{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:.9rem .5rem;text-align:center;}
+.sc-n{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;}
+.s1{background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.s2{background:linear-gradient(135deg,var(--sky),var(--mint));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.s3{background:linear-gradient(135deg,var(--mint),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.s4{background:linear-gradient(135deg,var(--coral),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sc-l{font-size:10px;color:var(--muted);margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;}
 .count-box{
-  background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(249,115,22,0.1));
-  border:1px solid rgba(251,191,36,0.35);border-radius:18px;
-  padding:1.5rem;text-align:center;margin:1rem 0;
+  background:linear-gradient(135deg,rgba(251,191,36,.10),rgba(249,115,22,.10));
+  border:1px solid rgba(251,191,36,.32);border-radius:18px;
+  padding:1.25rem;text-align:center;margin:.75rem 0;
 }
-.count-n{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;line-height:1;
-  background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.count-n{
+  font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,var(--sun),var(--coral));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
 .count-l{font-size:13px;color:var(--muted);margin-top:4px;}
-.count-sub{font-size:13px;color:var(--sun);margin-top:10px;font-weight:600;}
-.prog-wrap{height:8px;background:rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;margin-top:12px;}
+.count-sub{font-size:13px;color:var(--sun);margin-top:8px;font-weight:600;}
+.prog-wrap{height:7px;background:rgba(255,255,255,.07);border-radius:20px;overflow:hidden;margin-top:10px;}
 .prog-bar{height:100%;background:linear-gradient(90deg,var(--sun),var(--coral));border-radius:20px;transition:width 1s ease;}
-
-/* Trip cards */
-.trip-list{display:flex;flex-direction:column;gap:0.6rem;margin-top:0.75rem;}
+.trip-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem;}
 .tc{
-  background:var(--card);border:1px solid var(--brd);border-radius:14px;
-  padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;transition:all 0.2s;
+  background:var(--card);border:1px solid var(--brd);
+  border-radius:13px;padding:.9rem 1.1rem;
+  display:flex;align-items:center;gap:.9rem;transition:border-color .2s;
 }
-.tc:hover{border-color:rgba(14,165,233,0.35);}
+.tc:hover{border-color:rgba(14,165,233,.32);}
 .tc-route{font-weight:700;font-size:14px;}
 .tc-meta{font-size:12px;color:var(--muted);margin-top:2px;}
-.tc-stars{color:var(--sun);font-size:14px;}
-.badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:1px;}
-.badge-perso{background:rgba(251,191,36,0.15);color:var(--sun);}
-.badge-pro{background:rgba(14,165,233,0.15);color:var(--sky);}
-
-/* Proposal cards */
-.prop{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:0.75rem;position:relative;transition:all 0.2s;}
-.prop:hover{border-color:rgba(14,165,233,0.35);}
-.prop.best{border-color:var(--sun);box-shadow:0 8px 32px rgba(251,191,36,0.15);}
-.best-badge{position:absolute;top:-11px;left:1rem;background:linear-gradient(135deg,var(--sun),var(--coral));color:white;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:3px 14px;border-radius:50px;}
+.tc-stars{color:var(--sun);font-size:12px;}
+.badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:50px;text-transform:uppercase;letter-spacing:.7px;white-space:nowrap;}
+.b-perso{background:rgba(251,191,36,.15);color:var(--sun);}
+.b-pro{background:rgba(14,165,233,.15);color:var(--sky);}
+.prop{background:var(--card);border:1px solid var(--brd);border-radius:15px;padding:1.1rem 1.3rem;margin-bottom:.65rem;position:relative;transition:all .2s;}
+.prop:hover{border-color:rgba(14,165,233,.35);}
+.prop.best{border-color:var(--sun);box-shadow:0 8px 28px rgba(251,191,36,.12);}
+.best-badge{position:absolute;top:-11px;left:1rem;background:linear-gradient(135deg,var(--sun),var(--coral));color:#fff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:3px 12px;border-radius:50px;}
 .prop-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
-.prop-dest{font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;}
-.prop-price{font-size:1.2rem;font-weight:800;background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;}
+.prop-dest{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;}
+.prop-price{font-size:1.15rem;font-weight:800;white-space:nowrap;background:linear-gradient(135deg,var(--sun),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .prop-meta{font-size:12px;color:var(--muted);margin-top:3px;}
-.prop-desc{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
-.prop-acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.bsm{padding:8px 18px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all 0.2s;}
-.bsm.pp{background:linear-gradient(135deg,var(--sky),var(--ocean));color:white;}
+.prop-desc{font-size:13px;color:var(--muted);margin-top:7px;line-height:1.6;}
+.prop-acts{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap;}
+.bsm{padding:7px 16px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.bsm.pp{background:linear-gradient(135deg,var(--sky),var(--ocean));color:#fff;}
 .bsm.ps{background:transparent;border:1px solid var(--brd);color:var(--muted);}
 .bsm:hover{transform:translateY(-1px);}
-
-/* Share strip */
 .share-strip{
   display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);
-  border-radius:14px;padding:1rem 1.25rem;margin-top:1rem;
+  background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.22);
+  border-radius:13px;padding:.9rem 1.1rem;margin-top:.9rem;
 }
-.share-strip p{font-size:12px;color:var(--muted);margin-right:4px;}
-.shbtn{padding:7px 16px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--brd);background:transparent;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s;}
-.shbtn:hover{background:var(--card);border-color:rgba(255,255,255,0.25);}
+.share-strip p{font-size:12px;color:var(--muted);}
+.shbtn{padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--brd);background:transparent;color:var(--text);transition:all .2s;}
+.shbtn:hover{background:var(--card2);}
+.star-btn{background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--sun);transition:transform .15s;padding:0 2px;}
+.star-btn:hover{transform:scale(1.3);}
 
-/* Email alt */
-.email-alt{background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.25);border-radius:12px;padding:1rem 1.25rem;margin-top:0.5rem;font-size:13px;color:#7DD3FC;}
-.email-alt strong{color:var(--sky);display:block;margin-bottom:4px;}
-
-/* ── LOADER DOTS ── */
-.dots span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--coral);margin:0 2px;animation:dotP 1.2s infinite;}
-.dots span:nth-child(2){animation-delay:0.2s;}
-.dots span:nth-child(3){animation-delay:0.4s;}
-
-/* ── TOAST ── */
+/* ═══════════════════════════════
+   TOAST
+═══════════════════════════════ */
 #toast{
-  position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);
-  background:linear-gradient(135deg,var(--mint),var(--sky));color:white;
-  padding:12px 28px;border-radius:50px;font-size:14px;font-weight:600;
-  z-index:3000;opacity:0;transition:all 0.4s;pointer-events:none;white-space:nowrap;
-  box-shadow:0 8px 32px rgba(16,185,129,0.4);
+  position:fixed;bottom:5rem;left:50%;
+  transform:translateX(-50%) translateY(14px);
+  background:linear-gradient(135deg,var(--mint),var(--sky));
+  color:#fff;padding:11px 24px;border-radius:50px;
+  font-size:14px;font-weight:600;z-index:9999;
+  opacity:0;transition:all .35s;pointer-events:none;
+  box-shadow:0 8px 28px rgba(16,185,129,.35);
+  white-space:nowrap;max-width:90vw;text-align:center;
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* ── ANIMATIONS ── */
+/* ═══════════════════════════════
+   ANIMATIONS
+═══════════════════════════════ */
 @keyframes slideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-@keyframes bounceIn{from{opacity:0;transform:scale(0.7);}to{opacity:1;transform:scale(1);}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
-@keyframes dotP{0%,80%,100%{transform:scale(0.5);opacity:0.3;}40%{transform:scale(1);opacity:1;}}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+@keyframes spinPlane{
+  0%{transform:rotate(0deg);}
+  25%{transform:rotate(15deg);}
+  75%{transform:rotate(-10deg);}
+  100%{transform:rotate(360deg);}
+}
+@keyframes dotP{0%,80%,100%{transform:scale(.4);opacity:.2;}40%{transform:scale(1);opacity:1;}}
+@keyframes borderPulse{0%,100%{border-color:rgba(249,115,22,0.5);box-shadow:0 0 0 0 rgba(249,115,22,0);}50%{border-color:rgba(249,115,22,0.9);box-shadow:0 0 0 6px rgba(249,115,22,0.1);}}
+@keyframes borderPulseBlue{0%,100%{border-color:rgba(14,165,233,0.4);box-shadow:0 0 0 0 rgba(14,165,233,0);}50%{border-color:rgba(14,165,233,0.8);box-shadow:0 0 0 6px rgba(14,165,233,0.1);}}
+.dots span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--coral);margin:0 2px;animation:dotP 1.2s infinite;}
+.dots span:nth-child(2){animation-delay:.2s;}.dots span:nth-child(3){animation-delay:.4s;}
 
-@media(max-width:640px){
-  .fgrid,.stats-cards,.stats-row{grid-template-columns:1fr 1fr;}
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:768px){
+  header{padding:.75rem 1rem;}
+  .logo{font-size:1.4rem;}
   nav{display:none;}
-  .modal{padding:1.5rem;border-radius:16px;}
-  h1{font-size:2.5rem;}
+  .hdr-right{gap:6px;}
+  #lang-sel{padding:5px 8px;font-size:12px;}
+  .btn-hdr{padding:8px 14px;font-size:13px;}
+  .btn-hdr-sub{display:none;}
+  .hero-cta{flex-direction:column;align-items:center;}
+  .cta-card{min-width:280px;}
+  .fgrid{grid-template-columns:1fr;}
+  .full{grid-column:1;}
+  .sc-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:1rem;}
+  .modal{padding:1.5rem;}
+  .hero-pills{display:none;}
+  #pwa-banner{margin:0 1rem 1.5rem;}
+  .pwa-btns{margin-left:0;width:100%;}
+}
+@media(max-width:480px){
+  h1{font-size:2.4rem;}
+  .hero-hook{font-size:13px;padding:10px 18px;}
+  #hero-question{font-size:.95rem;padding:10px 14px;}
+  .feat-grid{grid-template-columns:1fr;}
+  .modal{border-radius:16px;}
+  .cta-card{min-width:260px;padding:12px 20px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ TOAST ══ -->
 <div id="toast"></div>
 
-<!-- ══ COOKIE RGPD (1 seule fois) ══ -->
+<!-- ══ COOKIE RGPD ══ -->
 <div id="cookie-banner">
-  <p id="ck-text">🍪 <span data-i18n="cookie_text"></span> <a href="#" onclick="showPrivacy(event)" data-i18n="cookie_link"></a>.</p>
+  <p id="ck-txt"></p>
   <div class="ck-btns">
-    <button class="ck-btn no" onclick="refuseCookies()" data-i18n="cookie_refuse"></button>
-    <button class="ck-btn ok" onclick="acceptCookies()" data-i18n="cookie_accept"></button>
+    <button class="ck-btn no" id="ck-no" onclick="refuseCookies()"></button>
+    <button class="ck-btn ok" id="ck-ok" onclick="acceptCookies()"></button>
   </div>
 </div>
 
 <!-- ══ HEADER ══ -->
 <header>
-  <div class="logo">Trip&Me</div>
+  <div class="logo">Trip&amp;Me</div>
   <nav>
-    <a href="#features" data-i18n="nav_services">Services</a>
-    <a href="#" onclick="requireAuth(event,'mon-monde')" data-i18n="nav_myworld">Mon Monde</a>
+    <a onclick="scrollToId('features')" id="nav-svc"></a>
+    <a onclick="requireAuth('profile')" id="nav-world"></a>
     <a href="mailto:World@tripandme.com">Contact</a>
   </nav>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <select id="lang-selector" onchange="setLang(this.value)">
+  <div class="hdr-right">
+    <select id="lang-sel" onchange="setLang(this.value)">
       <option value="fr">🇫🇷 FR</option>
       <option value="en">🇬🇧 EN</option>
       <option value="es">🇪🇸 ES</option>
@@ -431,1136 +577,1179 @@ select option{background:var(--night2);}
       <option value="ja">🇯🇵 JA</option>
       <option value="zh">🇨🇳 ZH</option>
     </select>
-    <button class="btn-header" id="hdr-btn" onclick="handleHeaderBtn()"></button>
+    <div class="btn-hdr-wrap">
+      <button class="btn-hdr" id="hdr-btn" onclick="handleHeaderBtn()"></button>
+      <span class="btn-hdr-sub" id="hdr-sub"></span>
+    </div>
   </div>
 </header>
 
 <!-- ══ HERO ══ -->
 <section id="hero">
-  <div id="globe-wrap">
-    <canvas id="globe-canvas"></canvas>
-  </div>
-
+  <canvas id="globe-canvas"></canvas>
   <div class="hero-content">
-    <div class="hero-hook">
-      <span class="hook-pulse">✈</span>
-      <span id="hook-txt" data-i18n="hook"></span>
-    </div>
+    <div class="hero-hook"><span class="plane-spin">✈</span><span id="hero-hook"></span></div>
     <h1>
-      <span class="g1" data-i18n="h1a">The World</span><br>
-      <span class="g2" data-i18n="h1b">is Mine</span>
+      <span class="g1" id="h1a"></span><br>
+      <span class="g2" id="h1b"></span>
     </h1>
-    <p class="hero-question" id="hero-q" data-i18n="hero_q"></p>
-    <div style="margin-top:1rem;opacity:0;animation:slideUp 0.6s 0.9s ease forwards;">
-      <div class="hero-stat"><span>🌍</span> <span data-i18n="stat_countries">195 pays couverts</span></div>
-      <div class="hero-stat"><span>✈</span> <span data-i18n="stat_itin">Itinéraires illimités</span></div>
-      <div class="hero-stat"><span>🆓</span> <span data-i18n="stat_free">100% Gratuit</span></div>
+    <p id="hero-question"></p>
+    <div class="hero-pills">
+      <span class="pill">🌍 <span id="pill1"></span></span>
+      <span class="pill">✈ <span id="pill2"></span></span>
+      <span class="pill">🆓 <span id="pill3"></span></span>
     </div>
     <div class="hero-cta">
-      <button class="btn-cta-main" onclick="requireAuth(null,'add-trip')" id="cta-main" data-i18n="cta_main"></button>
-      <button class="btn-cta-sec" onclick="requireAuth(null,'plan')" id="cta-sec" data-i18n="cta_sec"></button>
+      <button class="cta-card" onclick="requireAuth('add-trip')">
+        <span class="cta-card-main" id="cta1-main"></span>
+        <span class="cta-card-sub" id="cta1-sub"></span>
+      </button>
+      <button class="cta-card sky" onclick="requireAuth('plan')">
+        <span class="cta-card-main" id="cta2-main"></span>
+        <span class="cta-card-sub" id="cta2-sub"></span>
+      </button>
     </div>
   </div>
-
-  <div class="scroll-cue">
-    <p data-i18n="scroll">Explorer</p>
-    <div class="scroll-dot"></div>
-  </div>
+  <div class="scroll-cue"><p id="scroll-lbl"></p><div class="dot-bounce"></div></div>
 </section>
 
-<!-- ══ STATS BANDE ══ -->
+<!-- ══ STATS ══ -->
 <section id="stats-band">
-  <div class="stats-row">
-    <div class="stat-b"><div class="stat-num c1">195</div><div class="stat-lab" data-i18n="sb1">Pays couverts</div></div>
-    <div class="stat-b"><div class="stat-num c2">∞</div><div class="stat-lab" data-i18n="sb2">Itinéraires possibles</div></div>
-    <div class="stat-b"><div class="stat-num c3">0€</div><div class="stat-lab" data-i18n="sb3">Pour les voyageurs</div></div>
-    <div class="stat-b"><div class="stat-num c4">100%</div><div class="stat-lab" data-i18n="sb4">Personnalisé</div></div>
+  <div class="stats-grid">
+    <div style="text-align:center"><div class="sg-num c1">195</div><div class="sg-lab" id="sb1"></div></div>
+    <div style="text-align:center"><div class="sg-num c2">∞</div><div class="sg-lab" id="sb2"></div></div>
+    <div style="text-align:center"><div class="sg-num c3">0€</div><div class="sg-lab" id="sb3"></div></div>
+    <div style="text-align:center"><div class="sg-num c4">100%</div><div class="sg-lab" id="sb4"></div></div>
   </div>
 </section>
+
+<!-- ══ PWA INSTALL BANNER ══ -->
+<div id="pwa-banner" style="display:none;">
+  <div class="pwa-icon">📱</div>
+  <div class="pwa-text">
+    <h3 id="pwa-title"></h3>
+    <p id="pwa-desc"></p>
+  </div>
+  <div class="pwa-btns">
+    <button class="btn-pwa main" id="pwa-install-btn" onclick="installPWA()"></button>
+    <button class="btn-pwa sec" onclick="document.getElementById('pwa-banner').style.display='none'">✕</button>
+  </div>
+</div>
 
 <!-- ══ FEATURES ══ -->
 <section id="features">
-  <p class="sec-tag" data-i18n="feat_tag">Pourquoi Trip&Me</p>
-  <h2 class="sec-title" data-i18n="feat_title">Votre voyage, <em style="font-style:italic;">réinventé</em></h2>
-  <div class="feat-grid">
-    <div class="feat-card"><span class="feat-emoji">🌍</span><h3 data-i18n="f1t">Globe interactif 3D</h3><p data-i18n="f1d">Visualisez tous vos voyages sur une mappemonde animée. Votre monde unique, rien qu'à vous.</p></div>
-    <div class="feat-card"><span class="feat-emoji">📊</span><h3 data-i18n="f2t">Vos stats de voyageur</h3><p data-i18n="f2d">Combien de fois avez-vous fait le tour du monde ? Combien de pays ? Trip&Me calcule tout pour vous.</p></div>
-    <div class="feat-card"><span class="feat-emoji">✈️</span><h3 data-i18n="f3t">4 propositions sur mesure</h3><p data-i18n="f3d">Budget, durée, style — Trip&Me vous propose 4 itinéraires complets, la meilleure offre en premier.</p></div>
-    <div class="feat-card"><span class="feat-emoji">🏨</span><h3 data-i18n="f4t">Planning complet</h3><p data-i18n="f4d">Hôtels, visites, restaurants, transferts — tout inclus et exportable dans votre agenda.</p></div>
-    <div class="feat-card"><span class="feat-emoji">📱</span><h3 data-i18n="f5t">Partage instantané</h3><p data-i18n="f5d">Partagez votre globe animé et vos stats sur Instagram, TikTok, WhatsApp en un clic.</p></div>
-    <div class="feat-card"><span class="feat-emoji">🔒</span><h3 data-i18n="f6t">100% RGPD conforme</h3><p data-i18n="f6d">Vos données restent vôtres. Droit à l'oubli garanti, hébergement européen sécurisé.</p></div>
-  </div>
+  <p class="sec-tag" id="feat-tag"></p>
+  <h2 class="sec-title" id="feat-title"></h2>
+  <div class="feat-grid" id="feat-grid"></div>
 </section>
 
 <!-- ══ FOOTER ══ -->
 <footer>
-  <div class="logo" style="font-size:1.4rem;">Trip&Me</div>
-  <div class="social-row">
-    <a class="soc-btn" href="https://instagram.com/TripAndMe" target="_blank">📸 Instagram</a>
-    <a class="soc-btn" href="https://tiktok.com/@TripAndMe" target="_blank">🎵 TikTok</a>
-    <a class="soc-btn" href="https://youtube.com/@TripAndMe" target="_blank">▶ YouTube</a>
+  <div class="logo" style="font-size:1.3rem;">Trip&amp;Me</div>
+  <div class="soc-row">
+    <a class="soc-btn" href="https://tiktok.com/@tripandme_worldismine" target="_blank" rel="noopener">🎵 TikTok</a>
+    <a class="soc-btn" href="https://instagram.com/TripandMe_WorldisMine" target="_blank" rel="noopener">📸 Instagram</a>
+    <a class="soc-btn" href="https://youtube.com/@TripAndMe" target="_blank" rel="noopener">▶ YouTube</a>
   </div>
   <div class="foot-links">
     <a href="mailto:Business@tripandme.com">Business@tripandme.com</a>
     <a href="mailto:World@tripandme.com">World@tripandme.com</a>
-    <a href="#" onclick="showPrivacy(event)" data-i18n="footer_privacy">Politique de confidentialité</a>
-    <a href="#" onclick="showPrivacy(event)" data-i18n="footer_legal">Mentions légales</a>
+    <a onclick="showPrivacy()" id="foot-privacy"></a>
+    <a onclick="showPrivacy()" id="foot-legal"></a>
   </div>
-  <p>© 2026 Trip&Me — tripandme.com</p>
-  <p style="font-size:11px;" data-i18n="footer_rgpd">Conforme RGPD · Données hébergées en Europe · DPO : World@tripandme.com</p>
+  <p>© 2026 Trip&amp;Me — tripandme.com</p>
+  <p id="foot-rgpd" style="font-size:11px;"></p>
 </footer>
 
-<!-- ══════════════════════════════════════════
-     MODAL AUTH
-     ══════════════════════════════════════════ -->
-<div class="overlay" id="ov-auth" onclick="closeIfBg(event,'ov-auth')">
+<!-- ══ MODAL AUTH ══ -->
+<div class="overlay" id="ov-auth" onclick="bgClose(event,'ov-auth')">
   <div class="modal">
     <div class="mhdr">
-      <div class="mtitle" data-i18n="auth_title">Bienvenue sur <em>Trip&Me</em></div>
+      <div class="mtitle" id="auth-title"></div>
       <button class="mclose" onclick="closeOv('ov-auth')">×</button>
     </div>
-    <div style="display:flex;gap:10px;margin-bottom:1.5rem;">
-      <button class="chip on" id="tab-login" onclick="authTab('login')" data-i18n="login_tab">Se connecter</button>
-      <button class="chip" id="tab-reg" onclick="authTab('reg')" data-i18n="reg_tab">Créer mon compte</button>
+    <div class="tabs">
+      <button class="chip on" id="tab-li" onclick="authTab('li')"></button>
+      <button class="chip" id="tab-rg" onclick="authTab('rg')"></button>
     </div>
-
     <!-- LOGIN -->
-    <div id="auth-login">
+    <div id="pane-li">
       <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="fg"><label data-i18n="lbl_email">Email</label><input type="email" id="li-email" data-i18n-ph="ph_email"/></div>
-        <div class="fg"><label data-i18n="lbl_pwd">Mot de passe</label><input type="password" id="li-pwd" data-i18n-ph="ph_pwd"/></div>
+        <div class="fg"><label class="lbl" id="lbl-em-li"></label><input type="email" id="li-email" autocomplete="email"/></div>
+        <div class="fg"><label class="lbl" id="lbl-pw-li"></label><input type="password" id="li-pwd" autocomplete="current-password"/></div>
       </div>
-      <button class="btn-go btn-sky" onclick="doLogin()" style="margin-top:1rem;" data-i18n="btn_login">Se connecter →</button>
-      <div class="email-alt" style="margin-top:1rem;">
-        <strong data-i18n="alt_email_title">Pas d'Outlook ? Pas de problème !</strong>
-        <span data-i18n="alt_email_body">Trip&Me fonctionne avec Gmail, Yahoo, Orange, Hotmail, Free ou n'importe quelle adresse email.</span>
-      </div>
-      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:12px;">
-        <a href="#" style="color:var(--sky);" data-i18n="forgot_pwd">Mot de passe oublié ?</a>
-      </p>
+      <button class="btn-go btn-sky-go" id="btn-li" onclick="doLogin()" style="margin-top:1rem;"></button>
+      <div class="email-alt" style="margin-top:1rem;"><strong id="alt-t"></strong><span id="alt-b"></span></div>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:12px;"><a style="color:var(--sky);cursor:pointer;" id="forgot-lnk"></a></p>
     </div>
-
     <!-- REGISTER -->
-    <div id="auth-reg" style="display:none;">
+    <div id="pane-rg" style="display:none;">
       <div class="fgrid">
-        <div class="fg"><label data-i18n="lbl_first">Prénom *</label><input type="text" id="rg-first" data-i18n-ph="ph_first"/></div>
-        <div class="fg"><label data-i18n="lbl_last">Nom *</label><input type="text" id="rg-last" data-i18n-ph="ph_last"/></div>
-        <div class="fg"><label data-i18n="lbl_dob">Date de naissance</label><input type="date" id="rg-dob"/></div>
-        <div class="fg"><label data-i18n="lbl_country">Pays</label>
-          <select id="rg-country">
-            <option>France</option><option>Belgique</option><option>Suisse</option><option>Canada</option>
-            <option>États-Unis</option><option>Royaume-Uni</option><option>Allemagne</option>
-            <option>Espagne</option><option>Italie</option><option>Pays-Bas</option><option>Autre</option>
+        <div class="fg"><label class="lbl" id="lbl-fn"></label><input type="text" id="rg-fn" autocomplete="given-name"/></div>
+        <div class="fg"><label class="lbl" id="lbl-ln"></label><input type="text" id="rg-ln" autocomplete="family-name"/></div>
+        <div class="fg"><label class="lbl" id="lbl-dob"></label><input type="date" id="rg-dob"/></div>
+        <div class="fg"><label class="lbl" id="lbl-co"></label>
+          <select id="rg-co">
+            <option>France</option><option>Belgique</option><option>Suisse</option>
+            <option>Canada</option><option>États-Unis / USA</option><option>Royaume-Uni / UK</option>
+            <option>Allemagne</option><option>Espagne</option><option>Italie</option>
+            <option>Pays-Bas</option><option>Portugal</option><option>Maroc</option>
+            <option>Algérie</option><option>Tunisie</option><option>Autre</option>
           </select>
         </div>
-        <div class="fg full"><label data-i18n="lbl_email">Email *</label>
-          <input type="email" id="rg-email" data-i18n-ph="ph_email"/>
-          <div class="email-alt" style="margin-top:6px;">
-            <strong data-i18n="alt_email_title">Pas d'Outlook ? Pas de problème !</strong>
-            <span data-i18n="alt_email_body">Gmail, Yahoo, Orange, Free, Hotmail… toutes les adresses sont acceptées.</span>
-          </div>
-        </div>
-        <div class="fg full"><label data-i18n="lbl_pwd">Mot de passe *</label><input type="password" id="rg-pwd" data-i18n-ph="ph_pwd_min"/></div>
         <div class="fg full">
-          <label data-i18n="lbl_loyalty">Cartes de fidélité (optionnel)</label>
-          <div class="chip-row">
-            <button class="chip" onclick="this.classList.toggle('on')">Flying Blue</button>
-            <button class="chip" onclick="this.classList.toggle('on')">Marriott Bonvoy</button>
-            <button class="chip" onclick="this.classList.toggle('on')">Hilton Honors</button>
-            <button class="chip" onclick="this.classList.toggle('on')">Accor Live</button>
-            <button class="chip" onclick="this.classList.toggle('on')">Emirates Skywards</button>
-            <button class="chip" onclick="this.classList.toggle('on')">British Avios</button>
-            <button class="chip" onclick="this.classList.toggle('on')">Club Med</button>
-          </div>
+          <label class="lbl" id="lbl-em-rg"></label>
+          <input type="email" id="rg-em" autocomplete="email"/>
+          <div class="email-alt" style="margin-top:6px;"><strong id="alt-t2"></strong><span id="alt-b2"></span></div>
         </div>
-        <!-- RGPD CHECKBOX — demandée 1 seule fois ici -->
+        <div class="fg full"><label class="lbl" id="lbl-pw-rg"></label><input type="password" id="rg-pw" autocomplete="new-password"/></div>
+        <div class="fg full"><label class="lbl" id="lbl-loy"></label><div class="chip-row" id="loy-chips"></div></div>
         <div class="fg full">
-          <label style="display:flex;align-items:flex-start;gap:10px;text-transform:none;letter-spacing:0;font-size:13px;cursor:pointer;font-weight:400;color:var(--muted);">
-            <input type="checkbox" id="rg-rgpd" style="margin-top:2px;min-width:16px;width:16px;height:16px;accent-color:var(--sky);flex-shrink:0;"/>
-            <span data-i18n="rgpd_consent">J'accepte la <a href="#" onclick="showPrivacy(event)" style="color:var(--sky);">politique de confidentialité</a> de Trip&Me. Vos données ne seront jamais revendues.</span>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:400;line-height:1.5;">
+            <input type="checkbox" id="rg-rgpd" style="margin-top:2px;min-width:16px;accent-color:var(--sky);flex-shrink:0;"/>
+            <span id="rgpd-lbl"></span>
           </label>
         </div>
       </div>
-      <button class="btn-go" onclick="doRegister()" data-i18n="btn_reg">Créer mon compte Trip&Me →</button>
+      <button class="btn-go" id="btn-rg" onclick="doRegister()"></button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     MODAL PROFIL / MON MONDE
-     ══════════════════════════════════════════ -->
-<div class="overlay" id="ov-profile" onclick="closeIfBg(event,'ov-profile')">
+<!-- ══ MODAL PROFIL ══ -->
+<div class="overlay" id="ov-profile" onclick="bgClose(event,'ov-profile')">
   <div class="modal modal-lg">
     <div class="mhdr">
-      <div class="mtitle" data-i18n="profile_title">Mon <em>Monde</em></div>
+      <div class="mtitle" id="profile-title-el"></div>
       <button class="mclose" onclick="closeOv('ov-profile')">×</button>
     </div>
     <div id="profile-body"></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     MODAL AJOUT VOYAGE PASSÉ
-     ══════════════════════════════════════════ -->
-<div class="overlay" id="ov-add" onclick="closeIfBg(event,'ov-add')">
+<!-- ══ MODAL ADD TRIP ══ -->
+<div class="overlay" id="ov-add" onclick="bgClose(event,'ov-add')">
   <div class="modal">
     <div class="mhdr">
-      <div class="mtitle" data-i18n="add_title">Ajouter un <em>voyage</em></div>
+      <div class="mtitle" id="add-title-el"></div>
       <button class="mclose" onclick="closeOv('ov-add')">×</button>
     </div>
     <div class="fgrid">
-      <div class="fg full"><label data-i18n="lbl_dep">Aéroport de départ</label>
-        <input type="text" id="a-dep" list="apts" data-i18n-ph="ph_dep"/>
+      <div class="fg full"><label class="lbl" id="lbl-dep"></label>
+        <input type="text" id="a-dep" list="apts"/>
         <datalist id="apts">
-          <option value="Paris CDG"/><option value="Paris Orly"/><option value="Lyon Saint-Exupéry"/>
-          <option value="Nice Côte d'Azur"/><option value="Marseille Provence"/>
-          <option value="Bruxelles Zaventem"/><option value="Genève"/><option value="Montréal Trudeau"/>
-          <option value="Londres Heathrow"/><option value="New York JFK"/><option value="Tokyo Narita"/>
-          <option value="Dubaï DXB"/><option value="Singapour Changi"/><option value="Bangkok Suvarnabhumi"/>
-          <option value="Los Angeles LAX"/><option value="Barcelone El Prat"/>
+          <option value="Paris CDG"/><option value="Paris Orly"/>
+          <option value="Lyon Saint-Exupéry"/><option value="Nice Côte d'Azur"/>
+          <option value="Marseille Provence"/><option value="Bruxelles"/>
+          <option value="Genève"/><option value="Montréal Trudeau"/>
+          <option value="Londres Heathrow"/><option value="New York JFK"/>
+          <option value="Los Angeles LAX"/><option value="Miami MIA"/>
+          <option value="Tokyo Narita"/><option value="Tokyo Haneda"/>
+          <option value="Dubaï DXB"/><option value="Singapour Changi"/>
+          <option value="Bangkok Suvarnabhumi"/><option value="Barcelone"/>
           <option value="Amsterdam Schiphol"/><option value="Rome Fiumicino"/>
+          <option value="Sydney"/><option value="Cape Town"/>
+          <option value="Casablanca"/><option value="Abidjan"/>
         </datalist>
       </div>
-      <div class="fg full"><label data-i18n="lbl_arr">Aéroport d'arrivée</label>
-        <input type="text" id="a-arr" list="apts" data-i18n-ph="ph_arr"/>
+      <div class="fg full"><label class="lbl" id="lbl-arr"></label><input type="text" id="a-arr" list="apts"/></div>
+      <div class="fg"><label class="lbl" id="lbl-tty"></label>
+        <select id="a-type"><option id="opt-one"></option><option id="opt-rt"></option></select>
       </div>
-      <div class="fg"><label data-i18n="lbl_ttype">Type de trajet</label>
-        <select id="a-type"><option data-i18n="opt_one">Aller simple</option><option data-i18n="opt_rt">Aller/Retour</option></select>
+      <div class="fg"><label class="lbl" id="lbl-cat"></label>
+        <select id="a-cat" onchange="toggleShareOpt()">
+          <option value="Perso" id="opt-perso"></option>
+          <option value="Pro" id="opt-pro"></option>
+        </select>
       </div>
-      <div class="fg"><label data-i18n="lbl_cat">Catégorie</label>
-        <select id="a-cat"><option value="Perso" data-i18n="opt_perso">Personnel</option><option value="Pro" data-i18n="opt_pro">Professionnel</option></select>
+      <div class="fg"><label class="lbl" id="lbl-for"></label>
+        <select id="a-formula"><option id="opt-pkg"></option><option id="opt-ind"></option></select>
       </div>
-      <div class="fg"><label data-i18n="lbl_formula">Formule</label>
-        <select id="a-formula"><option data-i18n="opt_pkg">Voyage organisé</option><option data-i18n="opt_ind">Voyage indépendant</option></select>
+      <div class="fg"><label class="lbl" id="lbl-cnt"></label>
+        <input type="number" id="a-count" value="1" min="1" max="99"/>
       </div>
-      <div class="fg"><label data-i18n="lbl_times">Nombre de fois</label>
-        <input type="number" id="a-count" value="1" min="1" max="50"/>
-      </div>
-      <div class="fg"><label data-i18n="lbl_date">Date (approx.)</label>
-        <input type="month" id="a-date"/>
-      </div>
+      <div class="fg"><label class="lbl" id="lbl-dt"></label><input type="month" id="a-date"/></div>
       <div class="fg full">
-        <label data-i18n="lbl_note">Note du voyage</label>
-        <div style="display:flex;gap:6px;align-items:center;" id="star-row">
-          <button class="star-b" data-v="1" onclick="setStar(1)" style="background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--sun);transition:transform 0.15s;">☆</button>
-          <button class="star-b" data-v="2" onclick="setStar(2)" style="background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--sun);transition:transform 0.15s;">☆</button>
-          <button class="star-b" data-v="3" onclick="setStar(3)" style="background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--sun);transition:transform 0.15s;">☆</button>
-          <button class="star-b" data-v="4" onclick="setStar(4)" style="background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--sun);transition:transform 0.15s;">☆</button>
-          <button class="star-b" data-v="5" onclick="setStar(5)" style="background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--sun);transition:transform 0.15s;">☆</button>
-          <span id="star-lbl" style="font-size:13px;color:var(--muted);margin-left:4px;"></span>
+        <label class="lbl" id="lbl-note"></label>
+        <div style="display:flex;align-items:center;gap:3px;">
+          <button class="star-btn" onclick="setStar(1)">☆</button>
+          <button class="star-btn" onclick="setStar(2)">☆</button>
+          <button class="star-btn" onclick="setStar(3)">☆</button>
+          <button class="star-btn" onclick="setStar(4)">☆</button>
+          <button class="star-btn" onclick="setStar(5)">☆</button>
+          <span id="star-lbl" style="font-size:13px;color:var(--muted);margin-left:8px;"></span>
         </div>
       </div>
-      <!-- PARTAGE RÉSEAUX SOCIAUX -->
-      <div class="fg full" id="share-opt-wrap" style="display:none;">
-        <label data-i18n="lbl_share">Partager ce voyage sur les réseaux</label>
+      <div class="fg full" id="share-opt" style="display:none;">
+        <label class="lbl" id="lbl-shr"></label>
         <div class="chip-row">
-          <button class="chip" id="sh-insta" onclick="this.classList.toggle('on')" data-i18n="sh_insta">📸 Instagram</button>
-          <button class="chip" id="sh-tiktok" onclick="this.classList.toggle('on')" data-i18n="sh_tiktok">🎵 TikTok</button>
-          <button class="chip" id="sh-yt" onclick="this.classList.toggle('on')" data-i18n="sh_yt">▶ YouTube</button>
-          <button class="chip" id="sh-wa" onclick="this.classList.toggle('on')" data-i18n="sh_wa">📱 WhatsApp</button>
+          <button class="chip" id="sh-insta" onclick="this.classList.toggle('on')">📸 Instagram</button>
+          <button class="chip" id="sh-tiktok" onclick="this.classList.toggle('on')">🎵 TikTok</button>
+          <button class="chip" id="sh-yt" onclick="this.classList.toggle('on')">▶ YouTube</button>
+          <button class="chip" id="sh-wa" onclick="this.classList.toggle('on')">📱 WhatsApp</button>
         </div>
-        <p style="font-size:11px;color:var(--muted);margin-top:6px;" data-i18n="share_note">Votre voyage sera également partagé sur les comptes officiels Trip&Me (Instagram, TikTok, YouTube) avec votre prénom et mention Trip&Me.</p>
-        <div class="fg" style="margin-top:0.75rem;" id="share-handle-wrap">
-          <label data-i18n="lbl_handle">Votre pseudo réseau social (optionnel — pour vous mentionner)</label>
+        <p style="font-size:11px;color:var(--muted);margin-top:6px;" id="share-note-txt"></p>
+        <div class="fg" style="margin-top:.75rem;">
+          <label class="lbl" id="lbl-hdl"></label>
           <input type="text" id="a-handle" placeholder="@monpseudo"/>
         </div>
       </div>
     </div>
-    <button class="btn-go" onclick="saveTrip()" data-i18n="btn_save">Enregistrer ce voyage →</button>
-    <div id="share-confirm" style="display:none;margin-top:1rem;"></div>
+    <button class="btn-go" id="btn-save" onclick="saveTrip()"></button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     MODAL PLANIFIER VOYAGE
-     ══════════════════════════════════════════ -->
-<div class="overlay" id="ov-plan" onclick="closeIfBg(event,'ov-plan')">
+<!-- ══ MODAL PLAN ══ -->
+<div class="overlay" id="ov-plan" onclick="bgClose(event,'ov-plan')">
   <div class="modal modal-lg">
     <div class="mhdr">
-      <div class="mtitle" data-i18n="plan_title">Mon futur <em>voyage</em></div>
+      <div class="mtitle" id="plan-title-el"></div>
       <button class="mclose" onclick="closeOv('ov-plan')">×</button>
     </div>
-    <div class="fgrid">
-      <div class="fg full">
-        <label data-i18n="lbl_vtype">Type de voyage</label>
-        <div class="chip-row">
-          <button class="chip on-coral" onclick="selType(this,'Repos')" data-i18n="vt_rest">😴 Repos</button>
-          <button class="chip" onclick="selType(this,'Découverte')" data-i18n="vt_disc">🗺 Découverte</button>
-          <button class="chip" onclick="selType(this,'Dynamique')" data-i18n="vt_dyn">⚡ Dynamique</button>
-          <button class="chip" onclick="selType(this,'Mixte')" data-i18n="vt_mix">🎯 Mixte</button>
-        </div>
-      </div>
-      <div class="fg full">
-        <label data-i18n="lbl_dest">Destination</label>
-        <input type="text" id="p-dest" list="dest-list" data-i18n-ph="ph_dest"/>
+    <div class="fgrid" style="margin-bottom:1rem;">
+      <div class="fg full"><label class="lbl" id="lbl-vty"></label><div class="chip-row" id="vtype-chips"></div></div>
+      <div class="fg full"><label class="lbl" id="lbl-dst"></label>
+        <input type="text" id="p-dest" list="dest-list"/>
         <datalist id="dest-list">
           <option value="Japon"/><option value="Bali"/><option value="New York"/>
           <option value="Maroc"/><option value="Islande"/><option value="Pérou"/>
           <option value="Thaïlande"/><option value="Italie"/><option value="Grèce"/>
           <option value="Mexique"/><option value="Australie"/><option value="Portugal"/>
+          <option value="Vietnam"/><option value="Kenya"/><option value="Maldives"/>
+          <option value="Sénégal"/><option value="Colombie"/><option value="Turquie"/>
         </datalist>
       </div>
-      <div class="fg"><label data-i18n="lbl_trav">Voyageurs</label>
+      <div class="fg"><label class="lbl" id="lbl-trv"></label>
         <select id="p-trav"><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select>
       </div>
-      <div class="fg"><label data-i18n="lbl_kids">Avec enfants ?</label>
-        <select id="p-kids"><option data-i18n="opt_nokids">Non</option><option>3–8 ans</option><option>9–15 ans</option><option data-i18n="opt_teens">Adolescents</option></select>
+      <div class="fg"><label class="lbl" id="lbl-kds"></label>
+        <select id="p-kids"><option id="opt-nk"></option><option>3–8</option><option>9–15</option><option id="opt-tn"></option></select>
       </div>
-      <div class="fg"><label data-i18n="lbl_budget">Budget (€/pers.)</label>
+      <div class="fg"><label class="lbl" id="lbl-bdg"></label>
         <select id="p-budget">
-          <option value="500">≤ 500€</option><option value="1000">500–1 000€</option>
-          <option value="2000" selected>1 000–2 000€</option><option value="5000">2 000–5 000€</option>
-          <option value="10000">5 000–10 000€</option><option value="plus">10 000€+</option>
+          <option value="500">≤ 500€</option>
+          <option value="1000">500 – 1 000€</option>
+          <option value="2000" selected>1 000 – 2 000€</option>
+          <option value="5000">2 000 – 5 000€</option>
+          <option value="10000">5 000 – 10 000€</option>
+          <option value="plus">10 000€+</option>
         </select>
       </div>
-      <div class="fg"><label data-i18n="lbl_dur">Durée</label>
+      <div class="fg"><label class="lbl" id="lbl-dur"></label>
         <select id="p-dur">
-          <option data-i18n="dur_we">Week-end prolongé</option><option data-i18n="dur_1w">1 semaine</option>
-          <option selected data-i18n="dur_2w">2 semaines</option><option data-i18n="dur_3w">3 semaines</option>
-          <option data-i18n="dur_1m">1 mois+</option>
+          <option id="dur0"></option><option id="dur1"></option>
+          <option id="dur2" selected></option><option id="dur3"></option><option id="dur4"></option>
         </select>
       </div>
     </div>
-    <button class="btn-go" id="btn-search" onclick="launchSearch()" style="margin-top:1rem;" data-i18n="btn_search">✈ Générer mes 4 propositions</button>
+    <button class="btn-go" id="btn-srch" onclick="launchSearch()"></button>
     <div id="plan-results"></div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     JAVASCRIPT
-     ══════════════════════════════════════════ -->
+     SCRIPT PRINCIPAL
+══════════════════════════════════════════ -->
 <script>
-// ════════════════════════════════════════════════
-// I18N — TRADUCTIONS
-// ════════════════════════════════════════════════
-const LANGS = {
-  fr:{
-    hook:"As-tu déjà fait le tour du monde ?",
-    h1a:"The World",h1b:"is Mine",
-    hero_q:"<strong>Renseigne tous tes voyages en avion</strong> et découvre combien de fois tu as fait le tour du monde — Trip&Me te fera aussi de superbes propositions !",
-    stat_countries:"195 pays couverts",stat_itin:"Itinéraires illimités",stat_free:"100% Gratuit",
-    cta_main:"✈ Ajouter mes voyages",cta_sec:"Planifier mon prochain voyage",
-    scroll:"Explorer",
-    sb1:"Pays couverts",sb2:"Itinéraires",sb3:"Pour les voyageurs",sb4:"Personnalisé",
-    feat_tag:"Pourquoi Trip&Me",feat_title:"Votre voyage, réinventé",
-    f1t:"Globe interactif 3D",f1d:"Visualisez tous vos voyages sur une mappemonde animée. Votre monde unique.",
-    f2t:"Vos stats de voyageur",f2d:"Combien de fois avez-vous fait le tour du monde ? Combien de pays ? Trip&Me calcule tout.",
-    f3t:"4 propositions sur mesure",f3d:"Budget, durée, style — 4 itinéraires complets, la meilleure offre en premier.",
-    f4t:"Planning complet",f4d:"Hôtels, visites, restaurants — tout inclus et exportable dans votre agenda.",
-    f5t:"Partage instantané",f5d:"Globe animé et stats sur Instagram, TikTok, WhatsApp en un clic.",
-    f6t:"100% RGPD conforme",f6d:"Vos données restent vôtres. Droit à l'oubli garanti.",
-    nav_services:"Services",nav_myworld:"Mon Monde",
-    auth_title:"Bienvenue sur",hdr_login:"Mon compte ✦",hdr_logged:"Bonjour {name} ✦",
-    login_tab:"Se connecter",reg_tab:"Créer mon compte",
-    lbl_email:"Email",lbl_pwd:"Mot de passe",lbl_first:"Prénom *",lbl_last:"Nom *",
-    lbl_dob:"Date de naissance",lbl_country:"Pays",lbl_loyalty:"Cartes de fidélité (optionnel)",
-    ph_email:"votre@email.com",ph_pwd:"••••••••",ph_first:"Sophie",ph_last:"Martin",ph_pwd_min:"Minimum 8 caractères",
-    btn_login:"Se connecter →",btn_reg:"Créer mon compte Trip&Me →",
-    alt_email_title:"Pas d'Outlook ? Pas de problème !",
-    alt_email_body:"Gmail, Yahoo, Orange, Free, Hotmail… toutes les adresses sont acceptées.",
-    forgot_pwd:"Mot de passe oublié ?",
-    rgpd_consent:"J'accepte la politique de confidentialité de Trip&Me. Vos données ne seront jamais revendues.",
-    cookie_text:"Trip&Me utilise des cookies pour personnaliser votre expérience voyage. Aucune donnée n'est revendue à des tiers.",
-    cookie_link:"Politique de confidentialité (RGPD)",cookie_refuse:"Refuser",cookie_accept:"Accepter",
-    footer_privacy:"Politique de confidentialité",footer_legal:"Mentions légales",
-    footer_rgpd:"Conforme RGPD · Données hébergées en Europe · DPO : World@tripandme.com",
-    profile_title:"Mon",
-    add_title:"Ajouter un",
-    lbl_dep:"Aéroport de départ",lbl_arr:"Aéroport d'arrivée",
-    ph_dep:"Paris CDG, Lyon, Nice…",ph_arr:"Tokyo, Bali, New York…",
-    lbl_ttype:"Type de trajet",opt_one:"Aller simple",opt_rt:"Aller/Retour",
-    lbl_cat:"Catégorie",opt_perso:"Personnel",opt_pro:"Professionnel",
-    lbl_formula:"Formule",opt_pkg:"Voyage organisé",opt_ind:"Voyage indépendant",
-    lbl_times:"Nombre de fois",lbl_date:"Date (approx.)",lbl_note:"Note du voyage",
-    lbl_share:"Partager ce voyage sur les réseaux",
-    sh_insta:"📸 Instagram",sh_tiktok:"🎵 TikTok",sh_yt:"▶ YouTube",sh_wa:"📱 WhatsApp",
-    share_note:"Votre voyage sera également partagé sur les comptes officiels Trip&Me avec votre prénom.",
-    lbl_handle:"Votre pseudo réseau social (optionnel)",
-    btn_save:"Enregistrer ce voyage →",
-    plan_title:"Mon futur",
-    lbl_vtype:"Type de voyage",vt_rest:"😴 Repos",vt_disc:"🗺 Découverte",vt_dyn:"⚡ Dynamique",vt_mix:"🎯 Mixte",
-    lbl_dest:"Destination",ph_dest:"Pays, ville… ou laissez vide pour une suggestion",
-    lbl_trav:"Voyageurs",lbl_kids:"Avec enfants ?",opt_nokids:"Non",opt_teens:"Adolescents",
-    lbl_budget:"Budget (€/pers.)",lbl_dur:"Durée",
-    dur_we:"Week-end prolongé",dur_1w:"1 semaine",dur_2w:"2 semaines",dur_3w:"3 semaines",dur_1m:"1 mois+",
-    btn_search:"✈ Générer mes 4 propositions",
-    star_labels:["","Décevant","Moyen","Bien","Très bien","Excellent"],
-    logout:"Se déconnecter",btn_add:"+ Ajouter un voyage",btn_plan:"✈ Planifier mon prochain voyage",
-    stat_countries2:"Pays visités",stat_todo:"Pays à découvrir",stat_km:"Km parcourus",stat_tours:"Tour(s) du monde",
-    my_trips:"Mes voyages",countdown_l:"voyage(s) personnel(s) à ajouter",
-    countdown_sub:"Atteignez 10 voyages pour recevoir votre offre personnalisée !",
-    congrats:"🎉 Félicitations",congrats_sub:"Vous avez renseigné 10 voyages — votre offre sur mesure vous attend !",
-    offer_btn:"✈ Mon offre voyage sur mesure",
-    prop_best:"⭐ Meilleure offre",prop_title:"Vos 4 propositions",
-    book:"Réserver",cal:"📅 Agenda",share:"Partager",
-    share_trip_lbl:"Partager ces propositions :",
-    rgpd_note:"Propositions à ±20% selon disponibilités.",
-    email_test_ok:"✅ Email envoyé à {addr} — vérifiez votre boîte !",
-    share_copied:"📋 Post copié ! Collez-le sur vos réseaux.",
-    trip_saved:"✅ Voyage enregistré !",
-    welcome_back:"Bienvenue, {name} !",
-  },
-  en:{
-    hook:"Have you ever traveled around the world?",
-    h1a:"The World",h1b:"is Mine",
-    hero_q:"<strong>Log all your flights</strong> and discover how many times you've circled the globe — Trip&Me will also craft amazing travel proposals for you!",
-    stat_countries:"195 countries",stat_itin:"Unlimited itineraries",stat_free:"100% Free",
-    cta_main:"✈ Add my trips",cta_sec:"Plan my next trip",
-    scroll:"Explore",
-    sb1:"Countries covered",sb2:"Itineraries",sb3:"For travelers",sb4:"Personalized",
-    feat_tag:"Why Trip&Me",feat_title:"Your trip, reinvented",
-    f1t:"Interactive 3D Globe",f1d:"Visualize all your trips on an animated world map. Your unique world.",
-    f2t:"Your traveler stats",f2d:"How many times have you circled the globe? How many countries? Trip&Me calculates it all.",
-    f3t:"4 tailor-made proposals",f3d:"Budget, duration, style — 4 complete itineraries, best offer first.",
-    f4t:"Complete planning",f4d:"Hotels, visits, restaurants — all included and exportable to your calendar.",
-    f5t:"Instant sharing",f5d:"Animated globe and stats on Instagram, TikTok, WhatsApp in one click.",
-    f6t:"100% GDPR compliant",f6d:"Your data stays yours. Right to deletion guaranteed.",
-    nav_services:"Services",nav_myworld:"My World",
-    auth_title:"Welcome to",hdr_login:"My account ✦",hdr_logged:"Hello {name} ✦",
-    login_tab:"Sign in",reg_tab:"Create account",
-    lbl_email:"Email",lbl_pwd:"Password",lbl_first:"First name *",lbl_last:"Last name *",
-    lbl_dob:"Date of birth",lbl_country:"Country",lbl_loyalty:"Loyalty cards (optional)",
-    ph_email:"your@email.com",ph_pwd:"••••••••",ph_first:"John",ph_last:"Smith",ph_pwd_min:"Minimum 8 characters",
-    btn_login:"Sign in →",btn_reg:"Create my Trip&Me account →",
-    alt_email_title:"No Outlook? No problem!",
-    alt_email_body:"Gmail, Yahoo, Hotmail, iCloud… any email address works.",
-    forgot_pwd:"Forgot password?",
-    rgpd_consent:"I accept the Trip&Me privacy policy. Your data will never be sold.",
-    cookie_text:"Trip&Me uses cookies to personalize your travel experience. No data is sold to third parties.",
-    cookie_link:"Privacy policy (GDPR)",cookie_refuse:"Decline",cookie_accept:"Accept",
-    footer_privacy:"Privacy policy",footer_legal:"Legal notice",
-    footer_rgpd:"GDPR compliant · Data hosted in Europe · DPO: World@tripandme.com",
-    profile_title:"My",add_title:"Add a",
-    lbl_dep:"Departure airport",lbl_arr:"Arrival airport",
-    ph_dep:"Paris CDG, London, New York…",ph_arr:"Tokyo, Bali, Sydney…",
-    lbl_ttype:"Trip type",opt_one:"One way",opt_rt:"Round trip",
-    lbl_cat:"Category",opt_perso:"Personal",opt_pro:"Business",
-    lbl_formula:"Type",opt_pkg:"Package tour",opt_ind:"Independent",
-    lbl_times:"How many times",lbl_date:"Date (approx.)",lbl_note:"Trip rating",
-    lbl_share:"Share this trip on social media",
-    sh_insta:"📸 Instagram",sh_tiktok:"🎵 TikTok",sh_yt:"▶ YouTube",sh_wa:"📱 WhatsApp",
-    share_note:"Your trip will also be shared on the official Trip&Me accounts with your first name.",
-    lbl_handle:"Your social media handle (optional)",
-    btn_save:"Save this trip →",
-    plan_title:"My next",
-    lbl_vtype:"Trip style",vt_rest:"😴 Relaxation",vt_disc:"🗺 Discovery",vt_dyn:"⚡ Active",vt_mix:"🎯 Mixed",
-    lbl_dest:"Destination",ph_dest:"Country, city… or leave empty for a suggestion",
-    lbl_trav:"Travelers",lbl_kids:"With children?",opt_nokids:"No",opt_teens:"Teenagers",
-    lbl_budget:"Budget (€/person)",lbl_dur:"Duration",
-    dur_we:"Long weekend",dur_1w:"1 week",dur_2w:"2 weeks",dur_3w:"3 weeks",dur_1m:"1 month+",
-    btn_search:"✈ Generate my 4 proposals",
-    star_labels:["","Poor","Average","Good","Very good","Excellent"],
-    logout:"Sign out",btn_add:"+ Add a trip",btn_plan:"✈ Plan my next trip",
-    stat_countries2:"Countries visited",stat_todo:"Countries to discover",stat_km:"Km traveled",stat_tours:"World tour(s)",
-    my_trips:"My trips",countdown_l:"personal trip(s) to add",
-    countdown_sub:"Reach 10 trips to unlock your personalized Trip&Me offer!",
-    congrats:"🎉 Congratulations",congrats_sub:"You've logged 10 trips — your personalized offer awaits!",
-    offer_btn:"✈ My tailor-made travel offer",
-    prop_best:"⭐ Best offer",prop_title:"Your 4 proposals",
-    book:"Book",cal:"📅 Calendar",share:"Share",
-    share_trip_lbl:"Share these proposals:",
-    rgpd_note:"Proposals ±20% subject to availability.",
-    email_test_ok:"✅ Email sent to {addr} — check your inbox!",
-    share_copied:"📋 Post copied! Paste it on your social media.",
-    trip_saved:"✅ Trip saved!",
-    welcome_back:"Welcome back, {name}!",
-  },
-  es:{hook:"¿Has dado la vuelta al mundo?",h1a:"El Mundo",h1b:"es Mío",hero_q:"<strong>Registra todos tus vuelos</strong> y descubre cuántas veces has dado la vuelta al mundo.",cta_main:"✈ Añadir mis viajes",cta_sec:"Planificar mi próximo viaje",hdr_login:"Mi cuenta ✦",hdr_logged:"Hola {name} ✦",btn_login:"Iniciar sesión →",btn_reg:"Crear mi cuenta →",btn_save:"Guardar este viaje →",btn_search:"✈ Generar mis 4 propuestas",logout:"Cerrar sesión",cookie_text:"Trip&Me utiliza cookies para personalizar tu experiencia de viaje.",cookie_link:"Política de privacidad",cookie_refuse:"Rechazar",cookie_accept:"Aceptar",star_labels:["","Malo","Regular","Bien","Muy bien","Excelente"],prop_title:"Tus 4 propuestas",trip_saved:"✅ ¡Viaje guardado!",share_copied:"📋 ¡Copiado! Pégalo en tus redes.",ph_email:"tu@email.com",ph_pwd:"••••••••",ph_first:"María",ph_last:"García",ph_pwd_min:"Mínimo 8 caracteres"},
-  de:{hook:"Warst du schon mal um die Welt?",h1a:"Die Welt",h1b:"gehört mir",hero_q:"<strong>Trage alle deine Flüge ein</strong> und entdecke, wie oft du die Erde umrundet hast.",cta_main:"✈ Meine Reisen eintragen",cta_sec:"Meine nächste Reise planen",hdr_login:"Mein Konto ✦",hdr_logged:"Hallo {name} ✦",btn_login:"Anmelden →",btn_reg:"Konto erstellen →",btn_save:"Reise speichern →",btn_search:"✈ 4 Vorschläge generieren",logout:"Abmelden",cookie_text:"Trip&Me verwendet Cookies, um Ihr Reiseerlebnis zu personalisieren.",cookie_link:"Datenschutzrichtlinie",cookie_refuse:"Ablehnen",cookie_accept:"Akzeptieren",star_labels:["","Enttäuschend","Okay","Gut","Sehr gut","Ausgezeichnet"],prop_title:"Ihre 4 Vorschläge",trip_saved:"✅ Reise gespeichert!",share_copied:"📋 Kopiert! Fügen Sie es in Ihren sozialen Medien ein.",ph_email:"ihre@email.de",ph_pwd:"••••••••",ph_first:"Hans",ph_last:"Müller",ph_pwd_min:"Mindestens 8 Zeichen"},
-  it:{hook:"Hai già girato il mondo?",h1a:"Il Mondo",h1b:"è Mio",hero_q:"<strong>Inserisci tutti i tuoi voli</strong> e scopri quante volte hai fatto il giro del mondo.",cta_main:"✈ Aggiungi i miei viaggi",cta_sec:"Pianifica il mio prossimo viaggio",hdr_login:"Il mio account ✦",hdr_logged:"Ciao {name} ✦",btn_login:"Accedi →",btn_reg:"Crea il mio account →",btn_save:"Salva questo viaggio →",btn_search:"✈ Genera le mie 4 proposte",logout:"Disconnettersi",cookie_text:"Trip&Me utilizza cookie per personalizzare la tua esperienza di viaggio.",cookie_link:"Informativa sulla privacy",cookie_refuse:"Rifiuta",cookie_accept:"Accetta",star_labels:["","Deludente","Nella media","Bene","Molto bene","Eccellente"],prop_title:"Le tue 4 proposte",trip_saved:"✅ Viaggio salvato!",share_copied:"📋 Copiato! Incollalo sui tuoi social.",ph_email:"tua@email.it",ph_pwd:"••••••••",ph_first:"Marco",ph_last:"Rossi",ph_pwd_min:"Minimo 8 caratteri"},
-  pt:{hook:"Já deu a volta ao mundo?",h1a:"O Mundo",h1b:"é Meu",hero_q:"<strong>Registre todos os seus voos</strong> e descubra quantas vezes você deu a volta ao mundo.",cta_main:"✈ Adicionar minhas viagens",cta_sec:"Planejar minha próxima viagem",hdr_login:"Minha conta ✦",hdr_logged:"Olá {name} ✦",btn_login:"Entrar →",btn_reg:"Criar minha conta →",btn_save:"Salvar esta viagem →",btn_search:"✈ Gerar minhas 4 propostas",logout:"Sair",cookie_text:"Trip&Me usa cookies para personalizar sua experiência de viagem.",cookie_link:"Política de privacidade",cookie_refuse:"Recusar",cookie_accept:"Aceitar",star_labels:["","Decepcionante","Médio","Bom","Muito bom","Excelente"],prop_title:"Suas 4 propostas",trip_saved:"✅ Viagem salva!",share_copied:"📋 Copiado! Cole nas suas redes.",ph_email:"seu@email.com",ph_pwd:"••••••••",ph_first:"João",ph_last:"Silva",ph_pwd_min:"Mínimo 8 caracteres"},
-  nl:{hook:"Ben jij al om de wereld gereisd?",h1a:"De Wereld",h1b:"is van Mij",hero_q:"<strong>Voeg al je vluchten toe</strong> en ontdek hoe vaak je de aarde hebt omcirkeld.",cta_main:"✈ Mijn reizen toevoegen",cta_sec:"Mijn volgende reis plannen",hdr_login:"Mijn account ✦",hdr_logged:"Hallo {name} ✦",btn_login:"Inloggen →",btn_reg:"Account aanmaken →",btn_save:"Reis opslaan →",btn_search:"✈ Genereer mijn 4 voorstellen",logout:"Uitloggen",cookie_text:"Trip&Me gebruikt cookies om uw reiservaring te personaliseren.",cookie_link:"Privacybeleid",cookie_refuse:"Weigeren",cookie_accept:"Accepteren",star_labels:["","Teleurstellend","Gemiddeld","Goed","Zeer goed","Uitstekend"],prop_title:"Uw 4 voorstellen",trip_saved:"✅ Reis opgeslagen!",share_copied:"📋 Gekopieerd! Plak het op uw sociale media.",ph_email:"uw@email.nl",ph_pwd:"••••••••",ph_first:"Jan",ph_last:"de Vries",ph_pwd_min:"Minimaal 8 tekens"},
-  ja:{hook:"世界一周したことはありますか？",h1a:"世界は",h1b:"私のもの",hero_q:"<strong>全ての航空旅行を入力して</strong>、世界を何周したか確認しましょう！",cta_main:"✈ 旅行を追加する",cta_sec:"次の旅行を計画する",hdr_login:"マイアカウント ✦",hdr_logged:"こんにちは {name} ✦",btn_login:"ログイン →",btn_reg:"アカウント作成 →",btn_save:"この旅行を保存 →",btn_search:"✈ 4つの提案を生成",logout:"ログアウト",cookie_text:"Trip&Meはお客様の旅行体験をパーソナライズするためにCookieを使用します。",cookie_link:"プライバシーポリシー",cookie_refuse:"拒否",cookie_accept:"同意",star_labels:["","残念","普通","良い","とても良い","素晴らしい"],prop_title:"4つのご提案",trip_saved:"✅ 旅行を保存しました！",share_copied:"📋 コピーしました！SNSに貼り付けてください。",ph_email:"your@email.com",ph_pwd:"••••••••",ph_first:"太郎",ph_last:"田中",ph_pwd_min:"8文字以上"},
-  zh:{hook:"你环游过世界吗？",h1a:"世界",h1b:"属于我",hero_q:"<strong>记录你所有的飞行旅程</strong>，发现你已经环游了多少次地球！",cta_main:"✈ 添加我的旅行",cta_sec:"规划我的下一次旅行",hdr_login:"我的账户 ✦",hdr_logged:"你好 {name} ✦",btn_login:"登录 →",btn_reg:"创建账户 →",btn_save:"保存此旅行 →",btn_search:"✈ 生成4个方案",logout:"登出",cookie_text:"Trip&Me使用Cookie来个性化您的旅行体验。",cookie_link:"隐私政策",cookie_refuse:"拒绝",cookie_accept:"接受",star_labels:["","差","一般","好","很好","优秀"],prop_title:"您的4个方案",trip_saved:"✅ 旅行已保存！",share_copied:"📋 已复制！粘贴到您的社交媒体。",ph_email:"your@email.com",ph_pwd:"••••••••",ph_first:"明",ph_last:"张",ph_pwd_min:"至少8个字符"}
+/* ══════════════════════════════════════════
+   TRADUCTIONS COMPLÈTES — toutes les clés
+══════════════════════════════════════════ */
+var T={};
+
+T.fr={
+  hook:"As-tu déjà fait le tour du monde ?",
+  h1a:"The World", h1b:"is Mine",
+  hero_q:"<strong>Renseigne tous tes voyages en avion</strong> — découvre combien de fois tu as fait le tour du monde et reçois des propositions de voyage ciblées !",
+  pill1:"195 pays couverts", pill2:"Itinéraires illimités", pill3:"100% Gratuit",
+  cta1_main:"✈ Mes voyages passés",
+  cta1_sub:"Propositions ciblées & statistiques à partager",
+  cta2_main:"🌍 Planifier mon voyage",
+  cta2_sub:"4 propositions personnalisées en quelques clics",
+  scroll:"Explorer",
+  sb1:"Pays couverts",sb2:"Itinéraires",sb3:"Pour les voyageurs",sb4:"Personnalisé",
+  feat_tag:"Pourquoi Trip&Me",
+  feat_title:"Votre voyage, réinventé",
+  feats:[
+    {e:"🌍",t:"Globe interactif 3D",d:"Visualisez tous vos voyages sur une mappemonde animée. Votre monde unique, rien qu'à vous."},
+    {e:"📊",t:"Vos statistiques de voyageur",d:"Combien de fois avez-vous fait le tour du monde ? Combien de pays visités ? Trip&Me calcule tout automatiquement."},
+    {e:"✈️",t:"4 propositions sur mesure",d:"Budget, durée, style de voyage — Trip&Me génère 4 itinéraires complets, la meilleure offre en premier."},
+    {e:"🏨",t:"Planning complet",d:"Hôtels, visites, restaurants, transferts — tout inclus et synchronisable dans votre agenda Google ou Apple."},
+    {e:"📱",t:"Partage instantané",d:"Partagez votre globe animé et vos statistiques sur Instagram, TikTok, WhatsApp en un seul clic."},
+    {e:"🔒",t:"100% RGPD conforme",d:"Vos données restent vôtres. Droit à l'oubli garanti, hébergement européen sécurisé."}
+  ],
+  foot_privacy:"Politique de confidentialité",foot_legal:"Mentions légales",
+  foot_rgpd:"Conforme RGPD · Données hébergées en Europe · DPO : World@tripandme.com",
+  ck_txt:"Trip&Me utilise des cookies pour personnaliser votre expérience voyage. Aucune donnée n'est revendue. <a onclick='showPrivacy()'>Politique de confidentialité (RGPD)</a>.",
+  ck_no:"Refuser",ck_ok:"Accepter",
+  auth_title:"Bienvenue sur <em>Trip&Me</em>",
+  tab_li:"Se connecter",tab_rg:"Créer mon compte",
+  lbl_em:"Email",lbl_pw:"Mot de passe",
+  lbl_fn:"Prénom *",lbl_ln:"Nom *",lbl_dob:"Date de naissance",
+  lbl_co:"Pays",lbl_loy:"Cartes de fidélité (optionnel)",
+  loyalty:["Flying Blue (Air France)","Marriott Bonvoy","Hilton Honors","Accor Live","Emirates Skywards","British Avios","Club Med","Miles & More"],
+  alt_t:"Pas d'Outlook ? Pas de problème !",
+  alt_b:"Gmail, Yahoo, Orange, Free, Hotmail… toutes les adresses fonctionnent.",
+  forgot:"Mot de passe oublié ?",
+  rgpd_lbl:"J'accepte la <a onclick='showPrivacy()' style='color:var(--sky);cursor:pointer;'>politique de confidentialité</a> de Trip&Me. Vos données ne seront jamais revendues.",
+  btn_li:"Se connecter →",btn_rg:"Créer mon compte Trip&Me →",
+  hdr_guest:"Mon compte ✦",hdr_sub:"ou le créer",hdr_user:"Bonjour {n} ✦",
+  nav_svc:"Services",nav_world:"Mon Monde",
+  profile_title:"Mon <em>Monde</em>",
+  stat_lbl:["Pays visités","Pays à découvrir","Km parcourus","Tour(s) du monde"],
+  my_trips:"Mes voyages",
+  btn_add:"+ Ajouter un voyage",btn_plan_s:"✈ Planifier",
+  count_l:"voyage(s) personnel(s) à ajouter",
+  count_sub:"Atteignez 10 voyages pour recevoir votre offre personnalisée !",
+  cg_title:"🎉 Félicitations",cg_sub:"10 voyages atteints — votre offre sur mesure vous attend !",
+  offer_btn:"✈ Mon offre personnalisée",
+  share_stats:"Partager mes statistiques :",logout:"Se déconnecter",
+  add_title:"Ajouter un <em>voyage</em>",
+  lbl_dep:"Aéroport de départ",lbl_arr:"Aéroport d'arrivée",
+  lbl_tty:"Type de trajet",opt_one:"Aller simple",opt_rt:"Aller / Retour",
+  lbl_cat:"Catégorie",opt_perso:"Personnel",opt_pro:"Professionnel",
+  lbl_for:"Formule",opt_pkg:"Voyage organisé (tout inclus)",opt_ind:"Voyage indépendant",
+  lbl_cnt:"Nombre de fois réalisé",lbl_dt:"Date approximative",
+  lbl_note:"Note du voyage",
+  stars:["","Décevant","Moyen","Bien","Très bien","Excellent"],
+  lbl_shr:"Partager sur les réseaux sociaux",
+  share_note:"Votre voyage sera également publié sur les comptes officiels Trip&Me (@tripandme_worldismine & @TripandMe_WorldisMine) avec votre prénom.",
+  lbl_hdl:"Votre pseudo réseau social (pour vous mentionner, optionnel)",
+  btn_save:"Enregistrer ce voyage →",
+  plan_title:"Mon futur <em>voyage</em>",
+  lbl_vty:"Type de voyage",
+  vtypes:["😴 Repos","🗺 Découverte","⚡ Dynamique","🎯 Mixte"],
+  vvals:["Repos","Découverte","Dynamique","Mixte"],
+  lbl_dst:"Destination",lbl_trv:"Voyageurs",
+  lbl_kds:"Avec enfants ?",opt_nk:"Non",opt_tn:"Adolescents",
+  lbl_bdg:"Budget (€/personne)",lbl_dur:"Durée",
+  durs:["Week-end prolongé","1 semaine","2 semaines","3 semaines","1 mois+"],
+  btn_srch:"✈ Générer mes 4 propositions",
+  prop_title:"Vos <em style='font-style:normal;color:var(--sun)'>4 propositions</em>",
+  prop_best:"⭐ Meilleure offre",
+  prop_sub:["Meilleur rapport qualité/prix — Offre Trip&Me","Formule luxe tout inclus","Meilleure offre économique","Sélection exclusive Trip&Me"],
+  prop_hotels:["Hôtel 4★ sélectionné","Resort 5★","Boutique Hôtel 3★","Hôtel surprise"],
+  prop_fb:["🌟 Bali, Indonésie","🏝 Maldives","🇵🇹 Lisbonne, Portugal","🔮 Destination Mystère"],
+  prop_body:[
+    "Itinéraire complet : hôtel, visites guidées, restaurants sélectionnés, transferts inclus. Planning exportable dans votre agenda.",
+    "Version prestige : resort 5★, service conciergerie 24h/7, excursion privée incluse.",
+    "Formule optimisée budget : hôtel sélectionné, carte des meilleurs spots locaux, guide numérique.",
+    "Notre sélection vous surprend avec la destination parfaite selon vos préférences. Révélation 72h avant le départ !"
+  ],
+  book:"Réserver",cal:"📅 Agenda",share:"Partager",
+  share_lbl:"Partager ces propositions :",
+  rgpd_note:"Propositions à ±20% selon disponibilités.",
+  share_copied:"📋 Copié ! Collez sur vos réseaux.",
+  trip_saved:"✅ Voyage enregistré !",
+  welcome_back:"Bienvenue, {n} !",
+  privacy_txt:"POLITIQUE DE CONFIDENTIALITÉ — TRIP&ME\n\nResponsable : Trip&Me — tripandme.com\nDPO : World@tripandme.com\n\nDonnées collectées : email, préférences voyage (opt-in)\nFinalité : personnalisation des itinéraires de voyage\nBase légale : consentement explicite (Art. 6.1.a RGPD)\nConservation : 3 ans après dernière activité\n\nVos droits : accès, rectification, suppression, portabilité\n→ Écrivez à World@tripandme.com\n\nHébergement : Vercel + Supabase (Europe)\nAucune revente de données. Aucun profilage sans consentement.\nAutorité de contrôle : CNIL — www.cnil.fr",
+  pwa_title:"Installer Trip&Me sur votre téléphone",
+  pwa_desc:"Ajoutez Trip&Me à votre écran d'accueil — fonctionne comme une vraie application, sans passer par l'App Store !",
+  pwa_install:"📱 Installer l'application"
 };
 
-let L = 'fr';
+T.en={
+  hook:"Have you ever traveled around the world?",h1a:"The World",h1b:"is Mine",
+  hero_q:"<strong>Log all your flights</strong> — discover how many times you've circled the globe and get targeted travel proposals!",
+  pill1:"195 countries",pill2:"Unlimited itineraries",pill3:"100% Free",
+  cta1_main:"✈ My past trips",cta1_sub:"Targeted proposals & stats to share on social media",
+  cta2_main:"🌍 Plan my trip",cta2_sub:"4 personalized proposals in a few clicks",
+  scroll:"Explore",sb1:"Countries covered",sb2:"Itineraries",sb3:"For travelers",sb4:"Personalized",
+  feat_tag:"Why Trip&Me",feat_title:"Your trip, reinvented",
+  feats:[
+    {e:"🌍",t:"Interactive 3D Globe",d:"Visualize all your trips on an animated world map. Your unique world."},
+    {e:"📊",t:"Your traveler stats",d:"How many times have you circled the globe? How many countries visited? Trip&Me calculates it all."},
+    {e:"✈️",t:"4 tailor-made proposals",d:"Budget, duration, travel style — 4 complete itineraries, best offer first."},
+    {e:"🏨",t:"Complete planning",d:"Hotels, visits, restaurants, transfers — all included and exportable to your calendar."},
+    {e:"📱",t:"Instant sharing",d:"Share your animated globe and stats on Instagram, TikTok, WhatsApp in one click."},
+    {e:"🔒",t:"100% GDPR compliant",d:"Your data stays yours. Right to deletion guaranteed, secure European hosting."}
+  ],
+  foot_privacy:"Privacy policy",foot_legal:"Legal notice",
+  foot_rgpd:"GDPR compliant · Data hosted in Europe · DPO: World@tripandme.com",
+  ck_txt:"Trip&Me uses cookies to personalize your travel experience. No data is sold. <a onclick='showPrivacy()'>Privacy policy (GDPR)</a>.",
+  ck_no:"Decline",ck_ok:"Accept",
+  auth_title:"Welcome to <em>Trip&Me</em>",tab_li:"Sign in",tab_rg:"Create account",
+  lbl_em:"Email",lbl_pw:"Password",lbl_fn:"First name *",lbl_ln:"Last name *",
+  lbl_dob:"Date of birth",lbl_co:"Country",lbl_loy:"Loyalty cards (optional)",
+  loyalty:["Flying Blue (Air France)","Marriott Bonvoy","Hilton Honors","Accor Live","Emirates Skywards","British Avios","Club Med","Miles & More"],
+  alt_t:"No Outlook? No problem!",alt_b:"Gmail, Yahoo, Hotmail, iCloud… any email address works.",
+  forgot:"Forgot password?",
+  rgpd_lbl:"I accept the <a onclick='showPrivacy()' style='color:var(--sky);cursor:pointer;'>privacy policy</a> of Trip&Me. Your data will never be sold.",
+  btn_li:"Sign in →",btn_rg:"Create my Trip&Me account →",
+  hdr_guest:"My account ✦",hdr_sub:"or create one",hdr_user:"Hello {n} ✦",
+  nav_svc:"Services",nav_world:"My World",profile_title:"My <em>World</em>",
+  stat_lbl:["Countries visited","To discover","Km traveled","World tour(s)"],
+  my_trips:"My trips",btn_add:"+ Add a trip",btn_plan_s:"✈ Plan",
+  count_l:"personal trip(s) to add",count_sub:"Reach 10 trips to unlock your personalized Trip&Me offer!",
+  cg_title:"🎉 Congratulations",cg_sub:"10 trips reached — your personalized offer awaits!",
+  offer_btn:"✈ My personalized offer",share_stats:"Share my stats:",logout:"Sign out",
+  add_title:"Add a <em>trip</em>",lbl_dep:"Departure airport",lbl_arr:"Arrival airport",
+  lbl_tty:"Trip type",opt_one:"One way",opt_rt:"Round trip",
+  lbl_cat:"Category",opt_perso:"Personal",opt_pro:"Business",
+  lbl_for:"Type",opt_pkg:"Package tour (all inclusive)",opt_ind:"Independent travel",
+  lbl_cnt:"How many times",lbl_dt:"Approximate date",lbl_note:"Trip rating",
+  stars:["","Poor","Average","Good","Very good","Excellent"],
+  lbl_shr:"Share on social media",
+  share_note:"Your trip will also be published on official Trip&Me accounts (@tripandme_worldismine & @TripandMe_WorldisMine) with your first name.",
+  lbl_hdl:"Your social media handle (optional, to tag you)",
+  btn_save:"Save this trip →",plan_title:"My next <em>trip</em>",
+  lbl_vty:"Travel style",vtypes:["😴 Relaxation","🗺 Discovery","⚡ Active","🎯 Mixed"],
+  vvals:["Relaxation","Discovery","Active","Mixed"],
+  lbl_dst:"Destination",lbl_trv:"Travelers",lbl_kds:"With children?",opt_nk:"No",opt_tn:"Teenagers",
+  lbl_bdg:"Budget (€/person)",lbl_dur:"Duration",
+  durs:["Long weekend","1 week","2 weeks","3 weeks","1 month+"],
+  btn_srch:"✈ Generate my 4 proposals",
+  prop_title:"Your <em style='font-style:normal;color:var(--sun)'>4 proposals</em>",
+  prop_best:"⭐ Best offer",
+  prop_sub:["Best value for money — Trip&Me offer","Luxury all-inclusive package","Best budget offer","Exclusive Trip&Me selection"],
+  prop_hotels:["Selected 4★ Hotel","5★ Resort","3★ Boutique Hotel","Surprise hotel"],
+  prop_fb:["🌟 Bali, Indonesia","🏝 Maldives","🇵🇹 Lisbon, Portugal","🔮 Mystery Destination"],
+  prop_body:[
+    "Complete itinerary: hotel, guided visits, selected restaurants, transfers included. Exportable to your calendar.",
+    "Prestige version: 5★ resort, 24/7 concierge service, private excursion included.",
+    "Budget-optimized formula: selected hotel, map of best local spots, digital guide.",
+    "Our selection surprises you with the perfect destination for your preferences. Revealed 72h before departure!"
+  ],
+  book:"Book",cal:"📅 Calendar",share:"Share",share_lbl:"Share these proposals:",
+  rgpd_note:"Proposals ±20% subject to availability.",
+  share_copied:"📋 Copied! Paste on your social media.",
+  trip_saved:"✅ Trip saved!",welcome_back:"Welcome back, {n}!",
+  privacy_txt:"PRIVACY POLICY — TRIP&ME\n\nController: Trip&Me — tripandme.com\nDPO: World@tripandme.com\n\nData: email, travel preferences (opt-in)\nPurpose: itinerary personalization\nLegal basis: consent (Art. 6.1.a GDPR)\nRetention: 3 years\nRights: World@tripandme.com\nHosting: Vercel + Supabase (Europe). No data resale.",
+  pwa_title:"Install Trip&Me on your phone",
+  pwa_desc:"Add Trip&Me to your home screen — works like a real app, no App Store needed!",
+  pwa_install:"📱 Install the app"
+};
 
-function detectLang() {
-  const bl = navigator.language || navigator.languages[0] || 'fr';
-  const code = bl.slice(0,2).toLowerCase();
-  if(LANGS[code]) L = code;
-  document.getElementById('lang-selector').value = L;
-  document.documentElement.lang = L;
+// ── AUTRES LANGUES (clés essentielles) ──
+function mkLang(hook,h1a,h1b,hq,c1m,c1s,c2m,c2s,btnLi,btnRg,hdrG,hdrS,hdrU,navS,navW,pt,logout,addT,planT,save,srch,copied,saved,wb,pwaT,pwaD,pwaI,extraFeats){
+  var l=JSON.parse(JSON.stringify(T.en));
+  l.hook=hook;l.h1a=h1a;l.h1b=h1b;l.hero_q=hq;
+  l.cta1_main=c1m;l.cta1_sub=c1s;l.cta2_main=c2m;l.cta2_sub=c2s;
+  l.btn_li=btnLi;l.btn_rg=btnRg;l.hdr_guest=hdrG;l.hdr_sub=hdrS;l.hdr_user=hdrU;
+  l.nav_svc=navS;l.nav_world=navW;l.profile_title=pt;l.logout=logout;
+  l.add_title=addT;l.plan_title=planT;l.btn_save=save;l.btn_srch=srch;
+  l.share_copied=copied;l.trip_saved=saved;l.welcome_back=wb;
+  l.pwa_title=pwaT;l.pwa_desc=pwaD;l.pwa_install=pwaI;
+  if(extraFeats)l.feats=extraFeats;
+  return l;
 }
 
-function t(key,vars){
-  const v = LANGS[L]?.[key] || LANGS['fr']?.[key] || key;
-  if(!vars) return v;
-  return v.replace(/\{(\w+)\}/g,(_,k)=>vars[k]||'');
-}
+T.es=mkLang(
+  "¿Has dado ya la vuelta al mundo?","El Mundo","es Mío",
+  "<strong>Registra todos tus vuelos</strong> — descubre cuántas veces has dado la vuelta al mundo y recibe propuestas de viaje personalizadas.",
+  "✈ Mis viajes pasados","Propuestas personalizadas y estadísticas para compartir",
+  "🌍 Planificar mi viaje","4 propuestas personalizadas en pocos clics",
+  "Iniciar sesión →","Crear mi cuenta Trip&Me →",
+  "Mi cuenta ✦","o crearla","Hola {n} ✦",
+  "Servicios","Mi Mundo","Mi <em>Mundo</em>","Cerrar sesión",
+  "Añadir un <em>viaje</em>","Mi próximo <em>viaje</em>",
+  "Guardar este viaje →","✈ Generar mis 4 propuestas",
+  "📋 ¡Copiado! Pégalo en tus redes.","✅ ¡Viaje guardado!","¡Bienvenido, {n}!",
+  "Instalar Trip&Me en tu teléfono","Añade Trip&Me a tu pantalla de inicio — ¡funciona como una app real!","📱 Instalar la app",
+  [{e:"🌍",t:"Globo interactivo 3D",d:"Visualiza todos tus viajes en un mapamundi animado."},{e:"📊",t:"Tus estadísticas",d:"¿Cuántas veces has dado la vuelta al mundo? Trip&Me calcula todo."},{e:"✈️",t:"4 propuestas a medida",d:"Presupuesto, duración, estilo — 4 itinerarios completos."},{e:"🏨",t:"Planificación completa",d:"Hoteles, visitas, restaurantes — todo incluido."},{e:"📱",t:"Compartir al instante",d:"Comparte tu globo animado en Instagram, TikTok, WhatsApp."},{e:"🔒",t:"100% RGPD",d:"Tus datos son tuyos. Alojamiento europeo seguro."}]
+);
+T.es.tab_li="Iniciar sesión";T.es.tab_rg="Crear cuenta";
+T.es.feat_tag="Por qué Trip&Me";T.es.feat_title="Tu viaje, reinventado";
+T.es.sb1="Países cubiertos";T.es.sb2="Itinerarios";T.es.sb3="Para viajeros";T.es.sb4="Personalizado";
+T.es.ck_txt="Trip&Me usa cookies para personalizar tu experiencia de viaje. <a onclick='showPrivacy()'>Política de privacidad</a>.";
+T.es.ck_no="Rechazar";T.es.ck_ok="Aceptar";
 
-function applyLang() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    const val = t(key);
-    if(el.tagName==='BUTTON'||el.tagName==='A'||el.tagName==='SPAN'||el.tagName==='P'||el.tagName==='LABEL'||el.tagName==='DIV') {
-      if(key==='hero_q'||key==='rgpd_consent') el.innerHTML = val;
-      else el.textContent = val;
-    }
-  });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-    el.placeholder = t(el.getAttribute('data-i18n-ph'));
-  });
-  const u = getUser();
-  document.getElementById('hdr-btn').textContent = u ? t('hdr_logged',{name:u.first}) : t('hdr_login');
-  // mise à jour dynamique hero-q
-  const hq = document.getElementById('hero-q');
-  if(hq) hq.innerHTML = t('hero_q');
-}
+T.de=mkLang(
+  "Hast du die Welt schon umrundet?","Die Welt","gehört mir",
+  "<strong>Trage alle deine Flüge ein</strong> — entdecke, wie oft du die Erde umrundet hast und erhalte personalisierte Reisevorschläge.",
+  "✈ Meine Reisen","Personalisierte Vorschläge & Statistiken zum Teilen",
+  "🌍 Reise planen","4 Vorschläge in wenigen Klicks",
+  "Anmelden →","Konto erstellen →",
+  "Mein Konto ✦","oder erstellen","Hallo {n} ✦",
+  "Dienste","Meine Welt","Meine <em>Welt</em>","Abmelden",
+  "Eine <em>Reise</em> hinzufügen","Meine nächste <em>Reise</em>",
+  "Reise speichern →","✈ 4 Vorschläge generieren",
+  "📋 Kopiert! In sozialen Medien einfügen.","✅ Reise gespeichert!","Willkommen, {n}!",
+  "Trip&Me auf deinem Handy installieren","Füge Trip&Me zu deinem Startbildschirm hinzu — funktioniert wie eine echte App!","📱 App installieren",
+  [{e:"🌍",t:"Interaktiver 3D-Globus",d:"Visualisiere alle deine Reisen auf einer animierten Weltkarte."},{e:"📊",t:"Deine Reisestatistiken",d:"Wie oft hast du die Erde umrundet? Trip&Me berechnet alles."},{e:"✈️",t:"4 maßgeschneiderte Angebote",d:"Budget, Dauer, Stil — 4 vollständige Reiserouten."},{e:"🏨",t:"Vollständige Planung",d:"Hotels, Besuche, Restaurants — alles inklusive."},{e:"📱",t:"Sofort teilen",d:"Teile deinen animierten Globus auf Instagram, TikTok, WhatsApp."},{e:"🔒",t:"100% DSGVO-konform",d:"Deine Daten bleiben deine. Europäisches Hosting."}]
+);
+T.de.tab_li="Anmelden";T.de.tab_rg="Konto erstellen";
+T.de.feat_tag="Warum Trip&Me";T.de.feat_title="Ihre Reise, neu erfunden";
+T.de.sb1="Länder abgedeckt";T.de.sb2="Routen";T.de.sb3="Für Reisende";T.de.sb4="Personalisiert";
+T.de.ck_txt="Trip&Me verwendet Cookies. <a onclick='showPrivacy()'>Datenschutzrichtlinie</a>.";
+T.de.ck_no="Ablehnen";T.de.ck_ok="Akzeptieren";
 
-function setLang(lang) {
-  L = lang;
-  document.documentElement.lang = lang;
-  applyLang();
-}
+T.it=mkLang(
+  "Hai già girato il mondo?","Il Mondo","è Mio",
+  "<strong>Inserisci tutti i tuoi voli</strong> — scopri quante volte hai fatto il giro del mondo e ricevi proposte di viaggio mirate.",
+  "✈ I miei viaggi passati","Proposte mirate e statistiche da condividere",
+  "🌍 Pianifica il mio viaggio","4 proposte personalizzate in pochi clic",
+  "Accedi →","Crea il mio account Trip&Me →",
+  "Il mio account ✦","o crearlo","Ciao {n} ✦",
+  "Servizi","Il Mio Mondo","Il Mio <em>Mondo</em>","Disconnettiti",
+  "Aggiungi un <em>viaggio</em>","Il mio prossimo <em>viaggio</em>",
+  "Salva questo viaggio →","✈ Genera le mie 4 proposte",
+  "📋 Copiato! Incollalo sui social.","✅ Viaggio salvato!","Bentornato, {n}!",
+  "Installa Trip&Me sul tuo telefono","Aggiungi Trip&Me alla schermata iniziale — funziona come una vera app!","📱 Installa l'app",
+  [{e:"🌍",t:"Globo interattivo 3D",d:"Visualizza tutti i tuoi viaggi su un mappamondo animato."},{e:"📊",t:"Le tue statistiche",d:"Quante volte hai fatto il giro del mondo? Trip&Me calcola tutto."},{e:"✈️",t:"4 proposte su misura",d:"Budget, durata, stile — 4 itinerari completi."},{e:"🏨",t:"Pianificazione completa",d:"Hotel, visite, ristoranti — tutto incluso."},{e:"📱",t:"Condivisione istantanea",d:"Condividi il tuo globo animato su Instagram, TikTok, WhatsApp."},{e:"🔒",t:"100% GDPR",d:"I tuoi dati rimangono tuoi. Hosting europeo sicuro."}]
+);
+T.it.tab_li="Accedi";T.it.tab_rg="Crea account";
+T.it.feat_tag="Perché Trip&Me";T.it.feat_title="Il tuo viaggio, reinventato";
+T.it.ck_no="Rifiuta";T.it.ck_ok="Accetta";
 
-// ════════════════════════════════════════════════
-// GLOBE 3D — VERSION CORRIGÉE ET FONCTIONNELLE
-// ════════════════════════════════════════════════
-(function initGlobe(){
-  const canvas = document.getElementById('globe-canvas');
-  // Adapter taille au hero
-  function resize(){
-    canvas.width = canvas.parentElement.offsetWidth;
-    canvas.height = canvas.parentElement.offsetHeight;
-    renderer.setSize(canvas.width, canvas.height);
-    camera.aspect = canvas.width / canvas.height;
-    camera.updateProjectionMatrix();
+T.pt=mkLang(
+  "Já deu a volta ao mundo?","O Mundo","é Meu",
+  "<strong>Registe todos os seus voos</strong> — descubra quantas vezes deu a volta ao mundo e receba propostas de viagem personalizadas.",
+  "✈ As minhas viagens","Propostas personalizadas e estatísticas para partilhar",
+  "🌍 Planear a minha viagem","4 propostas personalizadas em poucos cliques",
+  "Entrar →","Criar a minha conta Trip&Me →",
+  "A minha conta ✦","ou criar","Olá {n} ✦",
+  "Serviços","O Meu Mundo","O Meu <em>Mundo</em>","Sair",
+  "Adicionar uma <em>viagem</em>","A minha próxima <em>viagem</em>",
+  "Guardar esta viagem →","✈ Gerar as minhas 4 propostas",
+  "📋 Copiado! Cole nas suas redes.","✅ Viagem guardada!","Bem-vindo de volta, {n}!",
+  "Instalar Trip&Me no seu telemóvel","Adicione Trip&Me ao seu ecrã inicial — funciona como uma aplicação real!","📱 Instalar a app",null
+);
+T.pt.tab_li="Entrar";T.pt.tab_rg="Criar conta";T.pt.feat_tag="Porquê Trip&Me";T.pt.feat_title="A sua viagem, reinventada";T.pt.ck_no="Recusar";T.pt.ck_ok="Aceitar";
+
+T.nl=mkLang(
+  "Bent u al rond de wereld gereisd?","De Wereld","is van Mij",
+  "<strong>Voeg al uw vluchten toe</strong> — ontdek hoe vaak u de aarde heeft omcirkeld en ontvang gerichte reisvoorstellen.",
+  "✈ Mijn reizen","Gerichte voorstellen & statistieken om te delen",
+  "🌍 Reis plannen","4 gepersonaliseerde voorstellen in enkele klikken",
+  "Inloggen →","Account aanmaken →",
+  "Mijn account ✦","of aanmaken","Hallo {n} ✦",
+  "Diensten","Mijn Wereld","Mijn <em>Wereld</em>","Uitloggen",
+  "Een <em>reis</em> toevoegen","Mijn volgende <em>reis</em>",
+  "Reis opslaan →","✈ 4 voorstellen genereren",
+  "📋 Gekopieerd! Plak op uw sociale media.","✅ Reis opgeslagen!","Welkom terug, {n}!",
+  "Trip&Me op uw telefoon installeren","Voeg Trip&Me toe aan uw startscherm — werkt als een echte app!","📱 App installeren",null
+);
+T.nl.tab_li="Inloggen";T.nl.tab_rg="Account aanmaken";T.nl.feat_tag="Waarom Trip&Me";T.nl.feat_title="Uw reis, opnieuw uitgevonden";T.nl.ck_no="Weigeren";T.nl.ck_ok="Accepteren";
+
+T.ja=mkLang(
+  "世界一周したことはありますか？","世界は","私のもの",
+  "<strong>全ての航空旅行を入力して</strong>世界を何周したか確認しましょう。Trip&Meが最適な旅行プランをご提案します！",
+  "✈ 過去の旅行を追加","的確な提案&SNSでシェアできる統計",
+  "🌍 旅行を計画する","数クリックで4つのパーソナライズされた提案",
+  "ログイン →","Trip&Meアカウントを作成 →",
+  "マイアカウント ✦","または作成する","{n}さん、こんにちは ✦",
+  "サービス","マイワールド","マイ<em>ワールド</em>","ログアウト",
+  "<em>旅行</em>を追加","次の<em>旅行</em>を計画",
+  "この旅行を保存 →","✈ 4つの提案を生成",
+  "📋 コピーしました！SNSに貼り付けてください。","✅ 旅行が保存されました！","おかえりなさい、{n}さん！",
+  "Trip&Meをスマホにインストール","Trip&Meをホーム画面に追加 — App Store不要で本物のアプリのように動作します！","📱 アプリをインストール",null
+);
+T.ja.tab_li="ログイン";T.ja.tab_rg="アカウント作成";T.ja.feat_tag="Trip&Meを選ぶ理由";T.ja.feat_title="あなたの旅行を、再発明する";T.ja.ck_no="拒否";T.ja.ck_ok="同意";
+
+T.zh=mkLang(
+  "你环游过世界吗？","世界","属于我",
+  "<strong>记录你所有的飞行旅程</strong>——发现你已经环游了多少次地球，并收到精准的旅行建议！",
+  "✈ 我的过往旅行","精准建议与可分享的统计数据",
+  "🌍 规划我的旅行","几次点击即可获得4个个性化方案",
+  "登录 →","创建我的Trip&Me账户 →",
+  "我的账户 ✦","或创建账户","你好 {n} ✦",
+  "服务","我的世界","我的<em>世界</em>","退出登录",
+  "添加一次<em>旅行</em>","我的下一次<em>旅行</em>",
+  "保存此旅行 →","✈ 生成我的4个方案",
+  "📋 已复制！粘贴到您的社交媒体。","✅ 旅行已保存！","欢迎回来，{n}！",
+  "在您的手机上安装Trip&Me","将Trip&Me添加到主屏幕——无需应用商店，像真正的应用一样运行！","📱 安装应用",null
+);
+T.zh.tab_li="登录";T.zh.tab_rg="创建账户";T.zh.feat_tag="为什么选择Trip&Me";T.zh.feat_title="您的旅行，重新定义";T.zh.ck_no="拒绝";T.zh.ck_ok="接受";
+
+/* ══════════════════════════════════════════
+   ÉTAT GLOBAL
+══════════════════════════════════════════ */
+var L='fr', U=null, starVal=0, vtypeIdx=0, afterAuth=null;
+var DB='tm_v4';
+
+function getUser(){try{return JSON.parse(localStorage.getItem(DB));}catch(e){return null;}}
+function saveUser(u){localStorage.setItem(DB,JSON.stringify(u));}
+
+/* ══════════════════════════════════════════
+   GLOBE 3D — Three.js chargé dynamiquement
+   pour éviter tout timeout Edge
+══════════════════════════════════════════ */
+var globeInited=false;
+function initGlobe(){
+  if(globeInited)return;
+  globeInited=true;
+  var canvas=document.getElementById('globe-canvas');
+  var W=canvas.offsetWidth||window.innerWidth;
+  var H=canvas.offsetHeight||window.innerHeight;
+
+  /* Test WebGL — fallback gracieux si absent */
+  var hasGL=false;
+  try{
+    var t=document.createElement('canvas');
+    hasGL=!!(t.getContext('webgl')||t.getContext('experimental-webgl'));
+  }catch(e){}
+  if(!hasGL||typeof THREE==='undefined'){
+    /* Fallback 2D Canvas simple */
+    var c=canvas.getContext('2d');
+    if(!c)return;
+    canvas.width=W;canvas.height=H;
+    var grd=c.createRadialGradient(W/2-W*0.15,H/2-H*0.15,0,W/2,H/2,Math.min(W,H)*0.45);
+    grd.addColorStop(0,'#1E6FBF');grd.addColorStop(0.6,'#082F49');grd.addColorStop(1,'#040C1A');
+    c.beginPath();c.arc(W/2,H/2,Math.min(W,H)*0.45,0,Math.PI*2);c.fillStyle=grd;c.fill();
+    return;
   }
 
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setClearColor(0x000000, 0);
+  var scene=new THREE.Scene();
+  var cam=new THREE.PerspectiveCamera(45,W/H,0.1,200);
+  cam.position.z=3.0;
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
-  camera.position.z = 3;
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.setSize(W,H);
+  renderer.setClearColor(0x000000,0);
 
-  // Terre
-  const earthGeo = new THREE.SphereGeometry(1, 64, 64);
-
-  // Texture procédurale (couleur océan + continents simulés via shader-like material)
-  const earthMat = new THREE.MeshPhongMaterial({
-    color: 0x0369A1,
-    emissive: 0x082F49,
-    specular: 0x4FC3F7,
-    shininess: 80
-  });
-  const earth = new THREE.Mesh(earthGeo, earthMat);
+  /* TERRE */
+  var earth=new THREE.Mesh(
+    new THREE.SphereGeometry(1,64,64),
+    new THREE.MeshPhongMaterial({color:0x0369A1,emissive:0x051A35,specular:0x38BDF8,shininess:80})
+  );
   scene.add(earth);
 
-  // Continents (sphères légèrement surélevées peintes en vert)
-  const contMat = new THREE.MeshPhongMaterial({color:0x16A34A, emissive:0x052e16, shininess:20});
-
-  // Positions approx des grands continents [lat, lng, taille]
-  const continents = [
-    // Europe
-    [48,10,0.18],[55,20,0.14],[44,25,0.12],
-    // Afrique
-    [5,20,0.28],[20,15,0.22],[-10,25,0.18],[0,35,0.15],
-    // Asie
-    [35,80,0.32],[55,90,0.25],[20,100,0.2],[40,120,0.18],[30,45,0.15],
-    // Amériques
-    [45,-100,0.25],[30,-90,0.2],[0,-60,0.22],[-15,-55,0.2],[-35,-65,0.18],
-    // Océanie
-    [-25,135,0.18],[-40,175,0.1],
-    // Scandinavie / Russie
-    [65,25,0.15],[65,70,0.2],[65,110,0.18]
+  /* Continents (blobs verts) */
+  var cM=new THREE.MeshPhongMaterial({color:0x15803D,emissive:0x052E16,shininess:20});
+  var conts=[
+    [50,15,0.14],[55,25,0.10],[46,9,0.11],
+    [5,22,0.26],[20,15,0.20],[-10,26,0.18],[0,36,0.13],
+    [36,80,0.28],[55,85,0.22],[20,98,0.18],[40,118,0.16],[30,46,0.14],
+    [45,-100,0.24],[30,-88,0.18],[55,-100,0.16],
+    [0,-58,0.20],[-15,-55,0.18],[-35,-65,0.16],
+    [-25,134,0.17],[-40,174,0.09],
+    [65,26,0.12],[65,68,0.18],[65,108,0.16]
   ];
-
-  continents.forEach(([lat,lng,size])=>{
-    const phi = (90-lat)*Math.PI/180;
-    const theta = (lng+180)*Math.PI/180;
-    const x = -Math.sin(phi)*Math.cos(theta);
-    const y = Math.cos(phi);
-    const z = Math.sin(phi)*Math.sin(theta);
-    const blob = new THREE.Mesh(
-      new THREE.SphereGeometry(size, 12, 12),
-      contMat
-    );
-    blob.position.set(x*(1+size*0.1), y*(1+size*0.1), z*(1+size*0.1));
-    earth.add(blob);
+  conts.forEach(function(c){
+    var phi=(90-c[0])*Math.PI/180,theta=(c[1]+180)*Math.PI/180,sz=c[2];
+    var x=-Math.sin(phi)*Math.cos(theta),y=Math.cos(phi),z=Math.sin(phi)*Math.sin(theta);
+    var b=new THREE.Mesh(new THREE.SphereGeometry(sz,10,10),cM);
+    b.position.set(x*(1+sz*0.08),y*(1+sz*0.08),z*(1+sz*0.08));
+    earth.add(b);
   });
 
-  // Grille lat/lng (wireframe fin)
-  const gridMat = new THREE.LineBasicMaterial({color:0x7DD3FC, transparent:true, opacity:0.15});
-  for(let lat=-80;lat<=80;lat+=20){
-    const pts=[];
-    const y = Math.sin(lat*Math.PI/180);
-    const r = Math.cos(lat*Math.PI/180)*1.002;
-    for(let i=0;i<=64;i++){
-      const a=i/64*Math.PI*2;
-      pts.push(new THREE.Vector3(Math.cos(a)*r, y*1.002, Math.sin(a)*r));
-    }
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
-  }
-  for(let lng=0;lng<360;lng+=30){
-    const pts=[];
-    for(let i=0;i<=64;i++){
-      const lat=(i/64*180-90)*Math.PI/180;
-      const a=(lng)*Math.PI/180;
-      pts.push(new THREE.Vector3(
-        -Math.cos(lat)*Math.cos(a)*1.002,
-        Math.sin(lat)*1.002,
-        Math.cos(lat)*Math.sin(a)*1.002
-      ));
-    }
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
+  /* Grille lat/lng */
+  var gM=new THREE.LineBasicMaterial({color:0x7DD3FC,transparent:true,opacity:0.13});
+  [-60,-30,0,30,60].forEach(function(lat){
+    var pts=[],y=Math.sin(lat*Math.PI/180),r=Math.cos(lat*Math.PI/180)*1.004;
+    for(var i=0;i<=64;i++){var a=i/64*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,y*1.004,Math.sin(a)*r));}
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),gM));
+  });
+  for(var lng=0;lng<360;lng+=30){
+    var pts=[];
+    for(var j=0;j<=48;j++){var la=(j/48*180-90)*Math.PI/180,a2=lng*Math.PI/180;pts.push(new THREE.Vector3(-Math.cos(la)*Math.cos(a2)*1.004,Math.sin(la)*1.004,Math.cos(la)*Math.sin(a2)*1.004));}
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),gM));
   }
 
-  // Atmosphère
-  const atmGeo = new THREE.SphereGeometry(1.08, 64, 64);
-  const atmMat = new THREE.MeshPhongMaterial({color:0x38BDF8, transparent:true, opacity:0.07, side:THREE.FrontSide});
-  scene.add(new THREE.Mesh(atmGeo, atmMat));
+  /* Atmosphère */
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.06,32,32),new THREE.MeshPhongMaterial({color:0x38BDF8,transparent:true,opacity:0.06})));
 
-  // Halo atmosphérique (backside)
-  const haloGeo = new THREE.SphereGeometry(1.12, 64, 64);
-  const haloMat = new THREE.MeshPhongMaterial({color:0x0EA5E9, transparent:true, opacity:0.04, side:THREE.BackSide});
-  scene.add(new THREE.Mesh(haloGeo, haloMat));
+  /* Étoiles */
+  var sg=new THREE.BufferGeometry(),sp=[];
+  for(var i=0;i<1800;i++){var rr=55+Math.random()*80,tt=Math.random()*Math.PI*2,pp=Math.acos(2*Math.random()-1);sp.push(-rr*Math.sin(pp)*Math.cos(tt),rr*Math.cos(pp),rr*Math.sin(pp)*Math.sin(tt));}
+  sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+  scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:0.10,transparent:true,opacity:0.65})));
 
-  // Étoiles
-  const starsGeo = new THREE.BufferGeometry();
-  const stPos = [];
-  for(let i=0;i<2500;i++){
-    const r=50+Math.random()*100;
-    const theta=Math.random()*Math.PI*2;
-    const phi=Math.acos(2*Math.random()-1);
-    stPos.push(r*Math.sin(phi)*Math.cos(theta),r*Math.cos(phi),r*Math.sin(phi)*Math.sin(theta));
-  }
-  starsGeo.setAttribute('position',new THREE.Float32BufferAttribute(stPos,3));
-  scene.add(new THREE.Points(starsGeo,new THREE.PointsMaterial({color:0xffffff,size:0.12,transparent:true,opacity:0.7})));
-
-  // Trajectoires de vol (arc orbital)
-  const flightMat = new THREE.LineBasicMaterial({color:0xFBBF24, transparent:true, opacity:0.7});
-  function latLngToVec3(lat,lng,r=1.02){
-    const phi=(90-lat)*Math.PI/180, theta=(lng+180)*Math.PI/180;
-    return new THREE.Vector3(-r*Math.sin(phi)*Math.cos(theta),r*Math.cos(phi),r*Math.sin(phi)*Math.sin(theta));
-  }
-  const routes=[
-    [48.8,2.3,35.6,139.7],   // Paris→Tokyo
-    [40.7,-74,51.5,-0.1],    // NY→London
-    [-33.9,18.4,48.8,2.3],   // CapeTown→Paris
-    [1.3,103.8,34,-118],     // Singapore→LA
-    [25.2,55.4,40.7,-74],    // Dubai→NY
-    [-33.8,151,13.7,100.5],  // Sydney→Bangkok
-  ];
-  routes.forEach(([la1,ln1,la2,ln2])=>{
-    const p1=latLngToVec3(la1,ln1), p2=latLngToVec3(la2,ln2);
-    const mid=new THREE.Vector3().addVectors(p1,p2).multiplyScalar(1.55);
-    const pts=new THREE.QuadraticBezierCurve3(p1,mid,p2).getPoints(80);
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),flightMat));
+  /* Trajectoires de vol */
+  var fM=new THREE.LineBasicMaterial({color:0xFBBF24,transparent:true,opacity:0.55});
+  function ll(la,lo,r){r=r||1.016;var phi=(90-la)*Math.PI/180,theta=(lo+180)*Math.PI/180;return new THREE.Vector3(-r*Math.sin(phi)*Math.cos(theta),r*Math.cos(phi),r*Math.sin(phi)*Math.sin(theta));}
+  [[48.8,2.3,35.6,139.7],[40.7,-74,51.5,-0.1],[-33.9,18.4,48.8,2.3],[1.3,103.8,34,-118],[25.2,55.4,40.7,-74],[-33.8,151,13.7,100.5]].forEach(function(r){
+    var p1=ll(r[0],r[1]),p2=ll(r[2],r[3]),mid=new THREE.Vector3().addVectors(p1,p2).multiplyScalar(1.58);
+    var pts=new THREE.QuadraticBezierCurve3(p1,mid,p2).getPoints(80);
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),fM));
   });
 
-  // AVION
-  const planeGrp = new THREE.Group();
-  // Corps
-  const bodyGeo = new THREE.CylinderGeometry(0.015, 0.008, 0.09, 8);
-  const planeMat = new THREE.MeshPhongMaterial({color:0xFFFFFF, emissive:0x444444});
-  const body = new THREE.Mesh(bodyGeo, planeMat);
-  body.rotation.z = Math.PI/2;
-  planeGrp.add(body);
-  // Ailes
-  const wingGeo = new THREE.BoxGeometry(0.07, 0.003, 0.025);
-  const wing = new THREE.Mesh(wingGeo, planeMat);
-  planeGrp.add(wing);
-  // Queue
-  const tailGeo = new THREE.BoxGeometry(0.03, 0.003, 0.02);
-  const tail = new THREE.Mesh(tailGeo, planeMat);
-  tail.position.set(-0.04, 0, 0);
-  planeGrp.add(tail);
-  scene.add(planeGrp);
-  planeGrp.scale.setScalar(0.8);
+  /* ── AVION AMÉLIORÉ ── */
+  var plGrp=new THREE.Group();
+  var wM=new THREE.MeshPhongMaterial({color:0xF8FAFC,emissive:0x555555,shininess:180,specular:0xFFFFFF});
+  var oM=new THREE.MeshPhongMaterial({color:0xF97316,emissive:0xC05010,shininess:100});
+  var bM=new THREE.MeshPhongMaterial({color:0x1E40AF,emissive:0x0A1A50,shininess:200,transparent:true,opacity:0.9});
 
-  // Orbite de l'avion (ellipse autour du globe)
-  let planeAngle = 0;
-  const orbitRadiusX = 1.4;
-  const orbitRadiusZ = 1.1;
-  const orbitTilt = Math.PI*0.18;
-
-  // Lumières
-  scene.add(new THREE.AmbientLight(0x4488AA, 0.7));
-  const sun = new THREE.DirectionalLight(0xFFF4E6, 1.6);
-  sun.position.set(5,3,5);
-  scene.add(sun);
-  const fillLight = new THREE.PointLight(0x0EA5E9, 0.5, 15);
-  fillLight.position.set(-4,-2,-4);
-  scene.add(fillLight);
-  const rimLight = new THREE.PointLight(0xF97316, 0.3, 10);
-  rimLight.position.set(0,5,-5);
-  scene.add(rimLight);
-
-  // Interaction souris
-  let mouseX=0, mouseY=0, targetX=0, targetY=0;
-  document.addEventListener('mousemove',e=>{
-    mouseX=(e.clientX/window.innerWidth-0.5)*2;
-    mouseY=(e.clientY/window.innerHeight-0.5)*2;
+  /* Fuselage */
+  var fuse=new THREE.Mesh(new THREE.CylinderGeometry(0.025,0.013,0.14,12),wM);
+  fuse.rotation.z=Math.PI/2;plGrp.add(fuse);
+  /* Nez (cône) */
+  var nose=new THREE.Mesh(new THREE.ConeGeometry(0.013,0.05,10),wM);
+  nose.rotation.z=-Math.PI/2;nose.position.x=0.095;plGrp.add(nose);
+  /* Ailes principales (forme tronquée) */
+  var wShape=new THREE.Shape();
+  wShape.moveTo(0.01,0);wShape.lineTo(0.055,0.075);wShape.lineTo(0.055,0.082);wShape.lineTo(-0.015,0.03);wShape.lineTo(-0.015,0);wShape.closePath();
+  var wGeo=new THREE.ExtrudeGeometry(wShape,{depth:0.005,bevelEnabled:false});
+  var wingR=new THREE.Mesh(wGeo,wM);wingR.position.set(0.01,-0.002,0);wingR.rotation.x=-Math.PI/2;plGrp.add(wingR);
+  var wingL=wingR.clone();wingL.scale.z=-1;wingL.position.z=0.005;plGrp.add(wingL);
+  /* Dérive verticale (orange Trip&Me) */
+  var dShape=new THREE.Shape();
+  dShape.moveTo(0,0);dShape.lineTo(-0.045,0.048);dShape.lineTo(-0.045,0.054);dShape.lineTo(-0.005,0.007);dShape.lineTo(-0.005,0);dShape.closePath();
+  var dGeo=new THREE.ExtrudeGeometry(dShape,{depth:0.004,bevelEnabled:false});
+  var deriv=new THREE.Mesh(dGeo,oM);deriv.position.set(-0.025,-0.002,-0.002);deriv.rotation.z=Math.PI/2;deriv.rotation.y=Math.PI/2;plGrp.add(deriv);
+  /* Empennage horizontal */
+  var sShape=new THREE.Shape();
+  sShape.moveTo(0,0);sShape.lineTo(-0.028,0.034);sShape.lineTo(-0.028,0.040);sShape.lineTo(0.005,0.009);sShape.lineTo(0.005,0);sShape.closePath();
+  var sGeo=new THREE.ExtrudeGeometry(sShape,{depth:0.004,bevelEnabled:false});
+  var stabR=new THREE.Mesh(sGeo,wM);stabR.position.set(-0.038,-0.002,0);stabR.rotation.x=-Math.PI/2;plGrp.add(stabR);
+  var stabL=stabR.clone();stabL.scale.z=-1;stabL.position.z=0.004;plGrp.add(stabL);
+  /* Moteurs (réacteurs) */
+  var eGeo=new THREE.CylinderGeometry(0.012,0.014,0.05,12);
+  var eM2=new THREE.MeshPhongMaterial({color:0x334155,shininess:150,specular:0x888888});
+  [[0.025,-0.013],[0.025,0.013]].forEach(function(pos){
+    var eng=new THREE.Mesh(eGeo,eM2);eng.rotation.z=Math.PI/2;eng.position.set(0,pos[0]-0.015,pos[1]);plGrp.add(eng);
+    /* Nacelle avant */
+    var naGeo=new THREE.ConeGeometry(0.012,0.02,10);
+    var na=new THREE.Mesh(naGeo,eM2);na.rotation.z=-Math.PI/2;na.position.set(0.038,pos[0]-0.015,pos[1]);plGrp.add(na);
+  });
+  /* Hublots (bleus) */
+  var portGeo=new THREE.CircleGeometry(0.005,8);
+  [-0.01,0.025,0.055].forEach(function(px){
+    var port=new THREE.Mesh(portGeo,bM);port.position.set(px,0.025,0.001);plGrp.add(port);
   });
 
-  // Init taille
-  resize();
-  window.addEventListener('resize', resize);
+  plGrp.scale.setScalar(0.95);
+  scene.add(plGrp);
+
+  /* Traînée lumineuse */
+  var trailMat=new THREE.LineBasicMaterial({color:0xFBBF24,transparent:true,opacity:0.45});
+  var trailPts=[];for(var ti=0;ti<30;ti++)trailPts.push(new THREE.Vector3(0,0,0));
+  var trailGeo=new THREE.BufferGeometry().setFromPoints(trailPts);
+  var trail=new THREE.Line(trailGeo,trailMat);scene.add(trail);
+  var history=[];
+
+  /* Lumières */
+  scene.add(new THREE.AmbientLight(0x4488AA,0.7));
+  var sun=new THREE.DirectionalLight(0xFFF4E6,1.7);sun.position.set(5,3,5);scene.add(sun);
+  scene.add(Object.assign(new THREE.PointLight(0x0EA5E9,0.45,15),{position:{x:-4,y:-2,z:-4}}));
+  scene.add(Object.assign(new THREE.PointLight(0xF97316,0.25,10),{position:{x:0,y:5,z:-5}}));
+
+  /* Interaction souris */
+  var mx=0,my=0,tx=0,ty=0;
+  document.addEventListener('mousemove',function(e){mx=(e.clientX/window.innerWidth-0.5);my=(e.clientY/window.innerHeight-0.5);});
+
+  /* Resize */
+  window.addEventListener('resize',function(){
+    var nw=canvas.offsetWidth||window.innerWidth,nh=canvas.offsetHeight||window.innerHeight;
+    renderer.setSize(nw,nh);cam.aspect=nw/nh;cam.updateProjectionMatrix();
+  });
+
+  /* Orbite avion — ellipse inclinée */
+  var plA=0,oA=1.58,oB=1.22,oC=0.38;
 
   function animate(){
     requestAnimationFrame(animate);
+    earth.rotation.y+=0.0022;
+    tx+=(mx*0.10-tx)*0.04;ty+=(my*0.08-ty)*0.04;
+    earth.rotation.x=ty;
 
-    // Rotation douce
-    earth.rotation.y += 0.003;
-    targetX += (mouseX*0.15 - targetX)*0.05;
-    targetY += (mouseY*0.1 - targetY)*0.05;
-    earth.rotation.x = targetY;
+    /* Position avion */
+    plA+=0.018;
+    var px=Math.cos(plA)*oA,pz=Math.sin(plA)*oB,py=Math.sin(plA*0.8+0.6)*oC;
+    plGrp.position.set(px,py,pz);
 
-    // Avion en orbite
-    planeAngle += 0.018;
-    const px = Math.cos(planeAngle)*orbitRadiusX;
-    const pz = Math.sin(planeAngle)*orbitRadiusZ;
-    const py = Math.sin(planeAngle*0.7)*0.4*Math.cos(orbitTilt);
-    planeGrp.position.set(px, py, pz);
+    /* Orientation tangentielle */
+    var dpx=-Math.sin(plA)*oA,dpz=Math.cos(plA)*oB,dpy=Math.cos(plA*0.8+0.6)*oC*0.8;
+    var nLen=Math.sqrt(dpx*dpx+dpy*dpy+dpz*dpz);
+    plGrp.lookAt(px+dpx/nLen*0.2,py+dpy/nLen*0.2,pz+dpz/nLen*0.2);
 
-    // Orientation avion dans la direction du mouvement
-    const nx = -Math.sin(planeAngle)*orbitRadiusX;
-    const nz = Math.cos(planeAngle)*orbitRadiusZ;
-    const ny = Math.cos(planeAngle*0.7)*0.4*Math.cos(orbitTilt)*0.7;
-    planeGrp.lookAt(px+nx, py+ny, pz+nz);
+    /* Traînée */
+    history.unshift(new THREE.Vector3(px,py,pz));
+    if(history.length>30)history.pop();
+    var pos=trailGeo.attributes.position;
+    if(pos){for(var k=0;k<30;k++){var p=history[k]||history[history.length-1]||new THREE.Vector3(px,py,pz);pos.setXYZ(k,p.x,p.y,p.z);}pos.needsUpdate=true;}
 
-    renderer.render(scene, camera);
+    renderer.render(scene,cam);
   }
   animate();
-})();
-
-// ════════════════════════════════════════════════
-// STATE & STORAGE
-// ════════════════════════════════════════════════
-const DB = 'tm_v3';
-function getUser(){ try{return JSON.parse(localStorage.getItem(DB));}catch{return null;} }
-function saveUser(u){ localStorage.setItem(DB,JSON.stringify(u)); }
-
-let currentUser = null;
-let tripType = 'Repos';
-let starVal = 0;
-let afterAuthAction = null;
-
-// ════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════
-function init(){
-  detectLang();
-  currentUser = getUser();
-  updateHeader();
-  applyLang();
-  // Cookie banner — 1 seule fois
-  if(!localStorage.getItem('tm_consent')) {
-    document.getElementById('cookie-banner').classList.remove('hidden');
-  } else {
-    document.getElementById('cookie-banner').classList.add('hidden');
-  }
-  // Afficher share-opt pour voyages personnels
-  const cat = document.getElementById('a-cat');
-  if(cat) cat.addEventListener('change',()=>{
-    document.getElementById('share-opt-wrap').style.display = cat.value==='Perso' ? 'block':'none';
-  });
 }
 
+/* Chargement Three.js asynchrone — compatible Edge, Chrome, Firefox, Safari */
+function loadThree(){
+  var s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  s.crossOrigin='anonymous';
+  s.onload=function(){setTimeout(initGlobe,100);};
+  s.onerror=function(){initGlobe();/* fallback 2D */};
+  document.head.appendChild(s);
+}
+
+/* ══════════════════════════════════════════
+   I18N — APPLICATION COMPLÈTE
+══════════════════════════════════════════ */
+function tr(k,vars){
+  var l=T[L]||T.fr;
+  var v=(l[k]!==undefined)?l[k]:(T.fr[k]||k);
+  if(!vars)return v;
+  return String(v).replace(/\{(\w+)\}/g,function(_,n){return vars[n]||'';});
+}
+function sel(id){return document.getElementById(id);}
+function txt(id,v){var e=sel(id);if(e)e.textContent=v||'';}
+function html(id,v){var e=sel(id);if(e)e.innerHTML=v||'';}
+function opt(id,v){var e=sel(id);if(e)e.textContent=v||'';}
+
+function applyLang(){
+  document.documentElement.lang=L;
+  /* Hero */
+  txt('hero-hook',tr('hook'));
+  txt('h1a',tr('h1a'));txt('h1b',tr('h1b'));
+  html('hero-question',tr('hero_q'));
+  txt('pill1',tr('pill1'));txt('pill2',tr('pill2'));txt('pill3',tr('pill3'));
+  txt('cta1-main',tr('cta1_main'));txt('cta1-sub',tr('cta1_sub'));
+  txt('cta2-main',tr('cta2_main'));txt('cta2-sub',tr('cta2_sub'));
+  txt('scroll-lbl',tr('scroll'));
+  /* Stats */
+  txt('sb1',tr('sb1'));txt('sb2',tr('sb2'));txt('sb3',tr('sb3'));txt('sb4',tr('sb4'));
+  /* Features — reconstruit ENTIÈREMENT */
+  txt('feat-tag',tr('feat_tag'));
+  txt('feat-title',tr('feat_title'));
+  var fg=sel('feat-grid');
+  if(fg){
+    var feats=tr('feats')||[];
+    fg.innerHTML=feats.map(function(f){
+      return '<div class="feat-card"><span class="feat-emoji">'+f.e+'</span><h3>'+f.t+'</h3><p>'+f.d+'</p></div>';
+    }).join('');
+  }
+  /* Footer */
+  txt('foot-privacy',tr('foot_privacy'));txt('foot-legal',tr('foot_legal'));txt('foot-rgpd',tr('foot_rgpd'));
+  /* Cookie */
+  html('ck-txt',tr('ck_txt'));txt('ck-no',tr('ck_no'));txt('ck-ok',tr('ck_ok'));
+  /* Nav */
+  txt('nav-svc',tr('nav_svc'));txt('nav-world',tr('nav_world'));
+  /* Header */
+  updateHeader();
+  /* Auth modal */
+  html('auth-title',tr('auth_title'));
+  txt('tab-li',tr('tab_li'));txt('tab-rg',tr('tab_rg'));
+  txt('lbl-em-li',tr('lbl_em'));txt('lbl-pw-li',tr('lbl_pw'));
+  txt('lbl-fn',tr('lbl_fn'));txt('lbl-ln',tr('lbl_ln'));
+  txt('lbl-dob',tr('lbl_dob'));txt('lbl-co',tr('lbl_co'));
+  txt('lbl-em-rg',tr('lbl_em'));txt('lbl-pw-rg',tr('lbl_pw'));
+  txt('lbl-loy',tr('lbl_loy'));
+  txt('alt-t',tr('alt_t'));txt('alt-b',tr('alt_b'));
+  txt('alt-t2',tr('alt_t'));txt('alt-b2',tr('alt_b'));
+  txt('forgot-lnk',tr('forgot'));
+  html('rgpd-lbl',tr('rgpd_lbl'));
+  txt('btn-li',tr('btn_li'));txt('btn-rg',tr('btn_rg'));
+  /* Loyalty chips */
+  var lc=sel('loy-chips');
+  if(lc){var ly=tr('loyalty')||[];lc.innerHTML=ly.map(function(c){return '<button class="chip" onclick="this.classList.toggle(\'on\')">'+c+'</button>';}).join('');}
+  /* Profil title */
+  html('profile-title-el',tr('profile_title'));
+  /* Add trip */
+  html('add-title-el',tr('add_title'));
+  txt('lbl-dep',tr('lbl_dep'));txt('lbl-arr',tr('lbl_arr'));
+  txt('lbl-tty',tr('lbl_tty'));txt('lbl-cat',tr('lbl_cat'));
+  txt('lbl-for',tr('lbl_for'));txt('lbl-cnt',tr('lbl_cnt'));
+  txt('lbl-dt',tr('lbl_dt'));txt('lbl-note',tr('lbl_note'));
+  txt('lbl-shr',tr('lbl_shr'));txt('lbl-hdl',tr('lbl_hdl'));
+  txt('share-note-txt',tr('share_note'));
+  txt('btn-save',tr('btn_save'));
+  opt('opt-one',tr('opt_one'));opt('opt-rt',tr('opt_rt'));
+  opt('opt-perso',tr('opt_perso'));opt('opt-pro',tr('opt_pro'));
+  opt('opt-pkg',tr('opt_pkg'));opt('opt-ind',tr('opt_ind'));
+  setStar(starVal);
+  /* Plan trip */
+  html('plan-title-el',tr('plan_title'));
+  txt('lbl-vty',tr('lbl_vty'));txt('lbl-dst',tr('lbl_dst'));
+  txt('lbl-trv',tr('lbl_trv'));txt('lbl-kds',tr('lbl_kds'));
+  txt('lbl-bdg',tr('lbl_bdg'));txt('lbl-dur',tr('lbl_dur'));
+  txt('btn-srch',tr('btn_srch'));
+  opt('opt-nk',tr('opt_nk'));opt('opt-tn',tr('opt_tn'));
+  var durs=tr('durs')||[];
+  for(var di=0;di<5;di++)opt('dur'+di,durs[di]||'');
+  /* Chips type voyage */
+  var vc=sel('vtype-chips');
+  if(vc){var vt=tr('vtypes')||[];vc.innerHTML=vt.map(function(v,i){return '<button class="chip'+(i===vtypeIdx?' on-coral':'')+'" onclick="selVtype(this,'+i+')">'+v+'</button>';}).join('');}
+  /* PWA */
+  txt('pwa-title',tr('pwa_title'));txt('pwa-desc',tr('pwa_desc'));txt('pwa-install-btn',tr('pwa_install'));
+  /* Reset résultats si langue change */
+  var pr=sel('plan-results');if(pr)pr.innerHTML='';
+}
+
+function setLang(lang){L=lang;applyLang();}
+
+function detectLang(){
+  var bl=((navigator.language||'fr').slice(0,2)).toLowerCase();
+  if(T[bl])L=bl;
+  var s=sel('lang-sel');if(s)s.value=L;
+}
+
+/* ══════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════ */
 function updateHeader(){
-  const btn = document.getElementById('hdr-btn');
-  if(currentUser) btn.textContent = t('hdr_logged',{name:currentUser.first});
-  else btn.textContent = t('hdr_login');
+  U=getUser();
+  var btn=sel('hdr-btn'),sub=sel('hdr-sub');
+  if(U){if(btn)btn.textContent=tr('hdr_user',{n:U.first});}
+  else{if(btn)btn.textContent=tr('hdr_guest');if(sub)sub.textContent=tr('hdr_sub');}
 }
+function handleHeaderBtn(){if(getUser())openProfile();else openOv('ov-auth');}
 
-function handleHeaderBtn(){
-  if(currentUser) openProfile();
-  else openOv('ov-auth');
-}
-
-// ════════════════════════════════════════════════
-// AUTH — forcer compte pour toutes les fonctions
-// ════════════════════════════════════════════════
-function requireAuth(e, action){
-  if(e) e.preventDefault();
-  if(currentUser){ doAction(action); }
-  else { afterAuthAction = action; openOv('ov-auth'); }
-}
-
-function doAction(action){
-  if(action==='add-trip') openOv('ov-add');
-  else if(action==='plan') openOv('ov-plan');
-  else if(action==='mon-monde') openProfile();
-}
-
+/* ══════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════ */
+function requireAuth(action){U=getUser();if(U){doAction(action);}else{afterAuth=action;openOv('ov-auth');}}
+function doAction(a){if(a==='add-trip'){setStar(0);openOv('ov-add');}else if(a==='plan')openOv('ov-plan');else if(a==='profile')openProfile();}
 function authTab(tab){
-  document.getElementById('auth-login').style.display = tab==='login'?'block':'none';
-  document.getElementById('auth-reg').style.display = tab==='reg'?'block':'none';
-  document.getElementById('tab-login').className = 'chip'+(tab==='login'?' on':'');
-  document.getElementById('tab-reg').className = 'chip'+(tab==='reg'?' on':'');
+  sel('pane-li').style.display=tab==='li'?'block':'none';
+  sel('pane-rg').style.display=tab==='rg'?'block':'none';
+  sel('tab-li').className='chip'+(tab==='li'?' on':'');
+  sel('tab-rg').className='chip'+(tab==='rg'?' on':'');
 }
-
+function b64(s){try{return btoa(unescape(encodeURIComponent(s)));}catch(e){return btoa(s);}}
 function doLogin(){
-  const email=document.getElementById('li-email').value.trim();
-  const pwd=document.getElementById('li-pwd').value;
-  if(!email||!pwd){toast('Email et mot de passe requis.');return;}
-  const u=getUser();
-  if(u&&u.email===email&&u.pwd===btoa(unescape(encodeURIComponent(pwd)))){
-    currentUser=u; closeOv('ov-auth'); updateHeader();
-    toast(t('welcome_back',{name:currentUser.first}));
-    if(afterAuthAction){doAction(afterAuthAction);afterAuthAction=null;}
-    else openProfile();
-  } else {
-    toast('Email ou mot de passe incorrect.');
-  }
+  var email=sel('li-email').value.trim(),pwd=sel('li-pwd').value;
+  if(!email||!pwd){toast('Email + mot de passe requis.');return;}
+  var u=getUser();
+  if(u&&u.email===email&&u.pwd===b64(pwd)){
+    U=u;closeOv('ov-auth');applyLang();
+    toast(tr('welcome_back',{n:u.first}));
+    if(afterAuth){doAction(afterAuth);afterAuth=null;}else openProfile();
+  }else toast('❌ Email ou mot de passe incorrect.');
 }
-
 function doRegister(){
-  const first=document.getElementById('rg-first').value.trim();
-  const last=document.getElementById('rg-last').value.trim();
-  const email=document.getElementById('rg-email').value.trim();
-  const pwd=document.getElementById('rg-pwd').value;
-  const rgpd=document.getElementById('rg-rgpd').checked;
-  if(!first||!last||!email){toast('Prénom, nom et email obligatoires.');return;}
+  var fn=sel('rg-fn').value.trim(),ln=sel('rg-ln').value.trim();
+  var em=sel('rg-em').value.trim(),pw=sel('rg-pw').value;
+  var rgpd=sel('rg-rgpd').checked;
+  if(!fn||!ln||!em){toast('Prénom, nom et email obligatoires.');return;}
   if(!rgpd){toast('Veuillez accepter la politique de confidentialité.');return;}
-  if(pwd.length<8){toast('Mot de passe : 8 caractères minimum.');return;}
-  const u={first,last,email,pwd:btoa(unescape(encodeURIComponent(pwd))),
-    dob:document.getElementById('rg-dob').value,
-    country:document.getElementById('rg-country').value,
-    trips:[],created:new Date().toISOString()};
-  saveUser(u); currentUser=u;
-  // Envoyer email de bienvenue (simulation)
-  sendWelcomeEmail(email, first);
-  closeOv('ov-auth'); updateHeader();
-  toast(`Bienvenue ${first} ! 🎉`);
-  if(afterAuthAction){doAction(afterAuthAction);afterAuthAction=null;}
-  else openProfile();
+  if(pw.length<8){toast('Mot de passe : 8 caractères minimum.');return;}
+  var u={first:fn,last:ln,email:em,pwd:b64(pw),dob:sel('rg-dob').value,country:sel('rg-co').value,trips:[],created:new Date().toISOString()};
+  saveUser(u);U=u;closeOv('ov-auth');applyLang();
+  toast('🎉 '+tr('welcome_back',{n:fn}));
+  if(afterAuth){doAction(afterAuth);afterAuth=null;}else openProfile();
 }
+function logout(){U=null;closeOv('ov-profile');applyLang();toast('👋 À bientôt !');}
 
-function logout(){
-  currentUser=null;
-  closeOv('ov-profile');
-  updateHeader();
-  toast('À bientôt !');
-}
-
-// ════════════════════════════════════════════════
-// PROFIL
-// ════════════════════════════════════════════════
-function openProfile(){ renderProfile(); openOv('ov-profile'); }
-
-function getCountries(trips){
-  const s=new Set();
-  trips.forEach(t=>{if(t.arr) s.add(t.arr.split(/[,(]/)[0].trim());});
-  return s.size;
-}
-function getTotalKm(trips){
-  return trips.reduce((acc,t)=>acc+(parseInt(t.count)||1)*4500*(t.type==='Aller/Retour'||t.type==='Round trip'?2:1),0);
-}
-function getWorldTours(trips){ return Math.floor(getTotalKm(trips)/40075); }
-function getPersonalCount(trips){ return trips.filter(t=>t.cat==='Perso'||t.cat==='Personal').length; }
-
+/* ══════════════════════════════════════════
+   PROFIL
+══════════════════════════════════════════ */
+function openProfile(){U=getUser();if(!U){openOv('ov-auth');return;}renderProfile();openOv('ov-profile');}
+function cntries(trips){var s=new Set();(trips||[]).forEach(function(t){if(t.arr)s.add(t.arr.split(/[\s,\(]/)[0]);});return s.size;}
+function totKm(trips){return (trips||[]).reduce(function(a,t){return a+(parseInt(t.count)||1)*4500*(t.type&&t.type.indexOf('/')>-1?2:1);},0);}
+function wTours(trips){return Math.floor(totKm(trips)/40075);}
+function persoC(trips){return (trips||[]).filter(function(t){return t.cat==='Perso';}).length;}
 function renderProfile(){
-  if(!currentUser) return;
-  const trips=currentUser.trips||[];
-  const pc=getPersonalCount(trips);
-  const toNext=Math.max(0,10-pc);
-  const km=getTotalKm(trips);
-  const ctries=getCountries(trips);
-  const tours=getWorldTours(trips);
-  const ini=(currentUser.first[0]+(currentUser.last[0]||'')).toUpperCase();
-
-  let tripsHtml='';
+  if(!U)return;
+  var trips=U.trips||[],pc=persoC(trips),toN=Math.max(0,10-pc);
+  var km=totKm(trips),ct=cntries(trips),tours=wTours(trips);
+  var ini=(U.first[0]+(U.last[0]||'')).toUpperCase();
+  var sl=tr('stat_lbl')||['','','',''];
+  var cdBox='';
+  if(pc<10){
+    cdBox='<div class="count-box"><div class="count-n">'+toN+'</div><div class="count-l">'+tr('count_l')+'</div><div class="count-sub">'+tr('count_sub')+'</div><div class="prog-wrap"><div class="prog-bar" style="width:'+Math.round(pc/10*100)+'%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:6px;">'+pc+' / 10</div></div>';
+  }else{
+    cdBox='<div class="count-box" style="background:linear-gradient(135deg,rgba(16,185,129,.10),rgba(16,185,129,.04));border-color:rgba(16,185,129,.32);"><div style="font-size:2rem;">🎉</div><div style="font-family:Playfair Display,serif;font-weight:700;font-size:1.1rem;color:#34D399;margin-top:6px;">'+tr('cg_title')+' '+U.first+' !</div><div style="font-size:13px;color:var(--muted);margin-top:6px;">'+tr('cg_sub')+'</div><button class="btn-go btn-sky-go" style="max-width:280px;margin:1rem auto 0;" onclick="closeOv(\'ov-profile\');openOv(\'ov-plan\')">'+tr('offer_btn')+'</button></div>';
+  }
+  var tripsHTML='';
   if(!trips.length){
-    tripsHtml=`<p style="color:var(--muted);font-size:14px;text-align:center;padding:1.5rem 0;">Aucun voyage enregistré. Commencez par ajouter vos voyages passés !</p>`;
-  } else {
-    trips.slice().reverse().slice(0,20).forEach(tr=>{
-      const stars='★'.repeat(tr.stars||0)+'☆'.repeat(5-(tr.stars||0));
-      tripsHtml+=`<div class="tc">
-        <div style="flex:1;">
-          <div class="tc-route">${tr.dep} → ${tr.arr}</div>
-          <div class="tc-meta">${tr.type} · ${tr.formula} · ×${tr.count||1}${tr.date?' · '+tr.date:''}</div>
-          <div class="tc-stars">${stars}</div>
-        </div>
-        <span class="badge badge-${tr.cat==='Pro'?'pro':'perso'}">${tr.cat}</span>
-      </div>`;
+    tripsHTML='<p style="color:var(--muted);text-align:center;padding:1.5rem 0;font-size:14px;">'+tr('btn_add')+'</p>';
+  }else{
+    trips.slice().reverse().slice(0,25).forEach(function(t){
+      var stars='★'.repeat(t.stars||0)+'☆'.repeat(5-(t.stars||0));
+      tripsHTML+='<div class="tc"><div style="flex:1"><div class="tc-route">'+t.dep+' → '+t.arr+'</div><div class="tc-meta">'+t.type+' · '+t.formula+(parseInt(t.count)>1?' · ×'+t.count:'')+(t.date?' · '+t.date:'')+'</div><div class="tc-stars">'+stars+'</div></div><span class="badge '+(t.cat==='Pro'?'b-pro':'b-perso')+'">'+t.cat+'</span></div>';
     });
   }
-
-  let countdownHtml='';
-  if(pc<10){
-    countdownHtml=`<div class="count-box">
-      <div class="count-n">${toNext}</div>
-      <div class="count-l">${t('countdown_l')}</div>
-      <div class="count-sub">${t('countdown_sub')}</div>
-      <div class="prog-wrap"><div class="prog-bar" style="width:${Math.round(pc/10*100)}%"></div></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:6px;">${pc}/10</div>
-    </div>`;
-  } else {
-    countdownHtml=`<div class="count-box" style="background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(16,185,129,0.04));border-color:rgba(16,185,129,0.35);">
-      <div style="font-size:2.5rem;margin-bottom:6px;">🎉</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#34D399;">${t('congrats')} ${currentUser.first} !</div>
-      <div style="font-size:13px;color:var(--muted);margin-top:6px;">${t('congrats_sub')}</div>
-      <button class="btn-go btn-sky" style="max-width:320px;margin:1rem auto 0;" onclick="closeOv('ov-profile');openOv('ov-plan')">${t('offer_btn')}</button>
-    </div>`;
-  }
-
-  document.getElementById('profile-body').innerHTML=`
-    <div class="avatar-ring">${ini}</div>
-    <div class="uname">Bonjour, <em>${currentUser.first}</em> !</div>
-    <div class="usub">${currentUser.email}</div>
-    <div class="stats-cards">
-      <div class="sc"><div class="sc-n s1">${ctries}</div><div class="sc-l">${t('stat_countries2')}</div></div>
-      <div class="sc"><div class="sc-n s2">${Math.max(0,195-ctries)}</div><div class="sc-l">${t('stat_todo')}</div></div>
-      <div class="sc"><div class="sc-n s3">${(km/1000).toFixed(0)}k</div><div class="sc-l">${t('stat_km')}</div></div>
-      <div class="sc"><div class="sc-n s4">${tours>0?tours:'<1'}</div><div class="sc-l">${t('stat_tours')}</div></div>
-    </div>
-    ${countdownHtml}
-    <div style="display:flex;justify-content:space-between;align-items:center;margin:1.5rem 0 0.75rem;">
-      <div style="font-family:'Playfair Display',serif;font-weight:700;">${t('my_trips')} (${trips.length})</div>
-      <div style="display:flex;gap:8px;">
-        <button class="bsm pp" onclick="closeOv('ov-profile');openOv('ov-add')">${t('btn_add')}</button>
-        <button class="bsm pp" style="background:linear-gradient(135deg,var(--coral),#E11D48);" onclick="closeOv('ov-profile');openOv('ov-plan')">${t('btn_plan')}</button>
-      </div>
-    </div>
-    <div class="trip-list">${tripsHtml}</div>
-    <div class="share-strip" style="margin-top:1.5rem;">
-      <p>${t('share_trip_lbl')}</p>
-      <button class="shbtn" onclick="shareStats('whatsapp')">📱 WhatsApp</button>
-      <button class="shbtn" onclick="shareStats('instagram')">📸 Instagram</button>
-      <button class="shbtn" onclick="shareStats('tiktok')">🎵 TikTok</button>
-    </div>
-    <div style="text-align:right;margin-top:1.5rem;">
-      <button onclick="logout()" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">${t('logout')}</button>
-    </div>`;
+  sel('profile-body').innerHTML=
+    '<div class="avatar-ring">'+ini+'</div>'+
+    '<div class="uname">'+tr('hdr_user',{n:U.first})+'</div>'+
+    '<div class="usub">'+U.email+'</div>'+
+    '<div class="sc-grid">'+
+      '<div class="sc"><div class="sc-n s1">'+ct+'</div><div class="sc-l">'+sl[0]+'</div></div>'+
+      '<div class="sc"><div class="sc-n s2">'+Math.max(0,195-ct)+'</div><div class="sc-l">'+sl[1]+'</div></div>'+
+      '<div class="sc"><div class="sc-n s3">'+Math.round(km/1000)+'k</div><div class="sc-l">'+sl[2]+'</div></div>'+
+      '<div class="sc"><div class="sc-n s4">'+(tours>0?tours:'<1')+'</div><div class="sc-l">'+sl[3]+'</div></div>'+
+    '</div>'+cdBox+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin:1.25rem 0 .65rem;">'+
+      '<div style="font-family:Playfair Display,serif;font-weight:700;">'+tr('my_trips')+' ('+trips.length+')</div>'+
+      '<div style="display:flex;gap:8px;">'+
+        '<button class="bsm pp" onclick="closeOv(\'ov-profile\');setStar(0);openOv(\'ov-add\')">'+tr('btn_add')+'</button>'+
+        '<button class="bsm pp" style="background:linear-gradient(135deg,var(--coral),#E11D48);" onclick="closeOv(\'ov-profile\');openOv(\'ov-plan\')">'+tr('btn_plan_s')+'</button>'+
+      '</div></div>'+
+    '<div class="trip-list">'+tripsHTML+'</div>'+
+    '<div class="share-strip" style="margin-top:1.25rem;"><p>'+tr('share_stats')+'</p>'+
+      '<button class="shbtn" onclick="shareStats(\'wa\')">📱 WhatsApp</button>'+
+      '<button class="shbtn" onclick="shareStats(\'copy\')">📸 Instagram / TikTok</button>'+
+    '</div>'+
+    '<div style="text-align:right;margin-top:1.25rem;"><button onclick="logout()" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;">'+tr('logout')+'</button></div>';
 }
 
-// ════════════════════════════════════════════════
-// ÉTOILES
-// ════════════════════════════════════════════════
+/* ══════════════════════════════════════════
+   ÉTOILES
+══════════════════════════════════════════ */
 function setStar(n){
   starVal=n;
-  document.querySelectorAll('.star-b').forEach((b,i)=>{
-    b.textContent=i<n?'★':'☆';
-    b.style.transform=i<n?'scale(1.2)':'scale(1)';
-  });
-  const lbl=document.getElementById('star-lbl');
-  if(lbl) lbl.textContent=(t('star_labels')||['','','','','',''])[n]||'';
+  document.querySelectorAll('.star-btn').forEach(function(b,i){b.textContent=i<n?'★':'☆';b.style.transform=i<n?'scale(1.2)':'scale(1)';});
+  var lbl=sel('star-lbl');
+  if(lbl){var s=tr('stars')||[];lbl.textContent=s[n]||'';}
 }
 
-// ════════════════════════════════════════════════
-// AJOUT VOYAGE
-// ════════════════════════════════════════════════
+/* ══════════════════════════════════════════
+   AJOUT VOYAGE
+══════════════════════════════════════════ */
+function toggleShareOpt(){
+  var cat=sel('a-cat');
+  var wrap=sel('share-opt');
+  if(wrap)wrap.style.display=(cat&&cat.value==='Perso')?'block':'none';
+}
 function saveTrip(){
-  const dep=document.getElementById('a-dep').value.trim();
-  const arr=document.getElementById('a-arr').value.trim();
-  if(!dep||!arr){toast('Aéroports de départ et d\'arrivée requis.');return;}
-  const trip={
-    dep, arr,
-    type:document.getElementById('a-type').value,
-    cat:document.getElementById('a-cat').value,
-    formula:document.getElementById('a-formula').value,
-    count:document.getElementById('a-count').value,
-    date:document.getElementById('a-date').value,
-    stars:starVal, id:Date.now()
-  };
-  currentUser.trips=currentUser.trips||[];
-  currentUser.trips.push(trip);
-  saveUser(currentUser);
-
-  const pc=getPersonalCount(currentUser.trips);
-
-  // Partage réseaux sociaux
-  handleSocialShare(trip);
-
-  // Reset form
-  ['a-dep','a-arr','a-date'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('a-count').value='1';
-  setStar(0);
-
-  closeOv('ov-add');
-  toast(t('trip_saved'));
-
-  if(pc===10){
-    setTimeout(()=>{
-      toast(`🎉 10 voyages atteints, ${currentUser.first} ! Votre offre personnalisée vous attend.`);
-    },1500);
-  }
+  var dep=sel('a-dep').value.trim(),arr=sel('a-arr').value.trim();
+  if(!dep||!arr){toast('Aéroports requis !');return;}
+  U=getUser();if(!U)return;
+  var trip={dep:dep,arr:arr,type:sel('a-type').value,cat:sel('a-cat').value,formula:sel('a-formula').value,count:sel('a-count').value,date:sel('a-date').value,stars:starVal,id:Date.now()};
+  U.trips=U.trips||[];U.trips.push(trip);saveUser(U);
+  handleShare(trip);
+  ['a-dep','a-arr','a-date'].forEach(function(id){var e=sel(id);if(e)e.value='';});
+  sel('a-count').value='1';setStar(0);
+  closeOv('ov-add');toast(tr('trip_saved'));
+  if(persoC(U.trips)===10)setTimeout(function(){toast('🎉 '+tr('cg_title')+'! '+tr('cg_sub'));},1500);
   openProfile();
 }
-
-function handleSocialShare(trip){
-  const insta=document.getElementById('sh-insta')?.classList.contains('on');
-  const tiktok=document.getElementById('sh-tiktok')?.classList.contains('on');
-  const wa=document.getElementById('sh-wa')?.classList.contains('on');
-  const handle=document.getElementById('a-handle')?.value||'';
-  if(!insta&&!tiktok&&!wa) return;
-
-  const handleStr = handle ? ` ${handle}` : '';
-  const stars='★'.repeat(trip.stars||5);
-  const txt=`✈ ${currentUser.first}${handleStr} vient d'ajouter un voyage sur Trip&Me !\n${trip.dep} → ${trip.arr}\n${stars}\n\n🌍 Planifiez vos voyages sur tripandme.com\n#TripAndMe #Voyage #Travel #WorldIsMe`;
-
-  if(wa) window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`,'_blank');
-  if(insta||tiktok){ navigator.clipboard.writeText(txt).catch(()=>{}); toast(t('share_copied')); }
-
-  // Simulation envoi aux comptes Trip&Me officiels
-  const tripAndMePost=`[POST OFFICIEL Trip&Me]\n${txt}\n\n(Publication automatique sur @TripAndMe — Instagram, TikTok, YouTube)`;
-  console.log('📤 Post partagé sur les comptes Trip&Me:', tripAndMePost);
+function handleShare(trip){
+  var insta=sel('sh-insta')&&sel('sh-insta').classList.contains('on');
+  var tiktok=sel('sh-tiktok')&&sel('sh-tiktok').classList.contains('on');
+  var wa=sel('sh-wa')&&sel('sh-wa').classList.contains('on');
+  var hdl=sel('a-handle')&&sel('a-handle').value||'';
+  if(!insta&&!tiktok&&!wa)return;
+  var stars='★'.repeat(trip.stars||5);
+  var htxt=hdl?' ('+hdl+')':'';
+  var txt='✈ '+U.first+htxt+' a ajouté un voyage sur Trip&Me !\n'+trip.dep+' → '+trip.arr+'\n'+stars+'\n\n🌍 tripandme.com\n#TripAndMe #WorldIsMe #Voyage #Travel\n@tripandme_worldismine @TripandMe_WorldisMine';
+  if(wa)window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  if(insta||tiktok){try{navigator.clipboard.writeText(txt);}catch(e){}toast(tr('share_copied'));}
+}
+function shareStats(plat){
+  U=getUser();if(!U)return;
+  var km=totKm(U.trips||[]),ct=cntries(U.trips||[]),tours=wTours(U.trips||[]);
+  var txt='🌍 '+U.first+' a visité '+ct+' pays, parcouru '+Math.round(km/1000)+'k km et fait '+tours+' tour(s) du monde avec Trip&Me !\n✈ tripandme.com\n#TripAndMe #WorldIsMe #Voyage #Travel\n@tripandme_worldismine @TripandMe_WorldisMine';
+  if(plat==='wa')window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  else{try{navigator.clipboard.writeText(txt);}catch(e){}toast(tr('share_copied'));}
 }
 
-function shareStats(platform){
-  if(!currentUser) return;
-  const km=getTotalKm(currentUser.trips||[]);
-  const ctries=getCountries(currentUser.trips||[]);
-  const tours=getWorldTours(currentUser.trips||[]);
-  const txt=`🌍 ${currentUser.first} a visité ${ctries} pays, parcouru ${Math.round(km/1000)}k km et fait ${tours} tour(s) du monde ! #TripAndMe — tripandme.com\n✈ Découvrez Trip&Me, le planificateur de voyages #1 !`;
-  if(platform==='whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`,'_blank');
-  else { navigator.clipboard.writeText(txt).catch(()=>{}); toast(t('share_copied')); }
-}
-
-// ════════════════════════════════════════════════
-// PLANIFICATEUR VOYAGE
-// ════════════════════════════════════════════════
-function selType(btn, type){
-  tripType=type;
-  document.querySelectorAll('#ov-plan .chip').forEach(b=>b.className='chip');
-  btn.className='chip on-coral';
-}
-
+/* ══════════════════════════════════════════
+   PLANIFICATEUR
+══════════════════════════════════════════ */
+function selVtype(btn,idx){vtypeIdx=idx;document.querySelectorAll('#vtype-chips .chip').forEach(function(b){b.className='chip';});btn.className='chip on-coral';}
 function launchSearch(){
-  const btn=document.getElementById('btn-search');
-  const results=document.getElementById('plan-results');
-  const dest=document.getElementById('p-dest').value||'Destination surprise';
-  const budget=document.getElementById('p-budget').value;
-  const duration=document.getElementById('p-dur').value;
+  var btn=sel('btn-srch'),res=sel('plan-results');
+  var dest=sel('p-dest').value||'';
+  var budget=sel('p-budget').value;
+  var durEl=sel('p-dur');var durTxt=durEl?durEl.options[durEl.selectedIndex].text:'';
   btn.disabled=true;
-  btn.innerHTML=`<span style="display:flex;align-items:center;gap:8px;justify-content:center;"><span class="dots"><span></span><span></span><span></span></span></span>`;
-  results.innerHTML='';
-  setTimeout(()=>{
-    results.innerHTML=renderProps(genProps(dest,budget,duration,tripType));
-    btn.disabled=false;
-    btn.innerHTML=t('btn_search');
-    results.scrollIntoView({behavior:'smooth',block:'start'});
-  },2000);
+  btn.innerHTML='<span style="display:flex;align-items:center;justify-content:center;gap:8px;"><span class="dots"><span></span><span></span><span></span></span></span>';
+  res.innerHTML='';
+  setTimeout(function(){
+    res.innerHTML=renderProps(genProps(dest,budget,durTxt));
+    btn.disabled=false;btn.textContent=tr('btn_srch');
+    res.scrollIntoView({behavior:'smooth',block:'start'});
+  },1800);
 }
-
-function genProps(dest,budget,duration,type){
-  const b=parseInt(budget)||2000;
+function genProps(dest,budget,dur){
+  var b=parseInt(budget)||2000;
+  var fb=tr('prop_fb')||[];
   return [
-    {best:true,dest:dest!=='Destination surprise'?dest:'🌟 Bali, Indonésie',sub:'Meilleur rapport qualité/prix — Offre Trip&Me',price:`${Math.round(b*0.9)}€`,hotel:'Hôtel 4★ sélectionné',desc:`Itinéraire ${type.toLowerCase()} complet : hôtel, visites guidées, restaurants, transferts inclus. Planning exportable agenda.`,duration},
-    {best:false,dest:dest!=='Destination surprise'?dest+' — Premium':'🏝 Maldives',sub:'Formule luxe',price:`${Math.round(b*1.2)}€`,hotel:'Resort 5★',desc:`Version prestige : resort 5★, conciergerie, excursion privée. Le summum du voyage sur mesure.`,duration},
-    {best:false,dest:dest!=='Destination surprise'?dest+' — Éco':'🇵🇹 Lisbonne',sub:'Meilleure offre économique',price:`${Math.round(b*0.65)}€`,hotel:'Boutique Hôtel 3★',desc:`Formule optimisée : hôtel sélectionné, carte des meilleurs spots locaux, guide numérique inclus.`,duration},
-    {best:false,dest:'🔮 Destination Mystère Trip&Me',sub:'Sélection exclusive',price:`${Math.round(b*0.95)}€`,hotel:'Hôtel surprise',desc:`Notre algorithme sélectionne votre destination parfaite. Révélation 72h avant le départ !`,duration},
+    {best:true,dest:dest||(fb[0]||'Bali'),sub:(tr('prop_sub')||[''])[0],price:Math.round(b*0.88),hotel:(tr('prop_hotels')||[''])[0],body:(tr('prop_body')||[''])[0],dur:dur},
+    {best:false,dest:dest?(dest+' — Premium'):(fb[1]||'Maldives'),sub:(tr('prop_sub')||['',''])[1],price:Math.round(b*1.22),hotel:(tr('prop_hotels')||['',''])[1],body:(tr('prop_body')||['',''])[1],dur:dur},
+    {best:false,dest:dest?(dest+' — Éco'):(fb[2]||'Lisbonne'),sub:(tr('prop_sub')||['','',''])[2],price:Math.round(b*0.63),hotel:(tr('prop_hotels')||['','',''])[2],body:(tr('prop_body')||['','',''])[2],dur:dur},
+    {best:false,dest:fb[3]||'Mystère',sub:(tr('prop_sub')||['','','',''])[3],price:Math.round(b*0.94),hotel:(tr('prop_hotels')||['','','',''])[3],body:(tr('prop_body')||['','','',''])[3],dur:dur}
   ];
 }
-
 function renderProps(props){
-  let h=`<div style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;margin:1.5rem 0 1rem;">${t('prop_title')}</div>`;
-  props.forEach((p,i)=>{
-    h+=`<div class="prop ${p.best?'best':''}">
-      ${p.best?`<div class="best-badge">${t('prop_best')}</div>`:''}
-      <div class="prop-hdr">
-        <div><div class="prop-dest">${p.dest}</div><div class="prop-meta">${p.sub} · ${p.duration}</div></div>
-        <div class="prop-price">${p.price}<span style="font-size:12px;color:var(--muted)">/pers.</span></div>
-      </div>
-      <div class="prop-desc">${p.hotel} — ${p.desc}</div>
-      <div class="prop-acts">
-        <button class="bsm pp" onclick="alert('Réservation disponible au lancement officiel !')">${t('book')}</button>
-        <button class="bsm ps" onclick="alert('Export agenda disponible dans l\\'app mobile Trip&Me !')">${t('cal')}</button>
-        <button class="bsm ps" onclick="shareProp('${p.dest}','${p.price}')">${t('share')}</button>
-      </div>
-    </div>`;
+  var h='<div style="font-family:\'Playfair Display\',serif;font-weight:700;font-size:1.05rem;margin:1.25rem 0 .75rem;">'+tr('prop_title')+'</div>';
+  props.forEach(function(p){
+    h+='<div class="prop'+(p.best?' best':'')+'">'+(p.best?'<div class="best-badge">'+tr('prop_best')+'</div>':'')+
+      '<div class="prop-hdr"><div><div class="prop-dest">'+p.dest+'</div><div class="prop-meta">'+p.sub+(p.dur?' · '+p.dur:'')+'</div></div>'+
+      '<div class="prop-price">'+p.price+'€<span style="font-size:12px;color:var(--muted)">/pers.</span></div></div>'+
+      '<div class="prop-desc">'+p.hotel+' — '+p.body+'</div>'+
+      '<div class="prop-acts">'+
+        '<button class="bsm pp" onclick="alert(\''+tr('book')+'...\')">'+tr('book')+'</button>'+
+        '<button class="bsm ps" onclick="alert(\'📅\')">'+tr('cal')+'</button>'+
+        '<button class="bsm ps" onclick="shareProp(\''+p.dest+'\','+p.price+')">'+tr('share')+'</button>'+
+      '</div></div>';
   });
-  h+=`<div class="share-strip">
-    <p>${t('share_trip_lbl')}</p>
-    <button class="shbtn" onclick="shareProposals('whatsapp')">📱 WhatsApp</button>
-    <button class="shbtn" onclick="shareProposals('copy')">📸 Instagram / TikTok</button>
-  </div>
-  <p style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center;">${t('rgpd_note')} <a href="#" onclick="showPrivacy(event)" style="color:var(--sky);">RGPD</a>.</p>`;
+  h+='<div class="share-strip"><p>'+tr('share_lbl')+'</p>'+
+    '<button class="shbtn" onclick="shareProposals(\'wa\')">📱 WhatsApp</button>'+
+    '<button class="shbtn" onclick="shareProposals(\'copy\')">📸 Instagram / TikTok</button></div>'+
+    '<p style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center;">'+tr('rgpd_note')+'</p>';
   return h;
 }
-
 function shareProp(dest,price){
-  const nm=currentUser?currentUser.first+' ':'';
-  const txt=`✈ ${nm}part à ${dest} avec Trip&Me ! ${price}/pers. 🌍 tripandme.com #TripAndMe #Voyage`;
-  navigator.clipboard.writeText(txt).catch(()=>{});
-  toast(t('share_copied'));
+  var nm=U?U.first+' — ':'';
+  var txt='✈ '+nm+dest+' — '+price+'€/pers.\n🌍 tripandme.com\n#TripAndMe #WorldIsMe\n@tripandme_worldismine @TripandMe_WorldisMine';
+  try{navigator.clipboard.writeText(txt);}catch(e){}toast(tr('share_copied'));
 }
-function shareProposals(p){
-  const nm=currentUser?currentUser.first+' ':'';
-  const txt=`✈ ${nm}vient de planifier son prochain voyage sur Trip&Me ! 🌍 tripandme.com #TripAndMe #Travel`;
-  if(p==='whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`,'_blank');
-  else { navigator.clipboard.writeText(txt).catch(()=>{}); toast(t('share_copied')); }
-}
-
-// ════════════════════════════════════════════════
-// TEST EMAILS
-// ════════════════════════════════════════════════
-function sendWelcomeEmail(email, name){
-  // Test des 2 emails — simulation côté client
-  // En production : appel API backend
-  const testBusiness = () => {
-    console.log(`📧 Test Business@tripandme.com → Email de bienvenue envoyé à ${email}`);
-    // Simulation envoi email via mailto (fallback universel sans Outlook)
-    const subject = encodeURIComponent(`Bienvenue sur Trip&Me, ${name} !`);
-    const body = encodeURIComponent(`Bonjour ${name},\n\nBienvenue sur Trip&Me !\nVotre compte a été créé avec succès.\n\nBonne exploration !\nL'équipe Trip&Me\nWorld@tripandme.com`);
-    // On ouvre le client email natif si disponible
-    window._pendingEmail = {to: email, subject, body};
-  };
-  testBusiness();
+function shareProposals(plat){
+  var nm=U?U.first+' ':'';
+  var txt='✈ '+nm+'vient de planifier son prochain voyage sur Trip&Me !\n🌍 tripandme.com\n#TripAndMe #WorldIsMe\n@tripandme_worldismine @TripandMe_WorldisMine';
+  if(plat==='wa')window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  else{try{navigator.clipboard.writeText(txt);}catch(e){}toast(tr('share_copied'));}
 }
 
-function testEmail(addr){
-  const subject = encodeURIComponent('Test email Trip&Me');
-  const body = encodeURIComponent(`Ceci est un email de test depuis Trip&Me (tripandme.com).\nSi vous recevez ce message, l'adresse ${addr} fonctionne correctement.\n\nL'équipe Trip&Me`);
-  // Option 1 : mailto (ouvre Outlook, Gmail, Apple Mail...)
-  const mailtoLink = `mailto:${addr}?subject=${subject}&body=${body}`;
-  // Option 2 : alternative sans client email — Gmail web
-  const gmailLink = `https://mail.google.com/mail/?view=cm&to=${addr}&su=${subject}&body=${body}`;
-
-  const choice = confirm(`Tester l'email ${addr}\n\nCliquez OK pour ouvrir votre client email (Outlook, Apple Mail...)\nCliquez Annuler pour ouvrir Gmail dans le navigateur (sans Outlook)`);
-  if(choice) window.location.href = mailtoLink;
-  else window.open(gmailLink, '_blank');
-  toast(t('email_test_ok',{addr}));
+/* ══════════════════════════════════════════
+   PWA — Progressive Web App
+══════════════════════════════════════════ */
+var deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();deferredPrompt=e;
+  var banner=sel('pwa-banner');
+  if(banner&&!localStorage.getItem('pwa-dismissed'))banner.style.display='flex';
+});
+function installPWA(){
+  if(!deferredPrompt){
+    /* Instructions manuelles */
+    alert('Pour installer Trip&Me :\n\n📱 iPhone/iPad : Appuyez sur "Partager" (⬆) puis "Sur l\'écran d\'accueil"\n\n🤖 Android : Menu (⋮) puis "Ajouter à l\'écran d\'accueil"\n\n✅ Trip&Me fonctionnera comme une application !');
+    return;
+  }
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(r){
+    if(r.outcome==='accepted'){localStorage.setItem('pwa-dismissed','1');sel('pwa-banner').style.display='none';}
+    deferredPrompt=null;
+  });
 }
+window.addEventListener('appinstalled',function(){
+  sel('pwa-banner').style.display='none';
+  localStorage.setItem('pwa-dismissed','1');
+  toast('✅ Trip&Me installé !');
+});
 
-// ════════════════════════════════════════════════
-// RGPD & COOKIES
-// ════════════════════════════════════════════════
-function acceptCookies(){
-  localStorage.setItem('tm_consent','accepted');
-  document.getElementById('cookie-banner').classList.add('hidden');
-}
-function refuseCookies(){
-  localStorage.setItem('tm_consent','refused');
-  document.getElementById('cookie-banner').classList.add('hidden');
-}
-function showPrivacy(e){
-  if(e) e.preventDefault();
-  alert(`POLITIQUE DE CONFIDENTIALITÉ — TRIP&ME\n\nResponsable : Trip&Me — tripandme.com\nContact DPO : World@tripandme.com\n\nDonnées collectées : email, préférences voyage (opt-in)\nFinalité : personnalisation des itinéraires\nBase légale : consentement (Art. 6.1.a RGPD)\nConservation : 3 ans\n\nDroits : accès, rectification, suppression, portabilité\n→ World@tripandme.com\n\nHébergement : Vercel + Supabase (Europe)\nAucune revente de données.\nAutorité de contrôle : CNIL — www.cnil.fr`);
-}
+/* ══════════════════════════════════════════
+   RGPD & COOKIES
+══════════════════════════════════════════ */
+function acceptCookies(){localStorage.setItem('tm_consent','ok');sel('cookie-banner').classList.add('hidden');}
+function refuseCookies(){localStorage.setItem('tm_consent','no');sel('cookie-banner').classList.add('hidden');}
+function showPrivacy(){alert(tr('privacy_txt'));}
 
-// ════════════════════════════════════════════════
-// MODALS UTILS
-// ════════════════════════════════════════════════
-function openOv(id){ document.getElementById(id).classList.add('open'); }
-function closeOv(id){ document.getElementById(id).classList.remove('open'); }
-function closeIfBg(e,id){ if(e.target.id===id) closeOv(id); }
+/* ══════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════ */
+function openOv(id){var e=sel(id);if(e)e.classList.add('open');}
+function closeOv(id){var e=sel(id);if(e)e.classList.remove('open');}
+function bgClose(e,id){if(e.target&&e.target.id===id)closeOv(id);}
+function scrollToId(id){var e=sel(id);if(e)e.scrollIntoView({behavior:'smooth'});}
 
-// ════════════════════════════════════════════════
-// TOAST
-// ════════════════════════════════════════════════
-let toastTimer;
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+var toastT;
 function toast(msg){
-  const el=document.getElementById('toast');
-  el.textContent=msg;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>el.classList.remove('show'),3200);
+  var e=sel('toast');if(!e)return;
+  e.textContent=msg;e.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(function(){e.classList.remove('show');},3200);
 }
 
-// ════════════════════════════════════════════════
-// DÉMARRAGE
-// ════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', init);
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+function init(){
+  detectLang();
+  U=getUser();
+  applyLang();
+  /* Cookie banner — 1 seule fois */
+  if(!localStorage.getItem('tm_consent')){
+    sel('cookie-banner').classList.remove('hidden');
+  }else{
+    sel('cookie-banner').classList.add('hidden');
+  }
+  /* Globe — chargement asynchrone pour ne jamais bloquer Edge */
+  loadThree();
+}
 
-// Boutons test email accessibles en console pour démo
-window.testEmailBusiness = ()=>testEmail('Business@tripandme.com');
-window.testEmailWorld = ()=>testEmail('World@tripandme.com');
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+}else{
+  init();
+}
 </script>
 </body>
 </html>
