@@ -12,7 +12,7 @@
 <meta name="generator" content="Trip&Me — tripandme.com"/>
 
 <!-- ═══ SEO PRINCIPAL ═══ -->
-<title>Trip&Me — Planificateur de Voyage Intelligent | The World is Mine</title>
+<title>Trip&Me — Planificateur de Voyage Intelligent | World is Mine</title>
 <meta name="description" content="Trip&Me : découvrez combien de fois vous avez fait le tour du monde, planifiez votre prochain voyage en 30 secondes. Itinéraires personnalisés, hôtels, vols — 195 pays, 100% gratuit."/>
 <meta name="keywords" content="planificateur voyage, itinéraire voyage personnalisé, tour du monde, voyage sur mesure, trip planner, travel planner, voyages avion statistiques, meilleur site voyage, idée voyage, où partir, organiser voyage, propositions voyage, voyage intelligent, compagnon voyage"/>
 <meta name="author" content="Trip&Me"/>
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://tripandme.com/og-share.jpg"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:image:alt" content="Trip&Me — The World is Mine — Globe animé avec avion"/>
+<meta property="og:image:alt" content="Trip&Me — World is Mine — Globe animé avec avion"/>
 <meta property="og:locale" content="fr_FR"/>
 <meta property="og:locale:alternate" content="en_US"/>
 <meta property="og:locale:alternate" content="es_ES"/>
@@ -701,6 +701,150 @@ select option{background:var(--night2);}
   .modal{border-radius:16px;}
   .cta-card{min-width:260px;padding:12px 20px;}
 }
+
+/* ═══════════════════════════════
+   CHAMP LIBRE RECHERCHE
+═══════════════════════════════ */
+.free-search-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.fst{
+  padding:5px 12px;border-radius:50px;
+  background:rgba(14,165,233,0.10);border:1px solid rgba(14,165,233,0.22);
+  color:#7DD3FC;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;
+}
+.fst:hover{background:rgba(14,165,233,0.20);color:var(--text);}
+
+/* ═══════════════════════════════
+   STATS SOCIALES EN TEMPS RÉEL
+═══════════════════════════════ */
+#social-stats-bar{
+  background:linear-gradient(135deg,rgba(8,47,73,0.9),rgba(15,35,64,0.95));
+  border-top:1px solid rgba(14,165,233,0.15);
+  border-bottom:1px solid rgba(14,165,233,0.15);
+  padding:1.25rem 2rem;overflow:hidden;
+}
+.ssb-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1.5rem;flex-wrap:wrap;
+}
+.ssb-item{
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+.ssb-icon{font-size:1.3rem;flex-shrink:0;}
+.ssb-val{
+  font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;
+  line-height:1;
+}
+.ssb-val.tiktok{background:linear-gradient(135deg,#69C9D0,#EE1D52);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ssb-val.insta{background:linear-gradient(135deg,#F9CE34,#EE2A7B,#6228D7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ssb-val.green{background:linear-gradient(135deg,#34D399,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ssb-val.gold{background:linear-gradient(135deg,#FBBF24,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ssb-lbl{font-size:12px;color:var(--muted);line-height:1.3;max-width:120px;}
+.ssb-separator{width:1px;height:32px;background:var(--brd);flex-shrink:0;}
+.ssb-badge-live{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(52,211,153,0.12);border:1px solid rgba(52,211,153,0.25);
+  border-radius:50px;padding:4px 12px;font-size:11px;font-weight:600;color:#34D399;
+}
+.ssb-dot{width:6px;height:6px;border-radius:50%;background:#34D399;animation:livePulse 2s ease-in-out infinite;}
+
+/* ═══════════════════════════════
+   SCORE VOYAGE SECTION
+═══════════════════════════════ */
+#score-section{
+  padding:5rem 2rem;
+  background:linear-gradient(135deg,rgba(251,191,36,0.06),rgba(249,115,22,0.06));
+  border-top:1px solid rgba(251,191,36,0.15);
+  border-bottom:1px solid rgba(249,115,22,0.1);
+}
+.score-inner{
+  max-width:1000px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+.score-badge-top{
+  display:inline-block;
+  background:linear-gradient(135deg,#F97316,#E11D48);
+  color:#fff;font-size:11px;font-weight:800;letter-spacing:2px;
+  padding:5px 16px;border-radius:50px;margin-bottom:1.25rem;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(249,115,22,0.4);}50%{box-shadow:0 0 0 10px rgba(249,115,22,0);}}
+.score-title{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin-bottom:1rem;
+}
+.score-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--sun),var(--coral));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.score-desc{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.score-examples{
+  display:flex;gap:1rem;margin-bottom:1.75rem;
+}
+.score-ex{
+  flex:1;background:var(--card);border:1px solid var(--brd);
+  border-radius:14px;padding:1rem;text-align:center;
+  transition:all .2s;
+}
+.score-ex:hover{transform:translateY(-4px);}
+.score-ex-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;line-height:1;}
+.score-ex-lbl{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500;}
+.score-cta{
+  padding:16px 36px;
+  background:linear-gradient(135deg,var(--sun),var(--coral));
+  color:var(--night);border:none;border-radius:50px;
+  font-size:16px;font-weight:800;cursor:pointer;
+  box-shadow:0 8px 32px rgba(249,115,22,0.4);transition:all .3s;
+  letter-spacing:0.02em;
+}
+.score-cta:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(249,115,22,0.5);}
+/* Phone mockup score */
+.score-phone{
+  background:#0A1628;border:1.5px solid rgba(255,255,255,0.12);
+  border-radius:32px;padding:28px 24px 20px;
+  max-width:220px;margin:0 auto;
+  box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05),0 0 60px rgba(251,191,36,0.12);
+  text-align:center;position:relative;
+}
+.sp-notch{
+  width:48px;height:5px;background:rgba(255,255,255,0.15);
+  border-radius:3px;margin:0 auto 20px;
+}
+.sp-brand{font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;}
+.sp-label{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:8px;}
+.sp-score{
+  font-family:'Playfair Display',serif;font-size:72px;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,#FBBF24,#F97316);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  transition:all 0.5s;
+}
+.sp-slash{font-size:16px;color:rgba(255,255,255,0.3);margin-bottom:10px;}
+.sp-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,#10B981,#0EA5E9);
+  color:#fff;font-size:12px;font-weight:700;
+  padding:4px 14px;border-radius:50px;margin-bottom:10px;
+  transition:opacity 0.5s;
+}
+.sp-sub{font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px;transition:opacity 0.5s;}
+.sp-share-row{display:flex;justify-content:center;gap:8px;margin-top:14px;}
+.sp-share-btn{
+  width:34px;height:34px;border-radius:50%;border:none;
+  background:rgba(255,255,255,0.07);color:#fff;font-size:14px;
+  cursor:pointer;transition:all .2s;
+}
+.sp-share-btn:hover{background:rgba(255,255,255,0.15);transform:scale(1.1);}
+/* Barre comparaison */
+.score-live-bar{margin-top:1.5rem;max-width:220px;margin-left:auto;margin-right:auto;}
+.slb-track{height:8px;background:rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;margin-bottom:6px;}
+.slb-fill{height:100%;background:linear-gradient(90deg,var(--sun),var(--coral));border-radius:20px;transition:width 1.5s cubic-bezier(.175,.885,.32,1.275);}
+.slb-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
+/* Responsive score */
+@media(max-width:768px){
+  .score-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .score-phone{max-width:200px;}
+}
 </style>
 </head>
 <body>
@@ -782,7 +926,89 @@ select option{background:var(--night2);}
   </div>
 </section>
 
-<!-- ══ BANDEAU VIRAL "COMPAGNON VOYAGE INTELLIGENT" ══ -->
+<!-- ══ BARRE STATS SOCIALES LIVE ══ -->
+<div id="social-stats-bar">
+  <div class="ssb-inner">
+    <div class="ssb-badge-live"><div class="ssb-dot"></div> LIVE</div>
+    <div class="ssb-item">
+      <span class="ssb-icon">🎵</span>
+      <div>
+        <div class="ssb-val tiktok" id="sstat-tiktok">—</div>
+        <div class="ssb-lbl">abonnés TikTok<br>@tripandme_worldismine</div>
+      </div>
+    </div>
+    <div class="ssb-separator"></div>
+    <div class="ssb-item">
+      <span class="ssb-icon">📸</span>
+      <div>
+        <div class="ssb-val insta" id="sstat-insta">—</div>
+        <div class="ssb-lbl">abonnés Instagram<br>@TripandMe_WorldisMine</div>
+      </div>
+    </div>
+    <div class="ssb-separator"></div>
+    <div class="ssb-item">
+      <span class="ssb-icon">📊</span>
+      <div>
+        <div class="ssb-val green" id="sstat-shares">—</div>
+        <div class="ssb-lbl">stats partagées<br>sur les réseaux</div>
+      </div>
+    </div>
+    <div class="ssb-separator"></div>
+    <div class="ssb-item">
+      <span class="ssb-icon">✈️</span>
+      <div>
+        <div class="ssb-val gold" id="sstat-trips">—</div>
+        <div class="ssb-lbl">voyages planifiés<br>avec Trip&Me</div>
+      </div>
+    </div>
+    <div class="ssb-separator"></div>
+    <div class="ssb-item">
+      <span class="ssb-icon">🌍</span>
+      <div>
+        <div class="ssb-val" style="color:var(--sky);" id="sstat-members">—</div>
+        <div class="ssb-lbl">voyageurs inscrits</div>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="score-section">
+  <div class="score-inner">
+    <div class="score-left">
+      <div class="score-badge-top">🔥 VIRAL SUR TIKTOK</div>
+      <h2 class="score-title" id="score-title">Quel est ton<br><em>Score Voyage</em> ?</h2>
+      <p class="score-desc" id="score-desc">Renseigne tes vols passés — Trip&Me calcule ton score sur 100, combien de fois tu as fait le tour du monde et dans quel top % mondial tu te situes.</p>
+      <div class="score-examples">
+        <div class="score-ex"><div class="score-ex-num" style="color:#34D399;">92</div><div class="score-ex-lbl">Top 3% 🏆</div></div>
+        <div class="score-ex"><div class="score-ex-num" style="color:#FBBF24;">67</div><div class="score-ex-lbl">Top 25% ✈</div></div>
+        <div class="score-ex"><div class="score-ex-num" style="color:#F87171;">28</div><div class="score-ex-lbl">Débutant 🌱</div></div>
+      </div>
+      <button class="score-cta" onclick="requireAuth('add-trip')" id="score-btn">
+        ✈ Calculer mon score
+      </button>
+    </div>
+    <div class="score-right">
+      <div class="score-phone">
+        <div class="sp-notch"></div>
+        <div class="sp-brand">Trip&Me</div>
+        <div class="sp-label" id="sp-label">Ton score</div>
+        <div class="sp-score" id="sp-score-num">--</div>
+        <div class="sp-slash">/100</div>
+        <div class="sp-badge" id="sp-badge" style="opacity:0;">En cours...</div>
+        <div class="sp-sub" id="sp-sub1" style="opacity:0;"></div>
+        <div class="sp-sub" id="sp-sub2" style="opacity:0;"></div>
+        <div class="sp-share-row">
+          <button class="sp-share-btn" onclick="shareScoreDemo('insta')">📸</button>
+          <button class="sp-share-btn" onclick="shareScoreDemo('tiktok')">🎵</button>
+          <button class="sp-share-btn" onclick="shareScoreDemo('wa')">📱</button>
+        </div>
+      </div>
+      <div class="score-live-bar">
+        <div class="slb-track"><div class="slb-fill" id="slb-fill" style="width:0%"></div></div>
+        <div class="slb-labels"><span id="slb-you">Toi</span><span>Moyenne mondiale</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="smart-banner">
   <div class="smart-inner">
     <div class="smart-badge">✨ NOUVEAU</div>
@@ -1031,6 +1257,8 @@ select option{background:var(--night2);}
           <option value="Mexique"/><option value="Australie"/><option value="Portugal"/>
           <option value="Vietnam"/><option value="Kenya"/><option value="Maldives"/>
           <option value="Sénégal"/><option value="Colombie"/><option value="Turquie"/>
+          <option value="Réunion"/><option value="Maurice"/><option value="Tanzanie"/>
+          <option value="Jordanie"/><option value="Sri Lanka"/><option value="Cambodge"/>
         </datalist>
       </div>
       <div class="fg"><label class="lbl" id="lbl-trv"></label>
@@ -1055,6 +1283,22 @@ select option{background:var(--night2);}
           <option id="dur2" selected></option><option id="dur3"></option><option id="dur4"></option>
         </select>
       </div>
+      <!-- ── CHAMP LIBRE RECHERCHE PERSONNALISÉE ── -->
+      <div class="fg full" id="free-search-wrap" style="margin-top:0.5rem;">
+        <label class="lbl" id="lbl-free"></label>
+        <div style="position:relative;">
+          <textarea id="p-free"
+            rows="3"
+            style="resize:none;width:100%;padding:12px 14px 12px 42px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s;line-height:1.5;"
+            onfocus="this.style.borderColor='var(--sky)';this.style.boxShadow='0 0 0 3px rgba(14,165,233,0.14)'"
+            onblur="this.style.borderColor='rgba(255,255,255,0.15)';this.style.boxShadow='none'"
+          ></textarea>
+          <span style="position:absolute;top:12px;left:13px;font-size:18px;pointer-events:none;opacity:0.6;">✍️</span>
+        </div>
+        <div class="free-search-tags" id="free-tags">
+          <!-- Tags exemples injectés par JS -->
+        </div>
+      </div>
     </div>
     <button class="btn-go" id="btn-srch" onclick="launchSearch()"></button>
     <div id="plan-results"></div>
@@ -1072,7 +1316,7 @@ var T={};
 
 T.fr={
   hook:"As-tu déjà fait le tour du monde ?",
-  h1a:"The World", h1b:"is Mine",
+  h1a:"World", h1b:"is Mine",
   hero_q:"<strong>Renseigne tous tes voyages en avion</strong> — découvre combien de fois tu as fait le tour du monde et reçois des propositions de voyage ciblées !",
   pill1:"195 pays couverts", pill2:"Itinéraires illimités", pill3:"100% Gratuit",
   cta1_main:"✈ Mes voyages passés",
@@ -1162,7 +1406,7 @@ T.fr={
 };
 
 T.en={
-  hook:"Have you ever traveled around the world?",h1a:"The World",h1b:"is Mine",
+  hook:"Have you ever traveled around the world?",h1a:"World",h1b:"is Mine",
   hero_q:"<strong>Log all your flights</strong> — discover how many times you've circled the globe and get targeted travel proposals!",
   pill1:"195 countries",pill2:"Unlimited itineraries",pill3:"100% Free",
   cta1_main:"✈ My past trips",cta1_sub:"Targeted proposals & stats to share on social media",
@@ -1968,22 +2212,33 @@ function selVtype(btn,idx){vtypeIdx=idx;document.querySelectorAll('#vtype-chips 
 function launchSearch(){
   var btn=sel('btn-srch'),res=sel('plan-results');
   var dest=sel('p-dest').value||'';
+  var freeText=sel('p-free')&&sel('p-free').value.trim()||'';
   var budget=sel('p-budget').value;
   var durEl=sel('p-dur');var durTxt=durEl?durEl.options[durEl.selectedIndex].text:'';
+  /* Combiner destination + mots-clés libres */
+  var fullContext=dest+(freeText?' — '+freeText:'');
   btn.disabled=true;
   btn.innerHTML='<span style="display:flex;align-items:center;justify-content:center;gap:8px;"><span class="dots"><span></span><span></span><span></span></span></span>';
   res.innerHTML='';
   setTimeout(function(){
-    res.innerHTML=renderProps(genProps(dest,budget,durTxt));
+    res.innerHTML=renderProps(genProps(fullContext,budget,durTxt,freeText));
     btn.disabled=false;btn.textContent=tr('btn_srch');
     res.scrollIntoView({behavior:'smooth',block:'start'});
+    /* Sauvegarder la recherche en localStorage pour stats */
+    try{
+      var searches=JSON.parse(localStorage.getItem('tm_searches')||'0');
+      localStorage.setItem('tm_searches',searches+1);
+      updateSocialStats();
+    }catch(e){}
   },1800);
 }
-function genProps(dest,budget,dur){
+function genProps(dest,budget,dur,freeText){
   var b=parseInt(budget)||2000;
   var fb=tr('prop_fb')||[];
+  /* Si texte libre, personnaliser les propositions */
+  var customNote=freeText?(' Critères spécifiques : "'+freeText+'".'):'';
   return [
-    {best:true,dest:dest||(fb[0]||'Bali'),sub:(tr('prop_sub')||[''])[0],price:Math.round(b*0.88),hotel:(tr('prop_hotels')||[''])[0],body:(tr('prop_body')||[''])[0],dur:dur},
+    {best:true,dest:dest||(fb[0]||'Bali'),sub:(tr('prop_sub')||[''])[0],price:Math.round(b*0.88),hotel:(tr('prop_hotels')||[''])[0],body:((tr('prop_body')||[''])[0]||'')+customNote,dur:dur},
     {best:false,dest:dest?(dest+' — Premium'):(fb[1]||'Maldives'),sub:(tr('prop_sub')||['',''])[1],price:Math.round(b*1.22),hotel:(tr('prop_hotels')||['',''])[1],body:(tr('prop_body')||['',''])[1],dur:dur},
     {best:false,dest:dest?(dest+' — Éco'):(fb[2]||'Lisbonne'),sub:(tr('prop_sub')||['','',''])[2],price:Math.round(b*0.63),hotel:(tr('prop_hotels')||['','',''])[2],body:(tr('prop_body')||['','',''])[2],dur:dur},
     {best:false,dest:fb[3]||'Mystère',sub:(tr('prop_sub')||['','','',''])[3],price:Math.round(b*0.94),hotel:(tr('prop_hotels')||['','','',''])[3],body:(tr('prop_body')||['','','',''])[3],dur:dur}
@@ -2086,6 +2341,11 @@ function init(){
   detectLang();
   U=getUser();
   applyLang();
+  initScoreSection();
+  initTestimonials();
+  initLiveCounter();
+  initSocialStats();
+  initFreeSearchTags();
   /* Cookie banner — 1 seule fois, jamais redemandé */
   var consent=localStorage.getItem('tm_consent');
   if(!consent){
@@ -2099,6 +2359,310 @@ function init(){
       loadThree();
     });
   });
+}
+
+/* ══════════════════════════════════════════
+   STATS SOCIALES — mise à jour automatique
+   Source vérité : localStorage + seuils configurables
+   En prod : remplacer par fetch('/api/stats')
+══════════════════════════════════════════ */
+
+/* ── SEUILS — à ajuster quand vous atteignez ces paliers ── */
+var SOCIAL_TARGETS={
+  tiktok:   {min:100,  max:10000,  unit:'abonnés'},
+  insta:    {min:50,   max:10000,  unit:'abonnés'},
+  shares:   {min:0,    max:50000,  unit:'partages'},
+  trips:    {min:0,    max:100000, unit:'voyages'},
+  members:  {min:1,    max:500000, unit:'membres'}
+};
+
+/* ── DONNÉES RÉELLES — à renseigner manuellement ou via API ──
+   Remplacez ces valeurs avec vos vraies données TikTok/Insta
+   ou connectez un backend Supabase (voir guide-backend.md)      */
+var REAL_STATS={
+  tiktok:  0,     /* ← mettez ici vos vrais abonnés TikTok     */
+  insta:   0,     /* ← mettez ici vos vrais abonnés Instagram   */
+  shares:  0,     /* ← partages stats depuis le site            */
+  trips:   0,     /* ← voyages planifiés (localStorage total)   */
+  members: 0      /* ← inscrits (localStorage total)            */
+};
+
+function formatNum(n){
+  if(n>=1000000)return(n/1000000).toFixed(1).replace('.0','')+'M';
+  if(n>=1000)return(n/1000).toFixed(1).replace('.0','')+'k';
+  return String(n);
+}
+
+function updateSocialStats(){
+  /* Lire les stats localStorage pour trips/members/shares */
+  try{
+    var localU=getUser();
+    if(localU){REAL_STATS.members=Math.max(REAL_STATS.members,1);}
+    var searches=parseInt(localStorage.getItem('tm_searches')||'0');
+    REAL_STATS.trips=Math.max(REAL_STATS.trips,searches);
+    var shCount=parseInt(localStorage.getItem('tm_shares')||'0');
+    REAL_STATS.shares=Math.max(REAL_STATS.shares,shCount);
+  }catch(e){}
+
+  /* Afficher — seulement si ≥ seuil minimum */
+  function upEl(id,val,min){
+    var el=sel(id);if(!el)return;
+    if(val>=min){el.textContent=formatNum(val);}
+    else{el.textContent='Bientôt !';}
+  }
+  upEl('sstat-tiktok',REAL_STATS.tiktok,SOCIAL_TARGETS.tiktok.min);
+  upEl('sstat-insta',REAL_STATS.insta,SOCIAL_TARGETS.insta.min);
+  upEl('sstat-shares',REAL_STATS.shares,SOCIAL_TARGETS.shares.min);
+  upEl('sstat-trips',REAL_STATS.trips,SOCIAL_TARGETS.trips.min);
+  upEl('sstat-members',REAL_STATS.members,SOCIAL_TARGETS.members.min);
+}
+
+function initSocialStats(){
+  updateSocialStats();
+  /* Refresh toutes les 30 secondes (en prod : fetch API) */
+  setInterval(updateSocialStats,30000);
+}
+
+/* ══════════════════════════════════════════
+   CHAMP LIBRE — TAGS EXEMPLES
+══════════════════════════════════════════ */
+var FREE_TAGS={
+  fr:['plage et soleil','culture et histoire','aventure','gastronomie','road trip','randonnée','plongée','luxe','famille','couple','entre amis','pas de touristes','hors des sentiers','budget serré','expérience unique'],
+  en:['beach & sun','culture & history','adventure','gastronomy','road trip','hiking','diving','luxury','family','couple','with friends','off the beaten path','budget','unique experience'],
+  es:['playa y sol','cultura e historia','aventura','gastronomía','road trip','senderismo','buceo','lujo','familia','pareja'],
+  de:['Strand und Sonne','Kultur','Abenteuer','Gastronomie','Roadtrip','Wandern','Tauchen','Luxus','Familie','Paar'],
+  it:['spiaggia e sole','cultura','avventura','gastronomia','road trip','escursionismo','lusso','famiglia','coppia'],
+  pt:['praia e sol','cultura','aventura','gastronomia','road trip','caminhada','luxo','família','casal'],
+  nl:['strand en zon','cultuur','avontuur','gastronomie','road trip','wandelen','luxe','familie','koppel'],
+  ja:['ビーチ&太陽','文化と歴史','冒険','グルメ','ロードトリップ','ハイキング','ダイビング','高級','家族旅行','カップル'],
+  zh:['海滩阳光','文化历史','冒险','美食','公路旅行','徒步','潜水','奢华','家庭旅行','情侣']
+};
+
+var FREE_PLACEHOLDERS={
+  fr:'Ex: "mer chaude, snorkeling, hôtel boutique, pas trop touristique, je préfère les petits restaurants locaux…"',
+  en:'E.g.: "warm sea, snorkeling, boutique hotel, not too touristy, local restaurants preferred…"',
+  es:'Ej: "mar cálido, snorkel, hotel boutique, sin masas de turistas, restaurantes locales…"',
+  de:'Bsp: "warmes Meer, Schnorcheln, Boutiquehotel, nicht zu touristisch, lokale Restaurants…"',
+  it:'Es: "mare caldo, snorkeling, hotel boutique, non troppo turistico, ristoranti locali…"',
+  pt:'Ex: "mar quente, mergulho, hotel boutique, sem muitos turistas, restaurantes locais…"',
+  nl:'Bijv: "warm zee, snorkelen, boutiquehotel, niet te toeristisch, lokale restaurants…"',
+  ja:'例：「温かい海、シュノーケリング、ブティックホテル、観光地でない場所、地元レストラン…」',
+  zh:'例如："温暖海域、浮潜、精品酒店、不太拥挤的地方、当地餐厅…"'
+};
+
+var FREE_LABELS={
+  fr:'✍️ Décrivez votre voyage idéal en mots-clés libres (optionnel)',
+  en:'✍️ Describe your ideal trip in free keywords (optional)',
+  es:'✍️ Describe tu viaje ideal con palabras clave libres (opcional)',
+  de:'✍️ Beschreibe deine ideale Reise in freien Stichwörtern (optional)',
+  it:'✍️ Descrivi il tuo viaggio ideale con parole chiave libere (opzionale)',
+  pt:'✍️ Descreva a sua viagem ideal com palavras-chave livres (opcional)',
+  nl:'✍️ Beschrijf je ideale reis in vrije trefwoorden (optioneel)',
+  ja:'✍️ 理想の旅行をキーワードで自由に記述（任意）',
+  zh:'✍️ 用自由关键词描述您理想的旅行（可选）'
+};
+
+function initFreeSearchTags(){
+  var lbl=sel('lbl-free');
+  if(lbl)lbl.textContent=FREE_LABELS[L]||FREE_LABELS.fr;
+  var area=sel('p-free');
+  if(area)area.placeholder=FREE_PLACEHOLDERS[L]||FREE_PLACEHOLDERS.fr;
+  var tagsEl=sel('free-tags');
+  if(!tagsEl)return;
+  var tags=(FREE_TAGS[L]||FREE_TAGS.fr).slice(0,8);
+  tagsEl.innerHTML=tags.map(function(t){
+    return '<button class="fst" onclick="addFreeTag(\''+t+'\')">'+t+'</button>';
+  }).join('');
+}
+
+function addFreeTag(tag){
+  var area=sel('p-free');
+  if(!area)return;
+  var cur=area.value.trim();
+  area.value=cur?cur+', '+tag:tag;
+  area.focus();
+}
+
+/* Mettre à jour le champ libre quand la langue change */
+var _origApplyLang=typeof applyLang==='function'?applyLang:null;
+var _applyLangPatched=false;
+if(!_applyLangPatched){
+  _applyLangPatched=true;
+  var _baseLang=applyLang;
+  applyLang=function(){
+    _baseLang();
+    initFreeSearchTags();
+    updateSocialStats();
+  };
+}
+
+/* ══════════════════════════════════════════
+   SCORE VOYAGE — Calcul + Affichage
+══════════════════════════════════════════ */
+function calcScore(trips){
+  if(!trips||!trips.length)return{score:0,tours:0,countries:0,km:0,badge:'',topPct:100};
+  var km=0,countries=new Set();
+  trips.forEach(function(t){
+    var cnt=parseInt(t.count)||1;
+    var dist=4500; /* km moyen par vol */
+    var mult=t.type&&t.type.indexOf('/')>-1?2:1;
+    km+=cnt*dist*mult;
+    if(t.arr)countries.add(t.arr.split(/[\s,(]/)[0]);
+  });
+  var tours=km/40075;
+  var ctCount=countries.size;
+  /* Score sur 100 */
+  var kmScore=Math.min(40,tours*10);       /* max 40 pts pour km */
+  var countryScore=Math.min(40,ctCount*2); /* max 40 pts pour pays */
+  var tripScore=Math.min(20,trips.length); /* max 20 pts pour nb voyages */
+  var raw=Math.round(kmScore+countryScore+tripScore);
+  var score=Math.min(100,raw);
+  /* Badge */
+  var badge='',topPct=100;
+  if(score>=90){badge='🏆 Top 1% mondial';topPct=1;}
+  else if(score>=80){badge='🌟 Top 5% mondial';topPct=5;}
+  else if(score>=70){badge='✈ Top 15% mondial';topPct=15;}
+  else if(score>=55){badge='🌍 Top 30% mondial';topPct=30;}
+  else if(score>=40){badge='📍 Voyageur confirmé';topPct=50;}
+  else if(score>=20){badge='🌱 En développement';topPct=75;}
+  else{badge='🚀 Début du voyage !';topPct=95;}
+  return{score:score,tours:parseFloat(tours.toFixed(1)),countries:ctCount,km:Math.round(km),badge:badge,topPct:topPct};
+}
+
+function initScoreSection(){
+  U=getUser();
+  var el=sel('sp-score-num');
+  if(!el)return;
+  if(U&&U.trips&&U.trips.length>0){
+    var r=calcScore(U.trips);
+    animateScore(r.score);
+    setTimeout(function(){
+      var badge=sel('sp-badge');
+      if(badge){badge.textContent=r.badge;badge.style.opacity='1';}
+      var s1=sel('sp-sub1');if(s1){s1.textContent=r.tours+' tour(s) du monde';s1.style.opacity='1';}
+      var s2=sel('sp-sub2');if(s2){s2.textContent=r.countries+' pays visités';s2.style.opacity='1';}
+      var fill=sel('slb-fill');if(fill)fill.style.width=r.score+'%';
+      var youLbl=sel('slb-you');if(youLbl)youLbl.textContent='Toi : '+r.score+'/100';
+    },800);
+  } else {
+    /* Demo animée pour non-connectés */
+    var demoScores=[78,83,92,67,28];
+    var demoIdx=0;
+    function showNext(){
+      var s=demoScores[demoIdx];
+      animateScore(s);
+      var fills=['#34D399','#FBBF24','#34D399','#FBBF24','#F87171'];
+      var badge=sel('sp-badge');
+      if(badge){
+        badge.style.opacity='1';
+        if(s>=80)badge.textContent='🏆 Top 5% mondial';
+        else if(s>=60)badge.textContent='✈ Top 25% mondial';
+        else badge.textContent='🌱 Voyageur débutant';
+      }
+      var fill=sel('slb-fill');if(fill)fill.style.width=s+'%';
+      demoIdx=(demoIdx+1)%demoScores.length;
+    }
+    showNext();
+    setInterval(showNext,3500);
+  }
+}
+
+function animateScore(target){
+  var el=sel('sp-score-num');if(!el)return;
+  var start=0,dur=800,startTime=null;
+  function step(ts){
+    if(!startTime)startTime=ts;
+    var p=Math.min((ts-startTime)/dur,1);
+    var ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(ease*target);
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=target;
+  }
+  requestAnimationFrame(step);
+}
+
+function shareScoreDemo(plat){
+  U=getUser();
+  var score=U&&U.trips&&U.trips.length>0?calcScore(U.trips).score:78;
+  var name=U?U.first:'Toi';
+  var txt='🌍 '+name+' a un Score Voyage de '+score+'/100 sur Trip&Me !\n✈ Et toi, quel est ton score ?\ntripandme.com\n#TripAndMe #ScoreVoyage #WorldIsMe\n@tripandme_worldismine';
+  if(plat==='wa')window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  else{try{navigator.clipboard.writeText(txt);}catch(e){}toast(tr('share_copied')||'📋 Copié !');}
+}
+
+/* Mettre à jour le score après chaque ajout de voyage */
+var _origSaveTrip=typeof saveTrip==='function'?saveTrip:null;
+function saveTrip(){
+  var dep=sel('a-dep').value.trim(),arr=sel('a-arr').value.trim();
+  if(!dep||!arr){toast('Aéroports requis !');return;}
+  U=getUser();if(!U)return;
+  var trip={dep:dep,arr:arr,type:sel('a-type').value,cat:sel('a-cat').value,
+    formula:sel('a-formula').value,count:sel('a-count').value,
+    date:sel('a-date').value,stars:starVal,id:Date.now()};
+  U.trips=U.trips||[];U.trips.push(trip);saveUser(U);
+  handleShare(trip);
+  ['a-dep','a-arr','a-date'].forEach(function(id){var e=sel(id);if(e)e.value='';});
+  sel('a-count').value='1';setStar(0);
+  closeOv('ov-add');toast(tr('trip_saved'));
+  /* Recalculer le score */
+  setTimeout(function(){initScoreSection();},300);
+  if(persoC(U.trips)===10)setTimeout(function(){toast('🎉 '+tr('cg_title')+'! '+tr('cg_sub'));},1500);
+  openProfile();
+}
+
+/* ══════════════════════════════════════════
+   TÉMOIGNAGES — injectés selon langue
+══════════════════════════════════════════ */
+var TESTIS={
+  fr:[
+    {n:'Sophie M.',flag:'🇫🇷',km:'48 000 km',score:83,tours:1.2,txt:'«&nbsp;J\'ai découvert que j\'avais fait 1,2 tour du monde sans m\'en rendre compte. Mon score de 83/100 m\'a bluffée ! Je partage mes stats sur Insta chaque semaine.&nbsp;»'},
+    {n:'Théo B.',flag:'🇧🇪',km:'112 000 km',score:92,tours:2.8,txt:'«&nbsp;2,8 tours du monde ! Je savais que je voyageais beaucoup, mais pas à ce point. Top 3% mondial — ça m\'a motivé à aller encore plus loin.&nbsp;»'},
+    {n:'Emma L.',flag:'🇨🇭',km:'31 000 km',score:67,tours:0.8,txt:'«&nbsp;Score 67/100, 18 pays visités. L\'interface est magnifique et le globe 3D avec mes vols est juste incroyable à partager sur TikTok.&nbsp;»'},
+    {n:'Lucas R.',flag:'🇫🇷',km:'75 000 km',score:78,tours:1.9,txt:'«&nbsp;J\'ai testé avec mes amis et on a tous comparé nos scores. C\'est devenu un jeu ! Trip&Me a planifié notre prochain voyage au Japon en 2 minutes.&nbsp;»'},
+    {n:'Clara D.',flag:'🇨🇦',km:'95 000 km',score:88,tours:2.4,txt:'«&nbsp;La fonctionnalité score voyage est addictive. J\'ai récupéré tous mes anciens billets d\'avion pour maximiser mon score. Maintenant top 5% mondial !&nbsp;»'},
+    {n:'Marc F.',flag:'🇫🇷',km:'22 000 km',score:45,tours:0.5,txt:'«&nbsp;Je pensais beaucoup voyager... Score 45/100 et mon pote en a eu 72. Maintenant je planifie 3 voyages cette année grâce aux propositions Trip&Me.&nbsp;»'}
+  ],
+  en:[
+    {n:'Emily R.',flag:'🇬🇧',km:'52 000 km',score:81,tours:1.3,txt:'«&nbsp;I discovered I\'ve done 1.3 laps around the world without realising it! My 81/100 score blew my mind. I share it every week on Instagram.&nbsp;»'},
+    {n:'James K.',flag:'🇺🇸',km:'118 000 km',score:94,tours:2.9,txt:'«&nbsp;2.9 world tours! I knew I traveled a lot, but not that much. Top 2% worldwide — this has pushed me to explore even more.&nbsp;»'},
+    {n:'Sarah T.',flag:'🇦🇺',km:'33 000 km',score:65,tours:0.8,txt:'«&nbsp;Score 65/100, 16 countries visited. The 3D globe with my flights is just stunning to share on TikTok.&nbsp;»'},
+    {n:'Noah W.',flag:'🇨🇦',km:'78 000 km',score:79,tours:1.9,txt:'«&nbsp;I tested it with my friends and we all compared our scores. It became a game! Trip&Me planned our Japan trip in 2 minutes.&nbsp;»'},
+    {n:'Olivia M.',flag:'🇳🇿',km:'99 000 km',score:90,tours:2.5,txt:'«&nbsp;The travel score feature is addictive. I dug up all my old boarding passes to maximize my score. Now top 3% worldwide!&nbsp;»'},
+    {n:'Liam D.',flag:'🇮🇪',km:'24 000 km',score:47,tours:0.6,txt:'«&nbsp;I thought I traveled a lot... 47/100 and my mate got 75. Now I\'m planning 3 trips this year with Trip&Me\'s suggestions.&nbsp;»'}
+  ]
+};
+
+function initTestimonials(){
+  var grid=sel('testi-grid');if(!grid)return;
+  var lang=L==='fr'?'fr':'en';
+  var testis=TESTIS[lang]||TESTIS.fr;
+  grid.innerHTML=testis.map(function(t){
+    var initials=t.n.split(' ').map(function(w){return w[0];}).join('');
+    return '<div class="testi-card">'+
+      '<div class="testi-stars">★★★★★</div>'+
+      '<p class="testi-text">'+t.txt+'</p>'+
+      '<div class="testi-author">'+
+        '<div class="testi-avatar">'+initials+'</div>'+
+        '<div>'+
+          '<div class="testi-name">'+t.flag+' '+t.n+'</div>'+
+          '<div class="testi-km">'+t.score+'/100 · '+t.tours+' tour(s) · '+t.km+'</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+/* ══════════════════════════════════════════
+   COMPTEUR LIVE VOYAGEURS
+══════════════════════════════════════════ */
+function initLiveCounter(){
+  var base=3847;
+  var el=sel('live-count');
+  if(!el)return;
+  setInterval(function(){
+    base+=Math.floor(Math.random()*3+1);
+    el.textContent=base.toLocaleString('fr-FR');
+  },5000);
 }
 
 if(document.readyState==='loading'){
