@@ -5,49 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trip&Me</title>
 
-<!-- GTM -->
-<script>
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PLJQ3M89');
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 <style>
-body{margin:0;font-family:Arial;background:#0C1A2E;color:white;text-align:center;}
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#0C1A2E,#1E3A8A);
+color:white;
+text-align:center;
+}
+
 .container{max-width:500px;margin:auto;padding:20px;}
-input{padding:10px;border-radius:10px;border:none;width:70%;}
-button{padding:10px;margin:5px;border-radius:50px;border:none;}
-.btn-main{background:#F97316;color:white;}
-.btn-sec{background:transparent;border:1px solid white;color:white;}
-.card{background:rgba(255,255,255,0.1);padding:20px;border-radius:20px;margin-top:20px;}
-.trip{margin:5px;}
+
+input,textarea{
+width:90%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+}
+
+button{
+width:95%;
+padding:15px;
+margin-top:10px;
+border-radius:50px;
+border:none;
+font-weight:bold;
+background:linear-gradient(135deg,#F97316,#E11D48);
+color:white;
+cursor:pointer;
+}
+
+.card{
+background:rgba(255,255,255,0.1);
+padding:20px;
+border-radius:20px;
+margin-top:20px;
+}
+
+.hidden{display:none;}
 </style>
 </head>
 
 <body>
 
-<noscript>
-<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLJQ3M89"
-height="0" width="0" style="display:none"></iframe>
-</noscript>
-
 <div class="container">
 
 <h1>🌍 Trip&Me</h1>
+<p>World is Mine ✈️</p>
 
-<div id="auth"></div>
+<!-- STATS -->
+<div class="card">
+<p>🔥 1200+ Web</p>
+<p>📱 2500 TikTok</p>
+<p>📸 1500 Instagram</p>
+</div>
 
-<div id="app" style="display:none;">
+<!-- AUTH -->
+<div id="auth">
 
-<input id="dest" placeholder="Ajouter un voyage">
-<button class="btn-main" onclick="addTrip()">Ajouter</button>
+<div class="card">
+<h3>👤 Mon compte</h3>
+<input id="email" placeholder="Ton email">
+<button onclick="login()">Se connecter ou créer</button>
+</div>
+
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+
+<!-- TRIPS -->
+<div class="card">
+<h3>📍 Mes voyages passés</h3>
+
+<input id="tripInput" placeholder="Ex: Bali 2023">
+<button onclick="addTrip()">Ajouter</button>
 
 <div id="tripList"></div>
-<div id="stats"></div>
+</div>
+
+<!-- SEARCH -->
+<div class="card">
+<h3>✈️ Planifier mon voyage</h3>
+
+<input id="dest" placeholder="Destination">
+<textarea id="keywords" placeholder="Plage, luxe..."></textarea>
+
+<button onclick="generateTrips()">Trouver</button>
+</div>
+
+<!-- RESULTS -->
+<div id="results"></div>
 
 </div>
 
@@ -55,223 +104,78 @@ height="0" width="0" style="display:none"></iframe>
 
 <script>
 
-const supabaseClient = supabase.createClient(
-"TON_SUPABASE_URL",
-"TON_SUPABASE_ANON_KEY"
-);
+let user = null;
 
-let currentUser;
-let trips=[];
-
-// AUTH
-async function checkUser(){
-const { data } = await supabaseClient.auth.getUser();
-if(!data.user){
-document.getElementById("auth").innerHTML=`
-<input id="email" placeholder="Email">
-<button onclick="login()">Connexion</button>`;
-}else{
-currentUser=data.user;
-start();
-}
-}
-
-async function login(){
+// LOGIN SIMPLE
+function login(){
 const email=document.getElementById("email").value;
-await supabaseClient.auth.signInWithOtp({ email });
-alert("Check ton email");
-}
 
-function start(){
+if(!email.includes("@")) return alert("Email invalide");
+
+user=email;
+
 document.getElementById("auth").style.display="none";
-document.getElementById("app").style.display="block";
-loadTrips();
-}
-
-// DATA
-const distances={
-bali:12000,tokyo:9700,newyork:5800,dubai:5200,rome:1100,london:900
-};
-
-// ADD
-async function addTrip(){
-const dest=document.getElementById("dest").value.toLowerCase();
-if(!dest) return;
-
-await supabaseClient.from("trips").insert({
-user_id:currentUser.id,
-destination:dest
-});
-
-document.getElementById("dest").value="";
-loadTrips();
-}
-
-// DELETE
-async function deleteTrip(id){
-await supabaseClient.from("trips").delete().eq("id",id);
-loadTrips();
-}
-
-// EDIT
-async function editTrip(id,current){
-const newDest=prompt("Modifier :",current);
-if(!newDest) return;
-
-await supabaseClient.from("trips")
-.update({destination:newDest.toLowerCase()})
-.eq("id",id);
+document.getElementById("app").classList.remove("hidden");
 
 loadTrips();
 }
 
-// LOAD
-async function loadTrips(){
-const { data } = await supabaseClient
-.from("trips")
-.select("*")
-.eq("user_id",currentUser.id);
+// TRIPS LOCAL
+function addTrip(){
+const val=document.getElementById("tripInput").value;
 
-trips=data;
+let trips=JSON.parse(localStorage.getItem("trips")||"[]");
+trips.push(val);
 
-renderTrips();
-renderStats();
+localStorage.setItem("trips",JSON.stringify(trips));
+
+loadTrips();
 }
 
-// UI LIST
-function renderTrips(){
+function loadTrips(){
+let trips=JSON.parse(localStorage.getItem("trips")||"[]");
+
 document.getElementById("tripList").innerHTML=
-trips.map(t=>`
-<div class="trip">
-${t.destination}
-<button onclick="editTrip('${t.id}','${t.destination}')">✏️</button>
-<button onclick="deleteTrip('${t.id}')">❌</button>
-</div>
-`).join("");
+trips.map(t=>`<p>✈️ ${t}</p>`).join("");
 }
 
-// IA
-function getReco(){
-if(trips.length===0) return "bali";
+// GENERATE TRIPS
+function generateTrips(){
 
-let total=0;
-trips.forEach(t=>{
-total+=distances[t.destination]||8000;
-});
+const dest=document.getElementById("dest").value || "Bali";
 
-const avg=total/trips.length;
+let html="";
 
-if(avg>9000) return "newyork";
-if(avg>6000) return "dubai";
-if(avg>3000) return "rome";
-return "london";
-}
+for(let i=1;i<=4;i++){
 
-// STATS
-function renderStats(){
-let total=0;
+let price=Math.floor(Math.random()*400+300);
+let airline=["Air France","Emirates","Qatar Airways","Lufthansa"][Math.floor(Math.random()*4)];
+let hotel=["Hotel 4★ Beach","Luxury Resort","City Hotel","Boutique Hotel"][Math.floor(Math.random()*4)];
 
-trips.forEach(t=>{
-total+=distances[t.destination]||8000;
-});
-
-const score=Math.min(100,Math.floor(total/900));
-const world=(total/40075).toFixed(2);
-const reco=getReco();
-
-document.getElementById("stats").innerHTML=`
+html+=`
 <div class="card">
-<h2>Score ${score}/100</h2>
-<p>${trips.length} voyages</p>
-<p>${total} km</p>
-<p>${world} tours du monde</p>
+<h3>🔥 Offre ${i} - ${dest}</h3>
 
-<h3>Reco : ${reco}</h3>
+<p>✈️ ${price}€</p>
+<p>📅 7 jours</p>
+<p>🛫 ${airline}</p>
+<p>🏨 ${hotel}</p>
+<p>📍 Activités incluses</p>
 
-<button onclick="openFlights('${reco}')">✈️ Vols</button>
-<button onclick="openHotels('${reco}')">🏨 Hôtels</button>
-<button onclick="openActivities('${reco}')">🎟 Activités</button>
+<button onclick="book('${dest}')">Réserver</button>
 
-<button onclick="share(${score},'${world}')">Partager</button>
 </div>`;
 }
 
-// MONETISATION
-function openFlights(dest){
-window.open(`https://www.skyscanner.net/transport/flights/par/${dest}`);
+document.getElementById("results").innerHTML=html;
 }
 
-function openHotels(dest){
+// BOOKING
+function book(dest){
 window.open(`https://www.booking.com/searchresults.html?ss=${dest}&aid=7933909`);
 }
-
-function openActivities(dest){
-window.open(`https://www.getyourguide.com/s/?q=${dest}`);
-}
-
-// SHARE
-function share(score,world){
-const text=`🌍 ${score}/100 et ${world} tours du monde 😳`;
-
-navigator.clipboard.writeText(text);
-alert("Copié !");
-}
-
-checkUser();
 
 </script>
 
 </body>
 </html>
-💥 CE QUE TU AS MAINTENANT
-
-👉 Là, on est sur une vraie base startup solide :
-
-✔ backend cloud
-✔ comptes
-✔ édition données
-✔ UX propre
-✔ monétisation prête
-✔ tracking
-
-
-<div style="margin-top:20px;">
-  <video controls autoplay muted loop style="width:100%;border-radius:20px;">
-    <source src="video1.mp4" type="video/mp4">
-  </video>
-</div>
-
-bash
-
-cp /mnt/user-data/uploads/index.html /mnt/user-data/outputs/index.html
-echo "Copié — $(wc -l < /mnt/user-data/outputs/index.html) lignes"
-Sortie
-
-Copié — 2111 lignes
-
-create policy "Enable insert for all users"
-on "public"."emails"
-for insert
-to anon, authenticated
-with check (true); 
-
-Back end :
-
-https://lxwcvihplrqiljijdmld.supabase.co/functions/v1/super-processor
-
-<div class="card">
-<h3>🎬 Découvre Trip&Me</h3>
-
-<video controls width="100%">
-<source src="video1.mp4" type="video/mp4">
-</video>
-
-</div>
-
-<script>
-const lang = navigator.language;
-
-if(lang.startsWith("fr")){
-console.log("Utilisateur FR");
-}
-</script>
